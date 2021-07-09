@@ -693,14 +693,74 @@ setLightVolume(0.05);
   
 /*--------------------------------------------------------------*/
 
-int i,j;
-  i=1;
-  j=1;
-  for(i;i<5;i++){ 
-    for(j;j<5;j++)
-  planePoint(i,j,true);
- fromBottomToTop(2000,true);
-delay(100);
-  }
+int curHeigt=0,mode=0;
+int stats[25]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+int curPos =0;
 
+for(int i=0;i<25; i++){
+  if(stats[i]==0){
+    curPos =i;
+    stats[i]=2; 
+    mode=1;
+    break;
+  }
+}
+for(i=0;i<25;i++)
+{
+  if(stats[i]=2)
+{
+  curPos=i
+while(1){
+  for(int curHeight=0; curHeight<5; curHeight++)
+  {
+      if(mode==1)//今伸びている竹を表示するモード
+     {
+        int x=i%5,y=i/5;
+        curHeigt+=1;
+        int height[5] = {0,0,0,0,0};
+        for(int i=0; i<curHeight; i++)
+        {
+          height[i]=1; 
+          delay (500);
+          
+        }
+      
+        planePoint(x, y,true);
+        heights(height);
+        stats[i]=1;
+        mode=2;
+                                    }
+                                          }
+      if(mode==2)
+      { //既に伸びている状態を表示する
+        for(i=0;i<25;i++)
+      { int curHeight=0;
+        
+        int x=i%5,y=i/5;
+        //int curHeigt;
+        int height[5] = {0,0,0,0,0};
+        for(int i=0; i<curHeight; i++)
+      {
+          height[i]=1; 
+          delay (500);
+         stats[i]=1;
+        mode=2;
+      }
+        
+      }
+        
+      }
+
+      if(mode==1){
+        mode=2;
+      }
+      else if(mode==2){
+        mode=1;
+      }
+  }
+  //もし、全部の竹がひかりおわったら、break;
+}
+}
+
+}
 }
