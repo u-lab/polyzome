@@ -602,39 +602,38 @@ void perform_uprain(){
 /*---出力-----------------------------------------------------------*/
 //メインループ
 void loop()
-{ 
-setLightVolume(0.05);
+{
+  setLightVolume(0.05);
 
   //実行するものに対して、コメントを外す。そのうち、シリアル経由でパソコンから切り替えられるようにする。
-  
-/*---xyz指定-----------------------------------------------------------*/
+
+  /*---xyz指定-----------------------------------------------------------*/
   //all(true);(つける)
 
-/*---xy指定×z指定------------------------------------------------------------------*/
-/*---xy指定基礎-----------------------------------------------------------*/  
+  /*---xy指定×z指定------------------------------------------------------------------*/
+  /*---xy指定基礎-----------------------------------------------------------*/
   //planePoint(0,0,true);(x軸,y軸,つける)
   //planeLine(sX,sY,eX,eY,true);
   //planeAll(true);
 
-/*--z指定基礎-----------------------------------------------------------*/  
+  /*--z指定基礎-----------------------------------------------------------*/
   //height(4, true);(z軸,つける)
   //heightRandom(300,true,5);(時間,残す,繰り返し回数)：未着手
   //heightsRandom(2,300,true,3);(同時出力点の個数,時間,残す,繰り返し回数)：未着手
   //heights(0,0,0,0,0, true);：未着手
   //heightAll(true);
 
-/*--z指定一次改変-----------------------------------------------------------*/
+  /*--z指定一次改変-----------------------------------------------------------*/
   //fromTopToBottom(300,false);(時間,残さない)
   //fromBottomToTop(300,false);
 
-/*--z指定二次改変-----------------------------------------------------------*/
+  /*--z指定二次改変-----------------------------------------------------------*/
   //heightRotatePointOfSquareTrajectory(right);(時計回り)：未着手
 
   //expansionZ(2,false);(中心点のz座標,残さない):未着手
   //zoomOutZ(2,false);(中心点のz座標,残さない):未着手
 
-  
-/*---xy指定一次改変-----------------------------------------------------------*/
+  /*---xy指定一次改変-----------------------------------------------------------*/
   //pointX_RandomX(0,300,true,5);(y軸,時間,残す,繰り返し回数)：未完,シード値に現在時刻を使いたい
   //pointX_RandomY(0,300,true,5);(x軸,時間,残す,繰り返し回数)：未完,シード値に現在時刻を使いたい
   //planePointRandom(300,true,25);(時間,残す,繰り返し回数)：未完,シード値に現在時刻を使いたい
@@ -646,30 +645,30 @@ setLightVolume(0.05);
   //fromFrontToBackRandom(300,false,5);(時間,残さない,回数)：未着手
   //fromFrontToBacks(0,0,0,0,0,300,true);(x[0]off,x[1]off,x[2]off,x[3]off,x[4]off,時間,残す)：未着手
   //fromFrontToBackAll(300,false);
-  
+
   //fromBackToFront(0,300,false);
   //fromBackToFrontRandom(300,false,5);：未着手
   //fromBackToFronts(0,0,0,0,0,300,true);：未着手
   //fromBackToFrontAll(300,false);
-  
+
   //fromLeftToRight(0,300,false);(y軸,時間,残さない)
   //fromLeftToRightRandom(300,false,5);：未着手
   //fromLeftToRights(0,0,0,0,0,300,true);：未着手
   //fromLeftToRightAll(300,false);
-  
+
   //fromRightToLeft(0,300,false);
   //fromRightToLeftRandom(300,false,5);：未着手
   //fromRightToLefts(0,0,0,0,0,300,true);：未着手
   //fromRightToLeftAll(300,false);
-  
-/*---xy指定二次改変-----------------------------------------------------------*/
+
+  /*---xy指定二次改変-----------------------------------------------------------*/
   //planeCircle(2,2,2,true);(中心点のx座標,中心点のy座標,半径,残す):未完
   //planeSquare(2,2,2,true);(中心点のx座標,中心点のy座標,半径,残す):未完
   //planeRotatePointOfSquareTrajectory(right);(時計回り)：未着手
   //planeRotateTwoPointsOfSquareTrajectory(right);(時計回り)：未着手
   //planeRotateBoxOfSquareTrajectory(right);(時計回り)：未着手
   //planeRotateTwoBoxesOfSquareTrajectory(right);(時計回り)：未着手
-  
+
   //expansionX(2,2,false);(中心点のx座標,中心点のy座標,残さない):未着手
   //expansionY(2,2,false);(中心点のx座標,中心点のy座標,残さない):未着手
   //expansionXY(2,2,false);(中心点のx座標,中心点のy座標,残さない):未着手
@@ -678,89 +677,89 @@ setLightVolume(0.05);
   //zoomOutY(2,2,false);(中心点のx座標,中心点のy座標,残さない):未着手
   //zoomOutXY(2,2,false);(中心点のx座標,中心点のy座標,残さない):未着手
 
-/*---xy指定×z指定改変-----------------------------------------------------------*/
+  /*---xy指定×z指定改変-----------------------------------------------------------*/
   //OneToOneHundredTwentyFive(300);
   //perform_uprain();
-  
+
   //rainOneDrops(50,5,false,true);(時間,回数,残さない,下がる)：未完
   //rainTwoDrops(50,10,false,false);(時間,回数,残さない,上がる)：未着手
 
   //waterFall(50,5,false,true);(時間,回数,残さない,下がる)：未着手
   //twoWaterFalls(50,10,true);(時間,回数,下がる)：未着手
-  
+
   //expansionCube(2,2,2,false);(中心点のx座標,中心点のy座標,中心点のz座標,残さない):未着手
   //zoomOutCube(2,2,2,false);(中心点のx座標,中心点のy座標,中心点のz座標,残さない):未着手
-  
-/*--------------------------------------------------------------*/
 
-int curHeigt=0,mode=0;
-int stats[25]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-int curPos =0;
+  /*--------------------------------------------------------------*/
 
-for(int i=0;i<25; i++){
-  if(stats[i]==0){
-    curPos =i;
-    stats[i]=2; 
-    mode=1;
-    break;
-  }
-}
-for(i=0;i<25;i++)
-{
-  if(stats[i]=2)
-{
-  curPos=i
-while(1){
-  for(int curHeight=0; curHeight<5; curHeight++)
+  int curHeigt = 0, mode = 0;
+  int stats[25] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int curPos = 0;
+
+  for (int i = 0; i < 25; i++)
   {
-      if(mode==1)//今伸びている竹を表示するモード
-     {
-        int x=i%5,y=i/5;
-        curHeigt+=1;
-        int height[5] = {0,0,0,0,0};
-        for(int i=0; i<curHeight; i++)
-        {
-          height[i]=1; 
-          delay (500);
-          
-        }
-      
-        planePoint(x, y,true);
-        heights(height);
-        stats[i]=1;
-        mode=2;
-                                    }
-                                          }
-      if(mode==2)
-      { //既に伸びている状態を表示する
-        for(i=0;i<25;i++)
-      { int curHeight=0;
-        
-        int x=i%5,y=i/5;
-        //int curHeigt;
-        int height[5] = {0,0,0,0,0};
-        for(int i=0; i<curHeight; i++)
-      {
-          height[i]=1; 
-          delay (500);
-         stats[i]=1;
-        mode=2;
-      }
-        
-      }
-        
-      }
-
-      if(mode==1){
-        mode=2;
-      }
-      else if(mode==2){
-        mode=1;
-      }
+    if (stats[i] == 0)
+    {
+      curPos = i;
+      stats[i] = 2;
+      mode = 1;
+      break;
+    }
   }
-  //もし、全部の竹がひかりおわったら、break;
-}
-}
+  for (i = 0; i < 25; i++)
+  {
+    if (stats[i] = 2)
+    {
+      curPos = i while (1)
+      {
+        for (int curHeight = 0; curHeight < 5; curHeight++)
+        {
+          if (mode == 1) //今伸びている竹を表示するモード
+          {
+            int x = i % 5, y = i / 5;
+            curHeigt += 1;
+            int height[5] = {0, 0, 0, 0, 0};
+            for (int i = 0; i < curHeight; i++)
+            {
+              height[i] = 1;
+              delay(500);
+            }
 
-}
+            planePoint(x, y, true);
+            heights(height);
+            stats[i] = 1;
+            mode = 2;
+          }
+        }
+        if (mode == 2)
+        { //既に伸びている状態を表示する
+          for (i = 0; i < 25; i++)
+          {
+            int curHeight = 0;
+
+            int x = i % 5, y = i / 5;
+            //int curHeigt;
+            int height[5] = {0, 0, 0, 0, 0};
+            for (int i = 0; i < curHeight; i++)
+            {
+              height[i] = 1;
+              delay(500);
+              stats[i] = 1;
+              mode = 2;
+            }
+          }
+        }
+
+        if (mode == 1)
+        {
+          mode = 2;
+        }
+        else if (mode == 2)
+        {
+          mode = 1;
+        }
+      }
+      //もし、全部の竹がひかりおわったら、break;
+    }
+  }
 }
