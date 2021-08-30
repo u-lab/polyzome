@@ -193,6 +193,7 @@ void planeAll(bool fg){
 //fg: ONの場合(true), OFFの場合(false)
 void height(int height, bool fg){ 
   dmx_master.setChannelValue(height+1, fg ? MAX_LIGHT_VOLUME : 0);  
+
 }
 
 //heightsRandom(2,300,true,3);(同時出力点の個数,時間,残す,繰り返し回数)：未着手
