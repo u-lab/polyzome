@@ -602,39 +602,38 @@ void perform_uprain(){
 /*---出力-----------------------------------------------------------*/
 //メインループ
 void loop()
-{ 
-setLightVolume(0.05);
+{
+  setLightVolume(0.05);
 
   //実行するものに対して、コメントを外す。そのうち、シリアル経由でパソコンから切り替えられるようにする。
-  
-/*---xyz指定-----------------------------------------------------------*/
+
+  /*---xyz指定-----------------------------------------------------------*/
   //all(true);(つける)
 
-/*---xy指定×z指定------------------------------------------------------------------*/
-/*---xy指定基礎-----------------------------------------------------------*/  
+  /*---xy指定×z指定------------------------------------------------------------------*/
+  /*---xy指定基礎-----------------------------------------------------------*/
   //planePoint(0,0,true);(x軸,y軸,つける)
   //planeLine(sX,sY,eX,eY,true);
   //planeAll(true);
 
-/*--z指定基礎-----------------------------------------------------------*/  
+  /*--z指定基礎-----------------------------------------------------------*/
   //height(4, true);(z軸,つける)
   //heightRandom(300,true,5);(時間,残す,繰り返し回数)：未着手
   //heightsRandom(2,300,true,3);(同時出力点の個数,時間,残す,繰り返し回数)：未着手
   //heights(0,0,0,0,0, true);：未着手
   //heightAll(true);
 
-/*--z指定一次改変-----------------------------------------------------------*/
+  /*--z指定一次改変-----------------------------------------------------------*/
   //fromTopToBottom(300,false);(時間,残さない)
   //fromBottomToTop(300,false);
 
-/*--z指定二次改変-----------------------------------------------------------*/
+  /*--z指定二次改変-----------------------------------------------------------*/
   //heightRotatePointOfSquareTrajectory(right);(時計回り)：未着手
 
   //expansionZ(2,false);(中心点のz座標,残さない):未着手
   //zoomOutZ(2,false);(中心点のz座標,残さない):未着手
 
-  
-/*---xy指定一次改変-----------------------------------------------------------*/
+  /*---xy指定一次改変-----------------------------------------------------------*/
   //pointX_RandomX(0,300,true,5);(y軸,時間,残す,繰り返し回数)：未完,シード値に現在時刻を使いたい
   //pointX_RandomY(0,300,true,5);(x軸,時間,残す,繰り返し回数)：未完,シード値に現在時刻を使いたい
   //planePointRandom(300,true,25);(時間,残す,繰り返し回数)：未完,シード値に現在時刻を使いたい
@@ -646,30 +645,30 @@ setLightVolume(0.05);
   //fromFrontToBackRandom(300,false,5);(時間,残さない,回数)：未着手
   //fromFrontToBacks(0,0,0,0,0,300,true);(x[0]off,x[1]off,x[2]off,x[3]off,x[4]off,時間,残す)：未着手
   //fromFrontToBackAll(300,false);
-  
+
   //fromBackToFront(0,300,false);
   //fromBackToFrontRandom(300,false,5);：未着手
   //fromBackToFronts(0,0,0,0,0,300,true);：未着手
   //fromBackToFrontAll(300,false);
-  
+
   //fromLeftToRight(0,300,false);(y軸,時間,残さない)
   //fromLeftToRightRandom(300,false,5);：未着手
   //fromLeftToRights(0,0,0,0,0,300,true);：未着手
   //fromLeftToRightAll(300,false);
-  
+
   //fromRightToLeft(0,300,false);
   //fromRightToLeftRandom(300,false,5);：未着手
   //fromRightToLefts(0,0,0,0,0,300,true);：未着手
   //fromRightToLeftAll(300,false);
-  
-/*---xy指定二次改変-----------------------------------------------------------*/
+
+  /*---xy指定二次改変-----------------------------------------------------------*/
   //planeCircle(2,2,2,true);(中心点のx座標,中心点のy座標,半径,残す):未完
   //planeSquare(2,2,2,true);(中心点のx座標,中心点のy座標,半径,残す):未完
   //planeRotatePointOfSquareTrajectory(right);(時計回り)：未着手
   //planeRotateTwoPointsOfSquareTrajectory(right);(時計回り)：未着手
   //planeRotateBoxOfSquareTrajectory(right);(時計回り)：未着手
   //planeRotateTwoBoxesOfSquareTrajectory(right);(時計回り)：未着手
-  
+
   //expansionX(2,2,false);(中心点のx座標,中心点のy座標,残さない):未着手
   //expansionY(2,2,false);(中心点のx座標,中心点のy座標,残さない):未着手
   //expansionXY(2,2,false);(中心点のx座標,中心点のy座標,残さない):未着手
@@ -678,59 +677,97 @@ setLightVolume(0.05);
   //zoomOutY(2,2,false);(中心点のx座標,中心点のy座標,残さない):未着手
   //zoomOutXY(2,2,false);(中心点のx座標,中心点のy座標,残さない):未着手
 
-/*---xy指定×z指定改変-----------------------------------------------------------*/
+  /*---xy指定×z指定改変-----------------------------------------------------------*/
   //OneToOneHundredTwentyFive(300);
   //perform_uprain();
-  
+
   //rainOneDrops(50,5,false,true);(時間,回数,残さない,下がる)：未完
   //rainTwoDrops(50,10,false,false);(時間,回数,残さない,上がる)：未着手
 
   //waterFall(50,5,false,true);(時間,回数,残さない,下がる)：未着手
   //twoWaterFalls(50,10,true);(時間,回数,下がる)：未着手
-  
+
   //expansionCube(2,2,2,false);(中心点のx座標,中心点のy座標,中心点のz座標,残さない):未着手
   //zoomOutCube(2,2,2,false);(中心点のx座標,中心点のy座標,中心点のz座標,残さない):未着手
-  
-/*--------------------------------------------------------------*/
-//define案8＊8移植案　define　number 25 stats[number]
-int curHeigt=0,mode=2;
-int stats[25];//消した
-int curPos =0;
-//最初に0代入しておく　変更か？
-void set_zero(int stats[] ,int n )
-{ for(int i=0; i<25; i++)
-    {stats[i] =0;}
-}
-//まだ成長していない竹を探す
-int serch_not_growning(const int stats[] )  
-{ 
-  int nowbomboo=0;  
-  for(int i=0; i<25; i++)
-  { 
-    if(stats[i]==0)
-    {stats[i]=1; 
-    nowbomboo=i;
-    break;
-   }
-   return　nowbomboo;  
- }
 
-int bomboo_growing(int hh)
-{   int i;
-    int x=i%5,y=i/5; 
-    planePoint(x, y,true);
-    for(int h=0;h<5;h++) 
-    {height(i,true);}
-}
-
-
-while(1){
-  for(int curHeight=0; curHeight<5; curHeight++)
+  /*--------------------------------------------------------------*/
+  //define案8＊8移植案　define　number 25 stats[number]
+  /*
+  ** int curHeigt: 光る場所の高さ
+  ** int mode : 0,1を繰り返すことで疑似的に光っている状態を再現したい。現状、2はモードを追加する予定。工事中
+  ** int stats : 下の5x5の光の点灯状態。
+  ** int curPos : 不明(相原さんの)
+  */
+  /*
+  ** 関数名 : set_zero
+  ** 引数 : int stats[] : 再会段のライトの点灯状態
+  ** 戻り値 : void
+  ** 関数の機能 : 最初に0代入しておく　変更か？
+  */
+  int curHeigt = 0, mode = 2;
+  int stats[25]; //消した
+  int curPos = 0;
+  //最初に0代入しておく　変更か？
+  void set_zero(int stats[])
   {
-      /*if(mode==1)//今伸びている竹を表示するモード
+    for (int i = 0; i < 25; i++)
+    {
+      stats[i] = 0;
+    }
+  }
+
+
+  /*
+  ** 関数名 : serch_not_growning
+  ** 引数 : const int stats : ライトの状態
+  **
+  ** stats
+  ** 0 : 消灯
+  ** 1 : すでに点灯済み
+  ** 2 : 光る対象 -> 
+  **
+  ** 戻り値 : int　nowbomboo : 今いるライトの位置
+  ** 関数の機能 : まだ成長していない竹を探す消えているポイントを点灯させて次へ進む
+  */
+  int serch_not_growning(const int stats[])
+  {
+    int nowbomboo = 0;
+    for (int i = 0; i < 25; i++)
+    {
+      if (stats[i] == 0)
+      {
+        stats[i] = 1;
+        nowbomboo = i;
+        break;
+      }
+      return　nowbomboo;
+    }
+
+  /*
+  ** 関数名 : bamboo_growing
+  ** 引数 : int hh : <役割>
+  ** 戻り値 : <型>　<変数名> : <役割>
+  ** 関数の機能 : <説明>
+  */
+    int bomboo_growing(int hh)
+    {
+      int i;
+      int x = i % 5, y = i / 5;
+      planePoint(x, y, true);
+      for (int h = 0; h < 5; h++)
+      {
+        height(i, true);
+      }
+    }
+
+    while (1)
+    {
+      for (int curHeight = 0; curHeight < 5; curHeight++)
+      {
+        /*if(mode==1)//今伸びている竹を表示するモード
      {*/
-        
-      /*  curHeigt+=1;
+
+        /*  curHeigt+=1;
         int height[5] = {0,0,0,0,0};
         for(int i=0; i<curHeight; i++)
         {
@@ -760,49 +797,32 @@ while(1){
         delay(1000);
         }*/
         //mode1ここまで
-        
 
-        
-        if(mode==2)
-        {//配列の中を読み込む
-          int  i;
-          int x=i%5,y=i/5;
-          for(int t=0;t<25;t++)
-          {       int j=stats[t];
-                     Serial.println(j);   
-                     if(stats[t]==1)
-                     {i=t;
-                     
-                     
-                     }
-              
-            
-          
-        //mode2ここから
-        for(int s=0;s<25;s++)
-        {
-        
-        
-        
-         
+        if (mode == 2)
+        { //配列の中を読み込む
+          int i;
+          int x = i % 5, y = i / 5;
+          for (int t = 0; t < 25; t++)
+          {
+            int j = stats[t];
+            Serial.println(j);
+            if (stats[t] == 1)
+            {
+              i = t;
+            }
+
+            //mode2ここから
+            for (int s = 0; s < 25; s++)
+            {
+            }
+            for (int h = 0; h < 5; h++)
+            {
+              planePoint(x, y, true);
+              height(h, true);
+            }
+          }
         }
-        for(int h=0;h<5;h++)
-        {
-        planePoint(x, y,true);
-        height(h,true);
-        }
-        }
-          
-      
-        
-       
-                                    
-                                          
-      
+        //もし、全部の竹がひかりおわったら、break;
+      }
+    }
   }
-  //もし、全部の竹がひかりおわったら、break;
-
-
-}
-}
-}
