@@ -226,8 +226,8 @@ void perform_uprain(){
 //メインループ
 void loop(){
  //成長してる茎を描く
-{int takasa[]=(1,1,1,1,1);
- setLightHeights(takasa)
+{int takasa[]={1,1,1,1,1};
+ setLightHeights(takasa);
  
   setLightVolume(1);
   
