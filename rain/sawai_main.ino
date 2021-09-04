@@ -240,13 +240,6 @@ int takasa[]={1,1,1,1,1};
       clearPlaneAll();
     }   
   }
-  
-//成長っぽい演出
-//{ drawBox(2, 2, 2, true)}
-
-clearAll()
-
-drawPoint(2,2)setLightHeight(1, true) drawPoint(3,3)setLightHeight(1, true) 
 
 
 }
