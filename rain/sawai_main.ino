@@ -226,13 +226,13 @@ void perform_uprain(){
 //メインループ
 void loop(){
  //成長してる茎を描く
-{int takasa[]={1,1,1,1,1};
+int takasa[]={1,1,1,1,1};
  setLightHeights(takasa);
  
   setLightVolume(1);
   
-  for(int i=0; i<5; i+2){
-    for(int j=0; j<5; j+2){
+  for(int i=0; i<5; i++){
+    for(int j=0; j<5; j+=2){
       drawPoint(i,j);
       sprintf(BUF, "%d %d", i, j);
       Serial.println(BUF);
@@ -240,12 +240,13 @@ void loop(){
       clearPlaneAll();
     }   
   }
-}  
-//成長っぽい演出
-{ drawBox(2, 2, 2, true)
   
+//成長っぽい演出
+//{ drawBox(2, 2, 2, true)}
 
-}
+clearAll()
+
+drawPoint(2,2)setLightHeight(1, true) drawPoint(3,3)setLightHeight(1, true) 
 
 
 }
