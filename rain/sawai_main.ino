@@ -235,11 +235,17 @@ void loop(){
     for(int j=0; j<5; j+2){
       drawPoint(i,j);
       sprintf(BUF, "%d %d", i, j);
+      Serial.println(BUF);
       delay(50);
       clearPlaneAll();
     }   
   }
 }  
+//成長っぽい演出
+{ drawBox(2, 2, 2, true)
+  
+
+}
 
 
 }
