@@ -240,6 +240,10 @@ int takasa[]={1,1,1,1,1};
       clearPlaneAll();
     }   
   }
-
+//oooooo
+drawBox(2, 2, 4, true);
+delay(500);
+drawBox(4, 3, 4, false);
+delay(30);
 
 }
