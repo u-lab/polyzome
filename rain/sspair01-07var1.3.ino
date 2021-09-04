@@ -182,7 +182,7 @@ void planeLine(int sPosX, int sPosY, int ePosX, int ePosY,bool fg){
 //fg: ONの場合(true), OFFの場合(false)
 void planeAll(bool fg){
   for(int i=6; i<=30; i++){
-    dmx_master.setChannelValue(i,fg ? MAX_LIGHT_VOLUME : 0);
+    dmx_master.setChannelValue(i,fg ? MAX_LIGHT_VOLUME : 0);　　　　　　　//trueならmax　　条件演算子
   }
 }
 
@@ -597,7 +597,69 @@ void perform_uprain(){
 
 //zoomOutCube(2,2,2,false);(中心点のx座標,中心点のy座標,中心点のz座標,残さない):未着手
 //キューブの縮小
+ 
+  /*
+  ** 関数名 : set_zero
+  ** 引数 : int stats[] : 再会段のライトの点灯状態
+  ** 戻り値 : void
+  ** 関数の機能 : 最初に0代入しておく　変更か？
+  */
+ void set_zero(int stats[])
+  {
+    for (int i = 0; i < 25; i++)
+    {
+      stats[i] = 0;
+    }
+  }
 
+
+    /*
+  ** 関数名 : serch_not_growning
+  ** 引数 : const int stats : ライトの状態
+  **
+  ** stats
+  ** 0 : 消灯
+  ** 1 : すでに点灯済み
+  ** 2 : 光る対象 -> 
+  **
+  ** 戻り値 : int　nowbamboo : 今いるライトの位置
+  ** 関数の機能 : まだ成長していない竹を探す消えているポイントを点灯させて次へ進む
+  */
+  int serch_not_growning(const int stats[]) {
+    int nowbamboo = 0;
+    for (int i = 0; i < 25; i++){
+      if (stats[i] == 0){
+        stats[i] = 2;
+        nowbamboo = i;
+        break;
+      }
+      return　nowbamboo;
+    }
+
+  }
+/*
+  ** 関数名 : bamboo_growing
+  ** 引数 : int hh : statsから帰ってきた数字をxy座標に変換し、実際に点灯
+  ** 戻り値 : void
+  ** 関数の機能 : まだ光っていないところを一つ取り出しmaxの高さまで点灯
+  */
+    int bomboo_growing(int hh) {
+      int i;
+      int x = i % 5, y = i / 5;
+      planePoint(x, y, true);
+      for (int h = 0; h < 5; h++){
+        height(i, true);delay(500)
+      }
+    }
+
+  /*
+  ** 関数名 : grown_bamboo
+  ** 引数 : <型> <変数名> : <役割>
+  ** 戻り値 : <型>　<変数名> : <役割>
+  ** 関数の機能 : <説明>
+  */
+
+int 
 
 /*---出力-----------------------------------------------------------*/
 //メインループ
@@ -691,75 +753,85 @@ void loop()
   //zoomOutCube(2,2,2,false);(中心点のx座標,中心点のy座標,中心点のz座標,残さない):未着手
 
   /*--------------------------------------------------------------*/
-
-  int curHeigt = 0, mode = 0;
-  int stats[25] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  //define案8＊8移植案　define　number 25 stats[number]
+  /*
+  ** int curHeigt: 光る場所の高さ
+  ** int mode : 0,1を繰り返すことで疑似的に光っている状態を再現したい。現状、2はモードを追加する予定。工事中
+  ** int stats : 下の5x5の光の点灯状態。
+  ** int curPos : 不明(相原さんの)
+  */
+  
+  int curHeigt = 0, mode = 2;
+  int stats[25]; //消した
   int curPos = 0;
+  
 
-  for (int i = 0; i < 25; i++)
-  {
-    if (stats[i] == 0)
+
+
+
+    while (1)
     {
-      curPos = i;
-      stats[i] = 2;
-      mode = 1;
-      break;
-    }
-  }
-  for (i = 0; i < 25; i++)
-  {
-    if (stats[i] = 2)
-    {
-      curPos = i while (1)
+      for (int curHeight = 0; curHeight < 5; curHeight++)
       {
-        for (int curHeight = 0; curHeight < 5; curHeight++)
-        {
-          if (mode == 1) //今伸びている竹を表示するモード
-          {
-            int x = i % 5, y = i / 5;
-            curHeigt += 1;
-            int height[5] = {0, 0, 0, 0, 0};
-            for (int i = 0; i < curHeight; i++)
-            {
-              height[i] = 1;
-              delay(500);
-            }
+        /*if(mode==1)//今伸びている竹を表示するモード
+     {*/
 
-            planePoint(x, y, true);
-            heights(height);
-            stats[i] = 1;
-            mode = 2;
-          }
+        /*  curHeigt+=1;
+        int height[5] = {0,0,0,0,0};
+        for(int i=0; i<curHeight; i++)
+        {
+          height[i]=1; 
+          delay (500);
+          
+        
+      
+        planePoint(x, y,true);
+        heights(i);
+        
+
+        
+        }*/
+        //ここからがmode1
+        /*if(stats[i]==0)
+        {
+        stats[i]=2;
         }
+
+        
+        int x=i%5,y=i/5;
+        for(int h=0;h<5;h++)
+        {
+        planePoint(x, y,true);
+        height(h,true);
+        delay(1000);
+        }*/
+        //mode1ここまで
+
         if (mode == 2)
-        { //既に伸びている状態を表示する
-          for (i = 0; i < 25; i++)
+        { //配列の中を読み込む
+          int i;
+          int x = i % 5, y = i / 5;
+          for (int t = 0; t < 25; t++)
           {
-            int curHeight = 0;
-
-            int x = i % 5, y = i / 5;
-            //int curHeigt;
-            int height[5] = {0, 0, 0, 0, 0};
-            for (int i = 0; i < curHeight; i++)
+            int j = stats[t];
+            Serial.println(j);
+            if (stats[t] == 1)
             {
-              height[i] = 1;
-              delay(500);
-              stats[i] = 1;
-              mode = 2;
+              i = t;
+            }
+
+            //mode2ここから
+            for (int s = 0; s < 25; s++)
+            {
+            }
+            for (int h = 0; h < 5; h++)
+            {
+              planePoint(x, y, true);
+              height(h, true);
             }
           }
         }
-
-        if (mode == 1)
-        {
-          mode = 2;
-        }
-        else if (mode == 2)
-        {
-          mode = 1;
-        }
+        //もし、全部の竹がひかりおわったら、break;
       }
-      //もし、全部の竹がひかりおわったら、break;
     }
   }
-}
