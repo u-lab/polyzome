@@ -245,5 +245,6 @@ drawBox(2, 2, 4, true);
 delay(500);
 drawBox(4, 3, 4, false);
 delay(30);
-
+ setLightHeight(0, true);
+  drawPoint(4, 4); drawPoint(4, 0);
 }
