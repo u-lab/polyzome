@@ -280,6 +280,8 @@ drawBox(4, 3, 4, false);
 delay(30);
 clearAll();
 setLightHeight(0, true);
-drawPoint(3, 1); drawPoint(4, 2); drawPoint(4,3);
+drawPoint(3, 1); 
+drawPoint(4, 2); 
+drawPoint(4,3);
 
 }
