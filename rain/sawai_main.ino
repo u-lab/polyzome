@@ -226,11 +226,11 @@ void perform_uprain(){
 //メインループ
 void loop(){
  //成長してる茎を描く
+setLightVolume(1);
 int takasa[]={1,1,1,1,1};
  setLightHeights(takasa);
  
-  setLightVolume(1);
-  
+
   for(int i=0; i<5; i++){
     for(int j=0; j<5; j+=2){
       drawPoint(i,j);
@@ -240,11 +240,14 @@ int takasa[]={1,1,1,1,1};
       clearPlaneAll();
     }   
   }
-//oooooo
+//続き茎の成長を抽象的に
 drawBox(2, 2, 4, true);
 delay(500);
+drawCircle(1, 4, 2, false);
 drawBox(4, 3, 4, false);
 delay(30);
- setLightHeight(0, true);
-  drawPoint(4, 4); drawPoint(4, 0);
+setLightHeight(0, true);
+clearAll()
+drawPoint(4, 4); drawPoint(4, 0); drawPoint(4, 0);
+
 }
