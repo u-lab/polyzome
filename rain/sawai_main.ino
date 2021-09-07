@@ -95,19 +95,20 @@ void drawBox(int x, int y, float radius, bool fillFg){
   }
 }
  
-  /*
-  ** 関数名 : drawBox_var2
+  /* 制作者　:澤井
+  ** 関数名 : test_drawBox_var2
   ** 引数 : void <変数名> : 箱に光らせる
   ** 関数の機能 : あいはらさんのボックスの関数が一瞬で終わってしまうのでdelayを追加しました。
   */
 
-void drawBox_var2(int x, int y, float radius, bool fillFg){
+void test_drawBox_var2(int x, int y, float radius, bool fillFg){
   float dist;
   //中を埋める場合
   if(fillFg){ 
     for(int i=x-radius/2; i<x+radius/2; i++){
       for(int j=y-radius/2; j<y+radius/2; j++){
-          drawPoint(i, j);delay(500);
+          drawPoint(i, j);
+          delay(500);
       } 
     }
   }else{
