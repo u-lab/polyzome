@@ -94,36 +94,6 @@ void drawBox(int x, int y, float radius, bool fillFg){
     }
   }
 }
- 
-  /*
-  ** 関数名 : drawBox_var2
-  ** 引数 : void <変数名> : 箱に光らせる
-  ** 関数の機能 : あいはらさんのボックスの関数が一瞬で終わってしまうのでdelayを追加しました。
-  */
-
-void drawBox_var2(int x, int y, float radius, bool fillFg){
-  float dist;
-  //中を埋める場合
-  if(fillFg){ 
-    for(int i=x-radius/2; i<x+radius/2; i++){
-      for(int j=y-radius/2; j<y+radius/2; j++){
-          drawPoint(i, j);delay(500);
-      } 
-    }
-  }else{
-  //中を埋めない場合
-    for(int i=x-radius/2; i<x+radius/2; i++){
-      drawPoint(i, y-radius/2);
-      drawPoint(i, y+radius/2);   
-      delay(500);   
-    }
-    for(int i=y-radius/2; i<y+radius/2; i++){
-      drawPoint(x-radius/2, i);
-      drawPoint(y+radius/2, i);  
-      delay(500);
-    }
-  }
-}
 
 //線の描画
 //sPosX:開始点X
@@ -256,11 +226,11 @@ void perform_uprain(){
 //メインループ
 void loop(){
  //成長してる茎を描く
-setLightVolume(0.04);
 int takasa[]={1,1,1,1,1};
  setLightHeights(takasa);
  
-
+  setLightVolume(1);
+  
   for(int i=0; i<5; i++){
     for(int j=0; j<5; j+=2){
       drawPoint(i,j);
@@ -270,18 +240,5 @@ int takasa[]={1,1,1,1,1};
       clearPlaneAll();
     }   
   }
-//続き茎の成長を抽象的に新規でテストのため
-setLightHeight(3, true);
-drawBox_var2(2, 2, 4, true);
-delay(500);
-clearAll();
-drawCircle(1, 4, 2, false);
-drawBox(4, 3, 4, false);
-delay(30);
-clearAll();
-setLightHeight(0, true);
-drawPoint(3, 1); 
-drawPoint(4, 2); 
-drawPoint(4,3);
 
 }
