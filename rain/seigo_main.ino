@@ -153,7 +153,7 @@ void setLightHeight(int height, bool fg){
 //height:変更する高さ.要素が4つの配列で指定する
 //ex. 全部クリア：height=[0,0,0,0,0]
 //    全部点灯：height=[1,1,1,1,1]
-//　　１段目だけ点灯：height=[1,0,0,0]
+//    １段目だけ点灯：height=[1,0,0,0]
 void setLightHeights(int *height){
   for(int i=0; i<5; i++){
     dmx_master.setChannelValue(i+1, (height[0]==1) ?  MAX_LIGHT_VOLUME : 0);  
@@ -161,6 +161,7 @@ void setLightHeights(int *height){
 }
 
 //テスト1(1段目のライトを、個別に光らせる)
+/*
 void test1(){
   //ライトボリューム調整
   setLightVolume(1);
@@ -175,7 +176,9 @@ void test1(){
     }   
   }
 }
+*/
 
+/*
 //テスト2(平面は、順に光らせる。高さ方向は、ランダムでON/OFFを切り替える)
 void test2(){
   //ライトボリューム調整
@@ -197,7 +200,9 @@ void test2(){
     }   
   }
 }
+*/
 
+/*
 //上に上がっていく雨の表現を行う
 //起点を複数指定できる。
 //場所に応じて平面の光の大きさを変えることができる。
@@ -222,8 +227,29 @@ void perform_uprain(){
     clearAll();
   }
 }
+*/
 
 //メインループ
 void loop(){
- //成長してる茎を描く
+  /*上から下に消えていく表現
+  //高さ方向に全点灯
+  setLightVolume(1);
+  int heights[]={1,1,1,1,1};
+  setLightHeights(heights);
+  drawPoint(0,0);
+  //上から消灯
+  setLightVolume(0);
+  for(int i=4; i>=0; i--){
+    setLightHeight(i, true);
+    delay(100);
+  }
+  drawPoint(0, 0);*/
+  setLightVolume(1);
+  setLightHeight(3, true);
+  drawPoint(3, 3);
+
+  
+
+
 }
+
