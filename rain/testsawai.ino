@@ -240,5 +240,17 @@ int takasa[]={1,1,1,1,1};
       clearPlaneAll();
     }   
   }
-
+//続き茎の成長を抽象的に新規でテストのため
+setLightHeight(3, true);
+drawBox_var2(2, 2, 4, true);
+delay(500);
+clearAll();
+drawCircle(1, 4, 2, false);
+drawBox(4, 3, 4, false);
+delay(30);
+clearAll();
+setLightHeight(0, true);
+drawPoint(3, 1); 
+drawPoint(4, 2); 
+drawPoint(4,3);
 }
