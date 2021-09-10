@@ -111,7 +111,7 @@ void test_drawBox_var2(int x, int y, float radius, bool fillFg, int delaytime, b
     for(int i=x-radius/2; i<x+radius/2; i++){
       for(int j=y-radius/2; j<y+radius/2; j++){
           drawPoint(i, j);
-          delay(time);
+          delay(delaytime);
       } 
     }
   }else{
@@ -119,37 +119,17 @@ void test_drawBox_var2(int x, int y, float radius, bool fillFg, int delaytime, b
     for(int i=x-radius/2; i<x+radius/2; i++){
       drawPoint(i, y-radius/2);
       drawPoint(i, y+radius/2); 
-      delay(time);   
+      delay(delaytime);   
     }
     for(int i=y-radius/2; i<y+radius/2; i++){
       drawPoint(x-radius/2, i);
       drawPoint(y+radius/2, i); 
-      delay(time);   
-    }
-  }
-}
-if(false){
-   //中を埋める場合
-  if(fillFg){ 
-    for(int i=x-radius/2; i<x+radius/2; i++){
-      for(int j=y-radius/2; j<y+radius/2; j++){
-          drawPoint(i, j);
-
-      } 
-    }
-  }else{
-  //中を埋めない場合
-    for(int i=x-radius/2; i<x+radius/2; i++){
-      drawPoint(i, y-radius/2);
-      drawPoint(i, y+radius/2);      
-    }
-    for(int i=y-radius/2; i<y+radius/2; i++){
-      drawPoint(x-radius/2, i);
-      drawPoint(y+radius/2, i);      
+      delay(delaytime);   
     }
   }
 }
 
+}
 
 //線の描画
 //sPosX:開始点X
@@ -280,17 +260,19 @@ void perform_uprain(){
 }
 //
 void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear){
-  if(All_clear){
-drawPoint(x, y);
-setLightHeight(z, true);
-delay(delay_time); 
-clearAll();
-}
-else{
-drawPoint(x, y);
-setLightHeight(z, true);
-delay(delay_time); 
-}
+   if(All_clear)
+   {
+   drawPoint(x, y);
+   setLightHeight(z, true);
+   delay(delay_time); 
+   clearAll();
+   }
+   else
+   {
+   drawPoint(x, y);
+   setLightHeight(z, true);
+   delay(delay_time); 
+   }
 }
 
 
@@ -373,23 +355,23 @@ delay(300);
 
 //part3 点をだんだん増やす作業
 setLightVolume(0.04);
-handler_sawai_part3(2,2,2,300,All_claar);
+handler_sawai_part3(2,2,2,300,true);
 
-handler_sawai_part3(3,4,2,300,All_claar);
+handler_sawai_part3(3,4,2,300,true);
 
 handler_sawai_part3(0,0,4,400,false);
-handler_sawai_part3(0,4,4,300,All_clear);
+handler_sawai_part3(0,4,4,300,true);
 //TEST 繰り返し構文で setLightVolume上げてぴかぴかさせる？(予定:現状後回し)別の段でしてあげるときれいかも
 
 handler_sawai_part3(1,2,0,400,false);
 handler_sawai_part3(3,3,0,200,false);
-handler_sawai_part3(0,1,0,400,All_clear);
+handler_sawai_part3(0,1,0,400,true);
 
 handler_sawai_part3(2,3,3,400,false);
 handler_sawai_part3(2,4,3,200,false);
 handler_sawai_part3(0,3,3,400,false);
 handler_sawai_part3(0,4,3,400,false);
-handler_sawai_part3(1,0,3,300,All_clear);
+handler_sawai_part3(1,0,3,300,true);
 
 
 handler_sawai_part3(2,0,1,400,false);
@@ -399,7 +381,7 @@ handler_sawai_part3(3,0,1,400,false);
 handler_sawai_part3(1,2,1,200,false);
 handler_sawai_part3(3,4,1,400,false);
 handler_sawai_part3(1,2,1,200,false);
-handler_sawai_part3(3,4,1,300,All_clear);
+handler_sawai_part3(3,4,1,300,true);
 
 
 handler_sawai_part3(0,3,4,400,false);
@@ -414,7 +396,7 @@ handler_sawai_part3(3,0,4,400,false);
 handler_sawai_part3(1,2,4,200,false);
 handler_sawai_part3(3,4,4,400,false);
 handler_sawai_part3(1,2,4,200,false);
-handler_sawai_part3(3,4,4,300,All_clear);
+handler_sawai_part3(3,4,4,300,true);
 
 
 //part4成長
