@@ -278,18 +278,18 @@ void perform_uprain(){
     clearAll();
   }
 }
-
-void handler_sawai_part3(int x,int y, int z, int delaytime, bool allclaare){
-if(allclear){
+//
+void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear){
+  if(All_clear){
 drawPoint(x, y);
 setLightHeight(z, true);
-delay(delaytime); 
+delay(delay_time); 
 clearAll();
 }
 else{
 drawPoint(x, y);
 setLightHeight(z, true);
-delay(delaytime); 
+delay(delay_time); 
 }
 }
 
@@ -373,7 +373,65 @@ delay(300);
 
 //part3 点をだんだん増やす作業
 setLightVolume(0.04);
-handler_sawai_part3()
+handler_sawai_part3(2,2,2,300,All_claar);
 
+handler_sawai_part3(3,4,2,300,All_claar);
+
+handler_sawai_part3(0,0,4,400,false);
+handler_sawai_part3(0,4,4,300,All_clear);
+//TEST 繰り返し構文で setLightVolume上げてぴかぴかさせる？(予定:現状後回し)別の段でしてあげるときれいかも
+
+handler_sawai_part3(1,2,0,400,false);
+handler_sawai_part3(3,3,0,200,false);
+handler_sawai_part3(0,1,0,400,All_clear);
+
+handler_sawai_part3(2,3,3,400,false);
+handler_sawai_part3(2,4,3,200,false);
+handler_sawai_part3(0,3,3,400,false);
+handler_sawai_part3(0,4,3,400,false);
+handler_sawai_part3(1,0,3,300,All_clear);
+
+
+handler_sawai_part3(2,0,1,400,false);
+handler_sawai_part3(4,1,1,200,false);
+handler_sawai_part3(3,1,1,400,false);
+handler_sawai_part3(3,0,1,400,false);
+handler_sawai_part3(1,2,1,200,false);
+handler_sawai_part3(3,4,1,400,false);
+handler_sawai_part3(1,2,1,200,false);
+handler_sawai_part3(3,4,1,300,All_clear);
+
+
+handler_sawai_part3(0,3,4,400,false);
+handler_sawai_part3(2,4,4,200,false);
+handler_sawai_part3(0,3,4,400,false);
+handler_sawai_part3(0,4,4,400,false);
+handler_sawai_part3(1,0,4,300,false);
+handler_sawai_part3(2,0,4,400,false);
+handler_sawai_part3(4,1,4,200,false);
+handler_sawai_part3(3,1,4,400,false);
+handler_sawai_part3(3,0,4,400,false);
+handler_sawai_part3(1,2,4,200,false);
+handler_sawai_part3(3,4,4,400,false);
+handler_sawai_part3(1,2,4,200,false);
+handler_sawai_part3(3,4,4,300,All_clear);
+
+
+//part4成長
+ //成長してる茎を描く
+setLightVolume(0.04);
+int takasa[]={1,1,1,1,1};
+ setLightHeights(takasa);
+ 
+
+  for(int i=0; i<5; i++){
+    for(int j=0; j<5; j+=2){
+      drawPoint(i,j);
+      sprintf(BUF, "%d %d", i, j);
+      Serial.println(BUF);
+      delay(50);
+      clearPlaneAll();
+    }   
+  }
 
 }
