@@ -281,52 +281,38 @@ void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear){
 
 //メインループ
 void loop(){
- //成長してる茎を描く
-setLightVolume(0.04);
-int takasa[]={1,1,1,1,1};
- setLightHeights(takasa);
  
-
-  for(int i=0; i<5; i++){
-    for(int j=0; j<5; j+=2){
-      drawPoint(i,j);
-      sprintf(BUF, "%d %d", i, j);
-      Serial.println(BUF);
-      delay(50);
-      clearPlaneAll();
-    }   
-  }
 //成長の表現 1 暫定です。実機テストが必要だと思うのでコピペで対応しています 
 //clearHeightAll()を使った方がいいのか(後で気づいた)、今のものは使えるのか？チェック待ち
 //澤井の完成予想: 光が横に流れていく
 setLightVolume(1); 
 setLightHeight(2, true);
 drawLine(0, 2, 4, 2);
-setLightVolume(2, false);
-setLightVolume(4, true);
+setLightHeight(2, false);
+setLightHeight(4, true);
 drawline(3,2,4,4);
-setLightVolume(4, true);
+setLightHeight(4, true);
 setLightHeight(0, true);
 drawLine(1, 1, 3, 3);
-setLightVolume(0, false);
-setLightVolume(1, true);
+setLightHeight(0, false);
+setLightHeight(1, true);
 drawline(3,2,4,4);
 setLightHeight(2, true);
 drawLine(0, 2, 4, 2);
-setLightVolume(2, false);
-setLightVolume(4, true);
+setLightHeight(2, false);
+setLightHeight(4, true);
 drawline(3,2,4,4);
-setLightVolume(4, true);
+setLightHeight(4, true);
 setLightHeight(0, true);
 drawLine(1, 1, 3, 3);
-setLightVolume(0, false);
-setLightVolume(1, true);
+setLightHeight(0, false);
+setLightHeight(1, true);
 drawline(3,2,4,4);
 
 //成長の表現part2
 setLightHeight(2, true);
 drawCircle(2, 2, 2, true);
-clearHeightAll()
+clearHeightAll();
 delay(5000);
 for(int i=0.04;i<1;i+=0.04)
 {
