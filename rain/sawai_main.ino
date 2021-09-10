@@ -290,24 +290,24 @@ setLightHeight(2, true);
 drawLine(0, 2, 4, 2);
 setLightHeight(2, false);
 setLightHeight(4, true);
-drawline(3,2,4,4);
+drawLine(3,2,4,4);
 setLightHeight(4, true);
 setLightHeight(0, true);
 drawLine(1, 1, 3, 3);
 setLightHeight(0, false);
 setLightHeight(1, true);
-drawline(3,2,4,4);
+drawLine(3,2,4,4);
 setLightHeight(2, true);
 drawLine(0, 2, 4, 2);
 setLightHeight(2, false);
 setLightHeight(4, true);
-drawline(3,2,4,4);
+drawLine(3,2,4,4);
 setLightHeight(4, true);
 setLightHeight(0, true);
 drawLine(1, 1, 3, 3);
 setLightHeight(0, false);
 setLightHeight(1, true);
-drawline(3,2,4,4);
+drawLine(3,2,4,4);
 
 //成長の表現part2
 setLightHeight(2, true);
