@@ -52,10 +52,11 @@ void drawPoint(int x, int y){
 //x, y:中心
 //radius:半径
 //fillFg:円の内側を塗りつぶす場合(true), 塗りつぶさない場合(false)
-int x=2;
-int y=2;
-float radius=2;
-bool fillFg=true;
+// example : (中心座標(x, y) = (2, 2), 半径r = 2, 塗りつぶし = on)
+// int x=2;
+// int y=2;
+// float radius=2;
+// bool fillFg=true;
 void drawCircle(int x, int y, float radius, bool fillFg){
   float dist;
   //x, yを起点にして、radiusの範囲を走査して、半径の内側に入っているかを確認する
@@ -156,7 +157,9 @@ void setLightHeight(int height, bool fg){
 //　　１段目だけ点灯：height=[1,0,0,0]
 void setLightHeights(int *height){
   for(int i=0; i<5; i++){
-    dmx_master.setChannelValue(i+1, (height[0]==1) ?  MAX_LIGHT_VOLUME : 0);  
+    // dmx_master.setChannelValue(i+1, (height[0]==1) ?  MAX_LIGHT_VOLUME : 0);
+    dmx_master.setChannelValue(i+1, (height[i]==1) ?  MAX_LIGHT_VOLUME : 0);
+
   }
 }
 
@@ -222,6 +225,20 @@ void perform_uprain(){
     clearAll();
   }
 }
+
+/*
+** HANLER TEMPLETE **
+** 関数名 : handler_<自分の名前>
+** 引数 : デフォルト値はなし。自分用に作るのはあり(作った場合はここに要説明)。
+** 戻り値 : void
+** 関数の機能 : <説明> loopでこの関数呼び出すだけでみんなの処理がまとまるようにしたい。
+** 作者: 関数作った人
+** 日付: 関数作った日
+*/
+//  void handler_name(voids)
+//  {
+//       ここにloop内で行いたい処理を書き込む
+//   }
 
 //メインループ
 void loop()
