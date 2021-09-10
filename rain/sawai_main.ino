@@ -95,36 +95,61 @@ void drawBox(int x, int y, float radius, bool fillFg){
   }
 }
  
-  /* 制作者　:澤井
+
+   /*
+  ** 作成者 : 澤井
   ** 関数名 : test_drawBox_var2
-  ** 引数 : void <変数名> : 箱に光らせる
-  ** 関数の機能 : あいはらさんのボックスの関数が一瞬で終わってしまうのでdelayを追加しました。
+  ** 引数 : bool fillfg,int delaytime, int delaytime, bool delay_on  : boxの中を埋める(true),埋めない(false) delaytimeでdelay時間を入力、delay時間がいる場合(delay_on),いらない場合(false)
+  ** 関数の機能 : あいはらさんの作ってくださった関数を一部改変し、drawBoxと違いboxが作られる過程を表示できるようにしています。
   */
 
-void test_drawBox_var2(int x, int y, float radius, bool fillFg){
+void test_drawBox_var2(int x, int y, float radius, bool fillFg, int delaytime, bool delay_on){
   float dist;
-  //中を埋める場合
+  if(delay_on){
+   //中を埋める場合
   if(fillFg){ 
     for(int i=x-radius/2; i<x+radius/2; i++){
       for(int j=y-radius/2; j<y+radius/2; j++){
           drawPoint(i, j);
-          delay(500);
+          delay(time);
       } 
     }
   }else{
   //中を埋めない場合
     for(int i=x-radius/2; i<x+radius/2; i++){
       drawPoint(i, y-radius/2);
-      drawPoint(i, y+radius/2);   
-      delay(500);   
+      drawPoint(i, y+radius/2); 
+      delay(time);   
     }
     for(int i=y-radius/2; i<y+radius/2; i++){
       drawPoint(x-radius/2, i);
-      drawPoint(y+radius/2, i);  
-      delay(500);
+      drawPoint(y+radius/2, i); 
+      delay(time);   
     }
   }
 }
+if(false){
+   //中を埋める場合
+  if(fillFg){ 
+    for(int i=x-radius/2; i<x+radius/2; i++){
+      for(int j=y-radius/2; j<y+radius/2; j++){
+          drawPoint(i, j);
+
+      } 
+    }
+  }else{
+  //中を埋めない場合
+    for(int i=x-radius/2; i<x+radius/2; i++){
+      drawPoint(i, y-radius/2);
+      drawPoint(i, y+radius/2);      
+    }
+    for(int i=y-radius/2; i<y+radius/2; i++){
+      drawPoint(x-radius/2, i);
+      drawPoint(y+radius/2, i);      
+    }
+  }
+}
+
 
 //線の描画
 //sPosX:開始点X
@@ -254,6 +279,24 @@ void perform_uprain(){
   }
 }
 
+void handler_sawai_part3(int x,int y, int z, int delaytime, bool allclaare){
+if(allclear){
+drawPoint(x, y);
+setLightHeight(z, true);
+delay(delaytime); 
+clearAll();
+}
+else{
+drawPoint(x, y);
+setLightHeight(z, true);
+delay(delaytime); 
+}
+}
+
+
+
+
+
 //メインループ
 void loop(){
  //成長してる茎を描く
@@ -271,18 +314,66 @@ int takasa[]={1,1,1,1,1};
       clearPlaneAll();
     }   
   }
-//続き茎の成長を抽象的に新規でテストのため
-setLightHeight(3, true);
-drawBox_var2(2, 2, 4, true);
-delay(500);
-clearAll();
-drawCircle(1, 4, 2, false);
-drawBox(4, 3, 4, false);
-delay(30);
-clearAll();
+//成長の表現 1 暫定です。実機テストが必要だと思うのでコピペで対応しています 
+//clearHeightAll()を使った方がいいのか(後で気づいた)、今のものは使えるのか？チェック待ち
+//澤井の完成予想: 光が横に流れていく
+setLightVolume(1); 
+setLightHeight(2, true);
+drawLine(0, 2, 4, 2);
+setLightVolume(2, false);
+setLightVolume(4, true);
+drawline(3,2,4,4);
+setLightVolume(4, true);
 setLightHeight(0, true);
-drawPoint(3, 1); 
-drawPoint(4, 2); 
-drawPoint(4,3);
+drawLine(1, 1, 3, 3);
+setLightVolume(0, false);
+setLightVolume(1, true);
+drawline(3,2,4,4);
+setLightHeight(2, true);
+drawLine(0, 2, 4, 2);
+setLightVolume(2, false);
+setLightVolume(4, true);
+drawline(3,2,4,4);
+setLightVolume(4, true);
+setLightHeight(0, true);
+drawLine(1, 1, 3, 3);
+setLightVolume(0, false);
+setLightVolume(1, true);
+drawline(3,2,4,4);
+
+//成長の表現part2
+setLightHeight(2, true);
+drawCircle(2, 2, 2, true);
+clearHeightAll()
+delay(5000);
+for(int i=0.04;i<1;i+=0.04)
+{
+ setLightVolume(i);
+ setLightHeight(2, true);
+ drawPoint(0,3);
+ drawPoint(3,3);
+ drawPoint(4,3);
+ drawPoint(3,3);
+ delay(50);
+ clearAll();
+}
+setLightHeight(4, true);
+drawCircle(4, 4, 3, true);
+//この辺の扱いが難しい
+//drawCircle(0,false);にするとどうなる？heightだと思うけど？？
+clearHeightAll();
+setLightHeight(0, true);
+drawCircle(0, 0, 4, true);
+delay(300);
+clearHeightAll();
+setLightHeight(2, true);
+drawCircle(3, 3, 2, true);
+delay(300);
+//これぐらいで,追加予定あり
+
+//part3 点をだんだん増やす作業
+setLightVolume(0.04);
+handler_sawai_part3()
+
 
 }
