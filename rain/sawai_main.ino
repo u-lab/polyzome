@@ -99,35 +99,41 @@ void drawBox(int x, int y, float radius, bool fillFg){
    /*
   ** 作成者 : 澤井
   ** 関数名 : test_drawBox_var2
-  ** 引数 : bool fillfg,int delaytime, int delaytime, bool delay_on  : boxの中を埋める(true),埋めない(false) delaytimeでdelay時間を入力、delay時間がいる場合(delay_on),いらない場合(false)
+  ** 引数 : bool fillfg   : boxの中を埋める(true),埋めない(false)
+            int delaytime : delaytimeでdelay時間を入力
+            int delaytime : delayの時間
+            bool delay_on : delay時間がいる場合(delay_on),いらない場合(false)
   ** 関数の機能 : あいはらさんの作ってくださった関数を一部改変し、drawBoxと違いboxが作られる過程を表示できるようにしています。
   */
 
 void test_drawBox_var2(int x, int y, float radius, bool fillFg, int delaytime, bool delay_on){
   float dist;
-  if(delay_on){
    //中を埋める場合
   if(fillFg){ 
     for(int i=x-radius/2; i<x+radius/2; i++){
       for(int j=y-radius/2; j<y+radius/2; j++){
           drawPoint(i, j);
-          delay(delaytime);
+         if(delay_on)
+         delay(delaytime);
       } 
     }
-  }else{
+  }
+  else{
   //中を埋めない場合
     for(int i=x-radius/2; i<x+radius/2; i++){
       drawPoint(i, y-radius/2);
       drawPoint(i, y+radius/2); 
+      if(delay_on)
       delay(delaytime);   
     }
     for(int i=y-radius/2; i<y+radius/2; i++){
       drawPoint(x-radius/2, i);
       drawPoint(y+radius/2, i); 
+      if(delay_on)
       delay(delaytime);   
     }
   }
-}
+
 
 }
 
@@ -258,7 +264,17 @@ void perform_uprain(){
     clearAll();
   }
 }
-//
+  /* 作成者 :澤井
+  ** 関数名 : handler_sawai_part3
+  ** 引数 : int x          :表示させる点のx座標
+            int y          :表示させる点のy座標
+            int z          :表示させる点のz座標
+            int delay_time :点灯させ続ける時間
+            bool All_clear :点の座標情報のクリア
+  ** 関数の機能 : 点の表示に特化した関数です。
+                 x,y,z座標を入力することで簡単に光る位置を設定できることができます。
+                **この関数は削除対象です。
+  */
 void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear){
    if(All_clear)
    {
