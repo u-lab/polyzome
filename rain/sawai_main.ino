@@ -114,7 +114,7 @@ void test_drawBox_var2(int x, int y, float radius, bool fillFg, int delaytime, b
       for(int j=y-radius/2; j<y+radius/2; j++){
           drawPoint(i, j);
          if(delay_on==true)
-         delay(delaytime);
+          delay(delaytime);
       } 
     }
   }
@@ -124,13 +124,13 @@ void test_drawBox_var2(int x, int y, float radius, bool fillFg, int delaytime, b
       drawPoint(i, y-radius/2);
       drawPoint(i, y+radius/2); 
       if(delay_on==true)
-      delay(delaytime);   
+        delay(delaytime);   
     }
     for(int i=y-radius/2; i<y+radius/2; i++){
       drawPoint(x-radius/2, i);
       drawPoint(y+radius/2, i); 
       if(delay_on==true)
-      delay(delaytime);   
+        delay(delaytime);   
     }
   }
 
