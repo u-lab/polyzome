@@ -103,6 +103,7 @@ void drawBox(int x, int y, float radius, bool fillFg){
             int delaytime : delaytimeでdelay時間を入力
             int delaytime : delayの時間
             bool delay_on : delay時間がいる場合(delay_on),いらない場合(false)
+            radius        : 半径
   ** 関数の機能 : あいはらさんの作ってくださった関数を一部改変し、drawBoxと違いboxが作られる過程を表示できるようにしています。
   */
 
@@ -196,9 +197,10 @@ void setLightHeight(int height, bool fg){
 //ex. 全部クリア：height=[0,0,0,0,0]
 //    全部点灯：height=[1,1,1,1,1]
 //　　１段目だけ点灯：height=[1,0,0,0]
+//height[i]に変更ひなた先輩チェックお願いします
 void setLightHeights(int *height){
   for(int i=0; i<5; i++){
-    dmx_master.setChannelValue(i+1, (height[0]==1) ?  MAX_LIGHT_VOLUME : 0);  
+    dmx_master.setChannelValue(i+1, (height[i]==1) ?  MAX_LIGHT_VOLUME : 0);  
   }
 }
 
@@ -416,6 +418,57 @@ int takasa[]={1,1,1,1,1};
       delay(50);
       clearPlaneAll();
     }   
+  }
+
+//発生の表現 
+//part.1
+setLightVolume(0.04);
+handler_sawai_part3(3,3,2,500,false);
+ //
+  for(int i=0.04;i<0.8;i+=0.04)
+    {
+    setLightVolume(i);
+    handler_sawai_part3(3,3,2,1000,false);
+    }  
+handler_sawai_part3(3,4,4,800,false);
+handler_sawai_part3(3,4,4,800,true);
+
+ //2つから4つに増える   for文内のdelayは実機みて判断 高さのand制限のためつくかは不明
+
+for(int i=0.08;i<1;i+=0.05){
+
+  takasa[]={0,1,0,1,0};
+  setLightHeights(takasa);
+  drawPoint(1,3);
+  drawPoint(1,2);
+  drawPoint(3,3);
+  drawPoint(1,1);
+
+  delay(350);
+
+}
+//光が4つの点を高速移動光る点は一つずつ 高さの制約が分かっていないのでうまくいっていたら点は増やす予定
+//無理なら別の案を考えるrightvolumeは入れるか考え中
+for(int i=0; i<10;i+=1)
+  {
+    handler_sawai_part3(1,3,2,300,true);
+    handler_sawai_part3(1,2,2,300,true);
+    handler_sawai_part3(3,3,2,300,true);
+    handler_sawai_part3(1,1,2,300,true);
+
+  }
+ //苦肉の策 
+setLightHeight(2,true);
+test_drawBox_var2(2, 2, 2, false, 300, true);
+
+setLightVolume(1);
+for(int i=0; i<10;i+=1)
+  {
+    handler_sawai_part3(1,3,2,300,true);
+    handler_sawai_part3(1,2,2,300,true);
+    handler_sawai_part3(3,3,2,300,true);
+    handler_sawai_part3(1,1,2,300,true);
+
   }
 
 }
