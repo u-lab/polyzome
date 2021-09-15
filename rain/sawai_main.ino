@@ -437,7 +437,7 @@ handler_sawai_part3(3,4,4,800,true);
 
 for(int i=0.08;i<1;i+=0.05){
 
-  takasa[]={0,1,0,1,0};
+  int takasa[]={0,1,0,1,0};
   setLightHeights(takasa);
   drawPoint(1,3);
   drawPoint(1,2);
