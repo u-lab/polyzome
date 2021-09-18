@@ -94,6 +94,49 @@ void drawBox(int x, int y, float radius, bool fillFg){
     }
   }
 }
+ 
+
+   /*
+  ** 作成者 : 澤井
+  ** 関数名 : test_drawBox_var2
+  ** 引数 : bool fillfg   : boxの中を埋める(true),埋めない(false)
+            int delaytime : delaytimeでdelay時間を入力
+            int delaytime : delayの時間
+            bool delay_on : delay時間がいる場合(delay_on),いらない場合(false)
+            radius        : 半径
+  ** 関数の機能 : あいはらさんの作ってくださった関数を一部改変し、drawBoxと違いboxが作られる過程を表示できるようにしています。
+  */
+
+void test_drawBox_var2(int x, int y, float radius, bool fillFg, int delaytime, bool delay_on){
+  float dist;
+   //中を埋める場合
+  if(fillFg){ 
+    for(int i=x-radius/2; i<x+radius/2; i++){
+      for(int j=y-radius/2; j<y+radius/2; j++){
+          drawPoint(i, j);
+         if(delay_on==true)
+          delay(delaytime);
+      } 
+    }
+  }
+  else{
+  //中を埋めない場合
+    for(int i=x-radius/2; i<x+radius/2; i++){
+      drawPoint(i, y-radius/2);
+      drawPoint(i, y+radius/2); 
+      if(delay_on==true)
+        delay(delaytime);   
+    }
+    for(int i=y-radius/2; i<y+radius/2; i++){
+      drawPoint(x-radius/2, i);
+      drawPoint(y+radius/2, i); 
+      if(delay_on==true)
+        delay(delaytime);   
+    }
+  }
+
+
+}
 
 //線の描画
 //sPosX:開始点X
@@ -154,9 +197,10 @@ void setLightHeight(int height, bool fg){
 //ex. 全部クリア：height=[0,0,0,0,0]
 //    全部点灯：height=[1,1,1,1,1]
 //　　１段目だけ点灯：height=[1,0,0,0]
+//height[i]に変更ひなた先輩チェックお願いします
 void setLightHeights(int *height){
   for(int i=0; i<5; i++){
-    dmx_master.setChannelValue(i+1, (height[0]==1) ?  MAX_LIGHT_VOLUME : 0);  
+    dmx_master.setChannelValue(i+1, (height[i]==1) ?  MAX_LIGHT_VOLUME : 0);  
   }
 }
 
@@ -222,15 +266,150 @@ void perform_uprain(){
     clearAll();
   }
 }
+  /* 作成者 :澤井
+  ** 関数名 : handler_sawai_part3
+  ** 引数 : int x          :表示させる点のx座標
+            int y          :表示させる点のy座標
+            int z          :表示させる点のz座標
+            int delay_time :点灯させ続ける時間
+            bool All_clear :点の座標情報のクリア
+  ** 関数の機能 : 点の表示に特化した関数です。
+                 x,y,z座標を入力することで簡単に光る位置を設定できることができます。
+                **この関数は削除対象です。
+  */
+void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear){
+   if(All_clear)
+   {
+   drawPoint(x, y);
+   setLightHeight(z, true);
+   delay(delay_time); 
+   clearAll();
+   }
+   else
+   {
+   drawPoint(x, y);
+   setLightHeight(z, true);
+   delay(delay_time); 
+   }
+}
+
+
+
+
 
 //メインループ
 void loop(){
+ 
+//成長の表現 1 暫定です。実機テストが必要だと思うのでコピペで対応しています 
+//clearHeightAll()を使った方がいいのか(後で気づいた)、今のものは使えるのか？チェック待ち
+//澤井の完成予想: 光が横に流れていく
+setLightVolume(1); 
+setLightHeight(2, true);
+drawLine(0, 2, 4, 2);
+setLightHeight(2, false);
+setLightHeight(4, true);
+drawLine(3,2,4,4);
+setLightHeight(4, true);
+setLightHeight(0, true);
+drawLine(1, 1, 3, 3);
+setLightHeight(0, false);
+setLightHeight(1, true);
+drawLine(3,2,4,4);
+setLightHeight(2, true);
+drawLine(0, 2, 4, 2);
+setLightHeight(2, false);
+setLightHeight(4, true);
+drawLine(3,2,4,4);
+setLightHeight(4, true);
+setLightHeight(0, true);
+drawLine(1, 1, 3, 3);
+setLightHeight(0, false);
+setLightHeight(1, true);
+drawLine(3,2,4,4);
+
+//成長の表現part2
+setLightHeight(2, true);
+drawCircle(2, 2, 2, true);
+clearHeightAll();
+delay(5000);
+for(int i=0.04;i<1;i+=0.04)
+{
+ setLightVolume(i);
+ setLightHeight(2, true);
+ drawPoint(0,3);
+ drawPoint(3,3);
+ drawPoint(4,3);
+ drawPoint(3,3);
+ delay(50);
+ clearAll();
+}
+setLightHeight(4, true);
+drawCircle(4, 4, 3, true);
+//この辺の扱いが難しい
+//drawCircle(0,false);にするとどうなる？heightだと思うけど？？
+clearHeightAll();
+setLightHeight(0, true);
+drawCircle(0, 0, 4, true);
+delay(300);
+clearHeightAll();
+setLightHeight(2, true);
+drawCircle(3, 3, 2, true);
+delay(300);
+//これぐらいで,追加予定あり
+
+//part3 点をだんだん増やす作業
+setLightVolume(0.04);
+handler_sawai_part3(2,2,2,300,true);
+
+handler_sawai_part3(3,4,2,300,true);
+
+handler_sawai_part3(0,0,4,400,false);
+handler_sawai_part3(0,4,4,300,true);
+//TEST 繰り返し構文で setLightVolume上げてぴかぴかさせる？(予定:現状後回し)別の段でしてあげるときれいかも
+
+handler_sawai_part3(1,2,0,400,false);
+handler_sawai_part3(3,3,0,200,false);
+handler_sawai_part3(0,1,0,400,true);
+
+handler_sawai_part3(2,3,3,400,false);
+handler_sawai_part3(2,4,3,200,false);
+handler_sawai_part3(0,3,3,400,false);
+handler_sawai_part3(0,4,3,400,false);
+handler_sawai_part3(1,0,3,300,true);
+
+
+handler_sawai_part3(2,0,1,400,false);
+handler_sawai_part3(4,1,1,200,false);
+handler_sawai_part3(3,1,1,400,false);
+handler_sawai_part3(3,0,1,400,false);
+handler_sawai_part3(1,2,1,200,false);
+handler_sawai_part3(3,4,1,400,false);
+handler_sawai_part3(1,2,1,200,false);
+handler_sawai_part3(3,4,1,300,true);
+
+
+handler_sawai_part3(0,3,4,400,false);
+handler_sawai_part3(2,4,4,200,false);
+handler_sawai_part3(0,3,4,400,false);
+handler_sawai_part3(0,4,4,400,false);
+handler_sawai_part3(1,0,4,300,false);
+handler_sawai_part3(2,0,4,400,false);
+handler_sawai_part3(4,1,4,200,false);
+handler_sawai_part3(3,1,4,400,false);
+handler_sawai_part3(3,0,4,400,false);
+handler_sawai_part3(1,2,4,200,false);
+handler_sawai_part3(3,4,4,400,false);
+handler_sawai_part3(1,2,4,200,false);
+handler_sawai_part3(3,4,4,300,true);
+
+
+//part4成長
  //成長してる茎を描く
+setLightVolume(0.04);
 int takasa[]={1,1,1,1,1};
  setLightHeights(takasa);
  
-  setLightVolume(1);
-  
+
   for(int i=0; i<5; i++){
     for(int j=0; j<5; j+=2){
       drawPoint(i,j);
@@ -240,17 +419,56 @@ int takasa[]={1,1,1,1,1};
       clearPlaneAll();
     }   
   }
-//続き茎の成長を抽象的に新規でテストのため
-setLightHeight(3, true);
-drawBox_var2(2, 2, 4, true);
-delay(500);
-clearAll();
-drawCircle(1, 4, 2, false);
-drawBox(4, 3, 4, false);
-delay(30);
-clearAll();
-setLightHeight(0, true);
-drawPoint(3, 1); 
-drawPoint(4, 2); 
-drawPoint(4,3);
+
+//発生の表現 
+//part.1
+setLightVolume(0.04);
+handler_sawai_part3(3,3,2,500,false);
+ //
+  for(int i=0.04;i<0.8;i+=0.04)
+    {
+    setLightVolume(i);
+    handler_sawai_part3(3,3,2,1000,false);
+    }  
+handler_sawai_part3(3,4,4,800,false);
+handler_sawai_part3(3,4,4,800,true);
+
+ //2つから4つに増える   for文内のdelayは実機みて判断 高さのand制限のためつくかは不明
+
+for(int i=0.08;i<1;i+=0.05){
+
+  int takasa[]={0,1,0,1,0};
+  setLightHeights(takasa);
+  drawPoint(1,3);
+  drawPoint(1,2);
+  drawPoint(3,3);
+  drawPoint(1,1);
+
+  delay(350);
+
+}
+//光が4つの点を高速移動光る点は一つずつ 高さの制約が分かっていないのでうまくいっていたら点は増やす予定
+//無理なら別の案を考えるrightvolumeは入れるか考え中
+for(int i=0; i<10;i+=1)
+  {
+    handler_sawai_part3(1,3,2,300,true);
+    handler_sawai_part3(1,2,2,300,true);
+    handler_sawai_part3(3,3,2,300,true);
+    handler_sawai_part3(1,1,2,300,true);
+
+  }
+ //苦肉の策 
+setLightHeight(2,true);
+test_drawBox_var2(2, 2, 2, false, 300, true);
+
+setLightVolume(1);
+for(int i=0; i<10;i+=1)
+  {
+    handler_sawai_part3(1,3,2,300,true);
+    handler_sawai_part3(1,2,2,300,true);
+    handler_sawai_part3(3,3,2,300,true);
+    handler_sawai_part3(1,1,2,300,true);
+
+  }
+
 }
