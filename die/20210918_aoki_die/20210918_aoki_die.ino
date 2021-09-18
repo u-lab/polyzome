@@ -110,6 +110,7 @@ void fromTopToBottomOut(int t, bool fg) {
 
 
 //メインループ
+//test
 void loop(){
 setLightVolume(1); 
 all(false);
