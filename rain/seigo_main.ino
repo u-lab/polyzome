@@ -52,10 +52,7 @@ void drawPoint(int x, int y){
 //x, y:中心
 //radius:半径
 //fillFg:円の内側を塗りつぶす場合(true), 塗りつぶさない場合(false)
-int x=2;
-int y=2;
-float radius=2;
-bool fillFg=true;
+
 void drawCircle(int x, int y, float radius, bool fillFg){
   float dist;
   //x, yを起点にして、radiusの範囲を走査して、半径の内側に入っているかを確認する
@@ -161,7 +158,6 @@ void setLightHeights(int *height){
 }
 
 //テスト1(1段目のライトを、個別に光らせる)
-/*
 void test1(){
   //ライトボリューム調整
   setLightVolume(1);
@@ -176,9 +172,7 @@ void test1(){
     }   
   }
 }
-*/
 
-/*
 //テスト2(平面は、順に光らせる。高さ方向は、ランダムでON/OFFを切り替える)
 void test2(){
   //ライトボリューム調整
@@ -200,7 +194,6 @@ void test2(){
     }   
   }
 }
-*/
 
 /*
 //上に上がっていく雨の表現を行う
@@ -229,26 +222,81 @@ void perform_uprain(){
 }
 */
 
-//メインループ
-void loop(){
-  /*上から下に消えていく表現
-  //高さ方向に全点灯
-  setLightVolume(1);
-  int heights[]={1,1,1,1,1};
-  setLightHeights(heights);
-  drawPoint(0,0);
-  //上から消灯
+//複数平面指定(検討中)
+void drawPlane(int plane[5][5]){
+  for(int i=0; i<5; i++){
+    for(int j=0; j<5; j++){
+      dmx_master.setChannelValue(5*(i+1)+j+1, plane[i][j]==1 ? MAX_LIGHT_VOLUME : 0);
+    }
+  }
+} 
+
+//死の表現1つ目
+void deathFirst(){
+  //上から一段づつ消す
   setLightVolume(0);
   for(int i=4; i>=0; i--){
-    setLightHeight(i, true);
-    delay(100);
+    setLightHeight(i, false);
+    clearPlaneAll();
+    delay(500);
   }
-  drawPoint(0, 0);*/
-  setLightVolume(1);
-  setLightHeight(3, true);
-  drawPoint(3, 3);
+  //上から一段づつ点ける
+  for(int i=4; i>0; i--){
+    setLightHeight(i, true);
+    //平面全点灯
+    for(int j=6; j<=30; j++){
+      dmx_master.setChannelValue(j, MAX_LIGHT_VOLUME);
+      delay(500);
+    }
+  }
+}
 
-  
+//死の表現2つ目
+void deathSecond(){
+  //柱がランダムで消えていく
+  setLightVolume(0);
+  clearHeightAll();
+  for(int i=0; i<25; i++){
+    dmx_master.setChannelValue(random(6,30), 0);
+    delay(500);
+  }
+  //全消灯
+  clearAll();
+  //柱がランダムで点いていく
+  setLightVolume(1);
+  int heights[5]={1,1,1,1,1};
+  setLightHeights(heights);
+  for(int i=0; i<25; i++){
+    dmx_master.setChannelValue(random(6,30), MAX_LIGHT_VOLUME);
+    delay(500);
+  }
+  //全点灯
+  for(int i=1; i<=30; i++){
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+  }
+
+
+}
+//メインループ
+void loop(){
+  //動作確認
+  //deathFirst();
+  //deathSecond();
+
+  /*
+  //全点灯
+  setLightVolume(1);
+  int heights[5]={1,1,1,1,1};
+  setLightHeights(heights);
+  int plane[5][5]={
+    {1,1,1,1,1},
+    {1,1,1,1,1},
+    {1,1,1,1,1},
+    {1,1,1,1,1},
+    {1,1,1,1,1}
+  };
+  drawPlane(plane);
+  */
 
 
 }
