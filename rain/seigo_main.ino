@@ -274,9 +274,45 @@ void deathSecond(){
   for(int i=1; i<=30; i++){
     dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
   }
-
-
 }
+
+//死の表現3つ目
+void deathThird(){
+  //外側から立方体が消えていく
+  setLightVolume(0);
+  //第一段階
+  int firstHeights[5]={0,1,1,1,0};
+  setLightHeights(firstHeights);
+  int firstPlane[5][5]={
+    {0,0,0,0,0},
+    {0,1,1,1,0},
+    {0,1,1,1,0},
+    {0,1,1,1,0},
+    {0,0,0,0,0}
+  };
+  drawPlane(firstPlane);
+  //第二段階
+  int secondHeights[5]={0,0,1,0,0};
+  setLightHeights(secondHeights);
+  int secondPlane[5][5]={
+    {0,0,0,0,0},
+    {0,0,0,0,0},
+    {0,0,1,0,0},
+    {0,0,0,0,0},
+    {0,0,0,0,0}
+  };
+  drawPlane(secondPlane);
+  //全消灯
+  clearAll();
+  //フェードインで全点灯
+  for(int i=0; i<=125; i++){
+    for(int j=1; j<=30; j++){
+      dmx_master.setChannelValue(j, i);
+    }
+    delay(100);
+  }
+}
+
 //メインループ
 void loop(){
   //動作確認
@@ -297,7 +333,7 @@ void loop(){
   };
   drawPlane(plane);
   */
-
+deathThird();
 
 }
 
