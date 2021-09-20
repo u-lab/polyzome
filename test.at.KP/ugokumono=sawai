@@ -1,0 +1,48 @@
+ここには澤井のKPで動かして動いたものをおいています
+改変の仕方がへたくそでうごかなかった事があったので
+
+while(int i=0<10){
+setLightVolume(1); 
+setLightHeight(2, true);
+drawLine(0, 2, 4, 2);
+setLightHeight(2, false);
+setLightHeight(4, true);
+drawLine(3,2,4,4);
+setLightHeight(4, true);
+setLightHeight(0, true);
+drawLine(1, 1, 3, 3);
+setLightHeight(0, false);
+  setLightVolume(0.05);
+setLightHeight(1, true);
+drawLine(3,2,4,4);
+setLightHeight(1,false);
+setLightHeight(2, true);
+drawLine(0, 2, 4, 2);
+setLightHeight(2, false);
+  setLightVolume(0.5);
+setLightHeight(4, true);
+drawLine(3,2,4,4);
+setLightHeight(4, false);
+  setLightVolume(0.05);
+setLightHeight(0, true);
+drawLine(1, 1, 3, 3);
+setLightHeight(0, false);
+  setLightVolume(1);
+setLightHeight(1, true);
+drawLine(3,2,4,4);
+i++;
+}
+
+
+かわいい光点灯
+for(float i=0.04;i<1;i+=0.01){
+
+  setLightHeight(2, true);
+  drawPoint(0,3,i);
+  drawPoint(3,3,i);
+  drawPoint(4,3,i);
+  drawPoint(3,3,i);
+
+  delay(50);
+ // clearAll();
+}
