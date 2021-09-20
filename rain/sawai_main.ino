@@ -417,5 +417,6 @@ int takasa[]={1,1,1,1,1};
       clearPlaneAll();
     }   
   }
+  
 
 }
