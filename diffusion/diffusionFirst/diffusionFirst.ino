@@ -62,6 +62,18 @@ void setLightHeight(int height, bool fg){
   dmx_master.setChannelValue(height+1, fg ? MAX_LIGHT_VOLUME : 0);  
 }
 
+//heights(0,0,0,0,0, true);：未着手
+//高さ方向のライトの点灯位置の指定(複数指定)←間違い
+//height:変更する高さ.要素が4つの配列で指定する
+//ex. 全部クリア：height=[0,0,0,0,0]
+//    全部点灯：height=[1,1,1,1,1]
+//　　１段目だけ点灯：height=[1,0,0,0]
+void heights(int *height) {
+  for (int i = 0; i < 5; i++) {
+    dmx_master.setChannelValue(i + 1, (height[0] == 1) ?  MAX_LIGHT_VOLUME : 0);
+  }
+}
+
 //all(true);(つける)
 //全部
 //fg: ONの場合(true), OFFの場合(false)
@@ -87,25 +99,34 @@ void heightAll(bool fg) {
   }
 }
 
-void fromTopToBottomOut(int t, bool fg) {
-  for (int z = 4; z >= 0; z--) {
-    height(z, false);
-    delay(t);
-    height(z, fg ? true : false);
-    delay(t);
+//planeCircle(2,2,2,true);:未完
+//円の描画
+//x, y:中心
+//radius:半径
+//fillFg:円の内側を塗りつぶす場合(true), 塗りつぶさない場合(false)
+void planeCircle(int x, int y, float radius, bool fillFg) {
+  float dist;
+  //x, yを起点にして、radiusの範囲を走査して、半径の内側に入っているかを確認する
+  for (int i = x - radius / 2; i < x + radius / 2; i++) {
+    for (int j = y - radius / 2; j < y + radius / 2; j++) {
+      dist = (i - x) * (i - x) + (i - y) * (i - y);
+      if (dist <= radius * radius) {
+        planePoint(0, 0, true);
+      }
+    }
   }
-  heightAll(false);
 }
+
   /* 作成者 :青木
-  ** 関数名 : handler_sawai_part3
+  ** 関数名 :diffusionFirst
   ** 引数 : int x          :表示させる点のx座標
             int y          :表示させる点のy座標
             int z          :表示させる点のz座標
             int delay_time :点灯させ続ける時間
             bool All_clear :点の座標情報のクリア
-  ** 関数の機能 : 点の表示に特化した関数です。
-                 x,y,z座標を入力することで簡単に光る位置を設定できることができます。
-                **この関数は削除対象です。
+  ** 関数の機能 :*中心から外へ円柱(疎)が拡大する
+  * //aaaa
+  　　　　　　　　*
   */
 
 
@@ -114,7 +135,6 @@ void fromTopToBottomOut(int t, bool fg) {
 void loop(){
 setLightVolume(1); 
 all(false);
+planeCircle(2,2,0,false);
 delay(600);
-fromTopToBottomOut(300,false);
-
 }
