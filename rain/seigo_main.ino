@@ -150,7 +150,7 @@ void setLightHeight(int height, bool fg){
 //height:変更する高さ.要素が4つの配列で指定する
 //ex. 全部クリア：height=[0,0,0,0,0]
 //    全部点灯：height=[1,1,1,1,1]
-//    １段目だけ点灯：height=[1,0,0,0]
+//    １段目だけ点灯：height=[1,0,0,0,0]
 void setLightHeights(int *height){
   for(int i=0; i<5; i++){
     dmx_master.setChannelValue(i+1, (height[0]==1) ?  MAX_LIGHT_VOLUME : 0);  
@@ -222,46 +222,58 @@ void perform_uprain(){
 }
 */
 
-//複数平面指定(検討中)
-void drawPlane(int plane[5][5]){
+//点の描画(複数同時)
+//float pos: 各位置の光の強さが入った二次元配列([[0, 0, 0, 0, 0]〜[0, 0, 0, 0, 0])
+//int lightFg: 1:点灯、0:消灯
+void drawPoints(float lightVol[][5]){
   for(int i=0; i<5; i++){
     for(int j=0; j<5; j++){
-      dmx_master.setChannelValue(5*(i+1)+j+1, plane[i][j]==1 ? MAX_LIGHT_VOLUME : 0);
+      int ch = 6+i+5*j;
+      int val = 0;
+  
+      if(lightVol[i][j] > 0){
+        val = int(lightVol[i][j]*MAX_LIGHT_VOLUME);
+      }else{
+        val = 0;
+      }
+      Serial.println(BUF);
+      dmx_master.setChannelValue(ch, val);
     }
   }
-} 
+}
+
+//全点灯
+void allLighting (){
+  int heights[5]={1,1,1,1,1};
+  setLightHeights(heights);
+  float plane[][5]={
+      {1,1,1,1,1},
+      {1,1,1,1,1},
+      {1,1,1,1,1},
+      {1,1,1,1,1},
+      {1,1,1,1,1}
+    };
+  drawPoints(plane);
+}
 
 //死の表現1つ目
 void deathFirst(){
   //上から一段づつ消す
-  setLightVolume(0);
   for(int i=4; i>=0; i--){
     setLightHeight(i, false);
-    clearPlaneAll();
     delay(500);
   }
   //上から一段づつ点ける
   for(int i=4; i>0; i--){
     setLightHeight(i, true);
-    //平面全点灯
-    for(int j=6; j<=30; j++){
-      dmx_master.setChannelValue(j, MAX_LIGHT_VOLUME);
-      delay(500);
-    }
+    delay(500);
   }
 }
 
 //死の表現2つ目
 void deathSecond(){
   //柱がランダムで消えていく
-  setLightVolume(0);
   clearHeightAll();
-  for(int i=0; i<25; i++){
-    dmx_master.setChannelValue(random(6,30), 0);
-    delay(500);
-  }
-  //全消灯
-  clearAll();
   //柱がランダムで点いていく
   setLightVolume(1);
   int heights[5]={1,1,1,1,1};
@@ -283,25 +295,25 @@ void deathThird(){
   //第一段階
   int firstHeights[5]={0,1,1,1,0};
   setLightHeights(firstHeights);
-  int firstPlane[5][5]={
+  float firstPlane[][5]={
     {0,0,0,0,0},
     {0,1,1,1,0},
     {0,1,1,1,0},
     {0,1,1,1,0},
     {0,0,0,0,0}
   };
-  drawPlane(firstPlane);
+  drawPoints(firstPlane);
   //第二段階
   int secondHeights[5]={0,0,1,0,0};
   setLightHeights(secondHeights);
-  int secondPlane[5][5]={
+  float secondPlane[][5]={
     {0,0,0,0,0},
     {0,0,0,0,0},
     {0,0,1,0,0},
     {0,0,0,0,0},
     {0,0,0,0,0}
   };
-  drawPlane(secondPlane);
+  drawPoints(secondPlane);
   //全消灯
   clearAll();
   //フェードインで全点灯
@@ -313,27 +325,54 @@ void deathThird(){
   }
 }
 
-//メインループ
-void loop(){
-  //動作確認
-  //deathFirst();
-  //deathSecond();
-
-  /*
-  //全点灯
-  setLightVolume(1);
+//分解の表現3つ目
+void diffusionThird(){
   int heights[5]={1,1,1,1,1};
   setLightHeights(heights);
-  int plane[5][5]={
-    {1,1,1,1,1},
-    {1,1,1,1,1},
-    {1,1,1,1,1},
-    {1,1,1,1,1},
-    {1,1,1,1,1}
-  };
-  drawPlane(plane);
-  */
-deathThird();
+  for(float i=0; i<=1; i+=0.01){
+    float plane[][5]={
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i}
+    };
+    drawPoints(plane);
+    delay(10);
+  }
 
+}
+
+//分解の表現4つ目（検討中）
+void diffusionFourth(){
+  
+}
+//メインループ
+void loop(){
+
+  //動作確認
+  //allLighting();
+  //deathFirst();
+  //deathSecond();
+  //deathThird();
+
+  /*
+  //フェードインで全点灯
+  int heights[5]={1,1,1,1,1};
+  setLightHeights(heights);
+  for(float i=0; i<=1; i+=0.01){
+    float plane[][5]={
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i}
+    };
+    drawPoints(plane);
+    delay(10);
+  }
+  */
+
+ //clearAll();
 }
 
