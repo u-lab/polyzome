@@ -51,7 +51,7 @@ void loop()
   //test_drawPoint(); //test OK
   //test_drawPoints(); //test OK
   //test_drawCircle();  //test OK
-  test_drawBox();
+  //test_drawBox();   //test OK
 
   /*
   setLightVolume(0.1);
