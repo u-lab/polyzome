@@ -18,6 +18,8 @@ float gLightVolume = 0;
 
 //初期設定
 void setup() {
+  Serial.println("set up start");
+   
   //DMXの初期化
   dmx_master.enable ();
   dmx_master.setChannelRange ( 1, DMX_MASTER_CHANNELS, MAX_LIGHT_VOLUME);
@@ -25,69 +27,6 @@ void setup() {
   //シリアル通信の初期化
   Serial.begin(9600);
   clearAll();
-}
-
-//テスト1(1段目のライトを、個別に光らせる)
-void test1(){
-  //ライトボリューム調整
-  setLightVolume(1);
-  //光らせる高さの指定
-  setLightHeight(0, true);
-  
-  for(int i=0; i<5; i++){
-    for(int j=0; j<5; j++){
-      drawPoint(i,j);
-      delay(100);
-      clearPlaneAll();
-    }   
-  }
-}
-
-//テスト2(平面は、順に光らせる。高さ方向は、ランダムでON/OFFを切り替える)
-void test2(){
-  //ライトボリューム調整
-  setLightVolume(1);
-  
-  for(int i=0; i<5; i++){
-    for(int j=0; j<5; j++){
-      //光らせる高さの指定
-      setLightHeight(0, random(0,2)==1 ? true : false);
-      setLightHeight(1, random(0,2)==1 ? true : false);
-      setLightHeight(2, random(0,2)==1 ? true : false);
-      setLightHeight(3, random(0,2)==1 ? true : false);
-      setLightHeight(4, random(0,2)==1 ? true : false);
-
-      //点で描画する
-      drawPoint(i,j);
-      delay(100);
-      clearPlaneAll();
-    }   
-  }
-}
-
-//上に上がっていく雨の表現を行う
-//起点を複数指定できる。
-//場所に応じて平面の光の大きさを変えることができる。
-//関数で一つの光が上に上がっていくまでとする
-void perform_uprain(){
-  //起点の場所を決める
-  int vpos[2] = {2,2};
-  int hpos = 0; //hposは、0〜4
-
-  //光の高さをを変えていく
-  for(int i=0; i<5; i++){
-    //場所に応じて、光の大きさを変える.未対応
-
-    sprintf(BUF, "height %d", i);
-    Serial.println(BUF);
-    setLightHeight(i, true);
-
-    
-    setLightVolume(1);
-    drawCircle(vpos[0], vpos[1], 1, true);
-    delay(100);
-    clearAll();
-  }
 }
 
 /*
@@ -107,7 +46,13 @@ void perform_uprain(){
 //メインループ
 void loop()
 { 
-  sawai_proc();
+  //sawai_proc();
+
+  //test_drawPoint(); //test OK
+  //test_drawPoints(); //test OK
+  //test_drawCircle();  //test OK
+  test_drawBox();
+
   /*
   setLightVolume(0.1);
   //実行するものに対して、コメントを外す。そのうち、シリアル経由でパソコンから切り替えられるようにする。
@@ -117,6 +62,6 @@ void loop()
 setLightHeight(1, true);delay(500);
 setLightHeight(1, false);delay(500);
 clearAll();
- }
- */
+ }*/
+ 
 }
