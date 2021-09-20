@@ -278,22 +278,68 @@ void perform_uprain(){
                 **この関数は削除対象です。
   */
 void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear){
-   if(All_clear)
-   {
-   drawPoint(x, y);
-   setLightHeight(z, true);
-   delay(delay_time); 
-   clearAll();
+   if(All_clear){
+    drawPoint(x, y);
+    setLightHeight(z, true);
+    delay(delay_time); 
+    clearAll();
    }
-   else
-   {
-   drawPoint(x, y);
-   setLightHeight(z, true);
-   delay(delay_time); 
+   
+   else{
+    drawPoint(x, y);
+    setLightHeight(z, true);
+    delay(delay_time); 
+   }
+}
+  /* 作成者 :澤井
+  ** 関数名 : handler_sawai_part4
+  ** 引数 : int x          :表示させる点のx座標
+            int y          :表示させる点のy座標
+            int z          :表示させる点のz座標
+            int delay_time :点灯させ続ける時間
+            bool All_clear :点の座標情報のクリア
+            float lightVol :光の光量を調節
+  ** 関数の機能 : 点の表示に特化した関数です。
+                 新規：あいはらさんの新規で作ってくださった関数を中に組み込んでいます
+                 x,y,z座標を入力することで簡単に光る位置を設定できることができます。
+                **この関数は削除対象です。
+  */
+void handler_sawai_part4(int x,int y, int z, int delay_time , bool All_clear,float lightVol){
+   if(All_clear){
+    drawPoint(x, y,lightVol);
+    setLightHeight(z, true);
+    delay(delay_time); 
+    clearAll();
+   }
+   
+   else{
+    drawPoint(x, y,lightVol);
+    setLightHeight(z, true);
+    delay(delay_time); 
    }
 }
 
 
+//点の描画
+//x,y:描画する位置(0〜4)
+//lightVol: 光の強度(0〜1)
+void drawPoint(int x, int y, float lightVol){
+  if(x<0 || 4<x || y<0 || 4<y){
+    sprintf(BUF, "Input value is out of range %d %d", x, y);
+    Serial.println(BUF);
+  }
+
+  int ch = 6+x+5*y;
+  int val=0;
+  if(lightVol > 0){
+    val = int(lightVol*MAX_LIGHT_VOLUME);
+  }else{
+    val = 0;
+  }
+  sprintf(BUF, "drawPoint x[%d] y[%d] ch[%d] val[%d]", x, y, ch, val);
+  Serial.println(BUF);
+  dmx_master.setChannelValue(ch, val);
+}
 
 
 
@@ -303,7 +349,10 @@ void loop(){
 //成長の表現 1 暫定です。実機テストが必要だと思うのでコピペで対応しています 
 //clearHeightAll()を使った方がいいのか(後で気づいた)、今のものは使えるのか？チェック待ち
 //澤井の完成予想: 光が横に流れていく
-/*setLightVolume(1); 
+/*
+int i=0;
+while( i<3){
+setLightVolume(0.02); 
 setLightHeight(2, true);
 drawLine(0, 2, 4, 2);
 setLightHeight(2, false);
@@ -313,46 +362,58 @@ setLightHeight(4, true);
 setLightHeight(0, true);
 drawLine(1, 1, 3, 3);
 setLightHeight(0, false);
+  setLightVolume(0.05);
 setLightHeight(1, true);
 drawLine(3,2,4,4);
+setLightHeight(1,false);
 setLightHeight(2, true);
 drawLine(0, 2, 4, 2);
 setLightHeight(2, false);
+  setLightVolume(0.5);
 setLightHeight(4, true);
 drawLine(3,2,4,4);
-setLightHeight(4, true);
+setLightHeight(4, false);
+  setLightVolume(0.05);
 setLightHeight(0, true);
 drawLine(1, 1, 3, 3);
 setLightHeight(0, false);
+  setLightVolume(1);
 setLightHeight(1, true);
 drawLine(3,2,4,4);
-
+i++;
+}
+*/
 //成長の表現part2
+/*
 setLightVolume(0.04);
-int takasa[]={0,1,1,1,0};
+int takasa[]={0,0,1,0,1};
  setLightHeights(takasa);
 //setLightHeight(2, true);
 drawCircle(2, 2, 2, true);
 delay(100);
 //clearHeightAll();
+*/
 
 
+/*
 //ここ怪しい
-for(int i=0.04;i<1;i+=0.4)
-{
- setLightVolume(i);
- setLightHeight(2, true);
- drawPoint(0,3);
- drawPoint(3,3);
- drawPoint(4,3);
- drawPoint(3,3);
- sprintf(BUF, " %d", i);
-      Serial.println(BUF);
- delay(500);
- clearAll();
-}
-//int takasaを入れたので注意してください
+//変更済みあいはらさんのdrawpointを採用して光量調節をします
+for(float i=0.04;i<1;i+=0.01){
 
+  setLightHeight(4, true);
+  drawPoint(0,3,i);
+  drawPoint(3,3,i);
+  drawPoint(4,3,i);
+  drawPoint(3,3,i);
+
+  delay(50);
+ // clearAll();
+}
+clearAll();
+*/
+//int takasaを入れたので注意してください
+// drawcircleは調整中とのことで、いったん保留中
+/*
 int takasa2[] ={0,0,1,1,1};
  setLightHeights(takasa2);
 //setLightHeight(4, true);
@@ -376,50 +437,57 @@ delay(300);
 
 //part3 点をだんだん増やす作業
 setLightVolume(0.04);
-/*handler_sawai_part3(2,2,2,300,true);
 
+for(float i=0.03;i<=1;i+=0.01){
+  handler_sawai_part4(2,2,2,10,false,i);
+}
+delay(100);
+
+//handler_sawai_part4(3,4,4,800,true,0.04);
+
+//handler_sawai_part4(2,4,4,500,true,0.02);
+handler_sawai_part4(1,3,3,500,true,0.05);
+//handler_sawai_part3(1,4,4,300,true);
+//TEST 繰り返し構文で setLightVolume上げてぴかぴかさせる？(予定:現状後回し)別の段でしてあげるときれいかも
+/*
+handler_sawai_part3(1,2,3,200,true);
+handler_sawai_part3(3,3,2,50,true);
+handler_sawai_part3(0,1,4,100,true);
+
+handler_sawai_part3(2,3,4,100,true);
+handler_sawai_part3(2,4,3,200,true);
+handler_sawai_part3(0,3,0,50,true);
+handler_sawai_part3(0,4,3,100,true);
+handler_sawai_part3(1,0,2,150,true);
+
+
+handler_sawai_part3(2,0,2,100,true);
+handler_sawai_part3(4,1,4,200,true);
+handler_sawai_part3(3,1,1,100,true);
+handler_sawai_part3(3,0,0,50,true);
+handler_sawai_part3(1,2,0,100,true);
+handler_sawai_part3(3,4,1,350,true);
+handler_sawai_part3(1,2,3,200,true);
 handler_sawai_part3(3,4,2,300,true);
 
-handler_sawai_part3(0,0,4,400,false);
-handler_sawai_part3(0,4,4,300,true);
-//TEST 繰り返し構文で setLightVolume上げてぴかぴかさせる？(予定:現状後回し)別の段でしてあげるときれいかも
+delay(500);
+//trueにして全部を高速点灯させることにする  本来は高さ指定の制限のために同じ高さにしていたがこっちの方が奇麗に見えるくねえ？？ってことで変更
 
-handler_sawai_part3(1,2,3,400,true);
-handler_sawai_part3(3,3,2,200,true);
-handler_sawai_part3(0,1,4,400,true);
-
-handler_sawai_part3(2,3,3,400,false);
-handler_sawai_part3(2,4,3,200,false);
-handler_sawai_part3(0,3,3,400,false);
-handler_sawai_part3(0,4,3,400,false);
-handler_sawai_part3(1,0,3,300,true);
-
-
-handler_sawai_part3(2,0,1,400,false);
-handler_sawai_part3(4,1,1,200,false);
-handler_sawai_part3(3,1,1,400,false);
-handler_sawai_part3(3,0,1,400,false);
-handler_sawai_part3(1,2,1,200,false);
-handler_sawai_part3(3,4,1,400,false);
-handler_sawai_part3(1,2,1,200,false);
-handler_sawai_part3(3,4,1,300,true);
-
-
-handler_sawai_part3(0,3,4,400,false);
-handler_sawai_part3(2,4,4,200,false);
-handler_sawai_part3(0,3,4,400,false);
-handler_sawai_part3(0,4,4,400,false);
-handler_sawai_part3(1,0,4,300,false);
-handler_sawai_part3(2,0,4,400,false);
-handler_sawai_part3(4,1,4,200,false);
-handler_sawai_part3(3,1,4,400,false);
-handler_sawai_part3(3,0,4,400,false);
-handler_sawai_part3(1,2,4,200,false);
-handler_sawai_part3(3,4,4,400,false);
-handler_sawai_part3(1,2,4,200,false);
+handler_sawai_part3(0,3,4,300,true);
+handler_sawai_part3(2,4,4,200,true);
+handler_sawai_part3(0,3,4,400,true);
+handler_sawai_part3(0,4,4,200,true);
+handler_sawai_part3(1,0,4,300,true);
+handler_sawai_part3(2,0,4,400,true);
+handler_sawai_part3(4,1,4,200,true);
+handler_sawai_part3(3,1,4,400,true);
+handler_sawai_part3(3,0,4,500,true);
+handler_sawai_part3(1,2,4,200,true);
+handler_sawai_part3(3,4,4,400,true);
+handler_sawai_part3(1,2,4,200,true);
 handler_sawai_part3(3,4,4,300,true);
-
-
+*/
+/*
 //part4成長
  //成長してる茎を描く
 setLightVolume(0.04);
@@ -476,6 +544,7 @@ for(int i=0.08;i<1;i+=0.05){
 /*
 for(int i=0; i<10;i+=1)
   {
+    setlii
     handler_sawai_part3(1,3,2,300,true);
     handler_sawai_part3(1,2,2,300,true);
     handler_sawai_part3(3,3,2,300,true);
@@ -489,15 +558,15 @@ for(int i=0; i<10;i+=1)
 int takasa4[]={0,1,1,1,0};
 setLightHeights(takasa4);
 test_drawBox_var2(2, 2, 2, false, 300, true);
-*/
+
 setLightVolume(1);
 for(int i=0; i<10;i+=1)
   {
-    handler_sawai_part3(1,3,4,300,true);
-    handler_sawai_part3(1,2,4,300,true);
-    handler_sawai_part3(3,3,4,300,true);
-    handler_sawai_part3(1,1,4,300,true);
+    handler_sawai_part3(1,3,4,300,true);    
+    handler_sawai_part3(1,2,4,300,true);  
+    handler_sawai_part3(3,3,4,300,true);  
+    handler_sawai_part3(1,1,4,300,true);    
 
   }
-
+*/
 }
