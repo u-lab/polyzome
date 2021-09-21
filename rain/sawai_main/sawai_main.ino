@@ -342,6 +342,26 @@ void drawPoint(int x, int y, float lightVol){
 }
 
 
+//点の描画(複数同時)
+//float pos: 各位置の光の強さが入った二次元配列([[0, 0, 0, 0, 0]〜[0, 0, 0, 0, 0])
+//int lightFg: 1:点灯、0:消灯
+void drawPoints(float lightVol[][5]){
+  for(int i=0; i<5; i++){
+    for(int j=0; j<5; j++){
+      int ch = 6+i+5*j;
+      int val = 0;
+  
+      if(lightVol[i][j] > 0){
+        val = int(lightVol[i][j]*MAX_LIGHT_VOLUME);
+      }else{
+        val = 0;
+      }
+      Serial.println(BUF);
+      dmx_master.setChannelValue(ch, val);
+    }
+  }
+}
+
 
 //メインループ
 void loop(){
@@ -489,6 +509,20 @@ handler_sawai_part3(3,4,4,300,true,0.1);
 
 delay(500);
 
+float lights={
+          {0,0,1,0,0}
+          {0,1,0,1,0}
+          {1,0,0,0,1}  
+          {0,1,0,1,0}
+          {0,0,1,0,0}
+};
+
+for(int i=0;i<5;i++){
+  setLightHeight(i,true);
+  drawPoints(lights);
+}
+
+
 handler_sawai_part3(0,3,2,300,true,1);
 handler_sawai_part3(2,4,4,200,true,1);
 handler_sawai_part3(0,3,4,400,true,1);
@@ -511,7 +545,12 @@ handler_sawai_part3(3,4,1,350,true,1);
 handler_sawai_part3(1,2,3,200,true,0.2);
 handler_sawai_part3(3,4,2,300,true,1);
 
-
+for(float i=0.04;i<=1;i+=0.1){
+  handler_sawai_part3(1,2,0,100,false,i);
+  handler_sawai_part3(3,4,1,350,false,i);
+  handler_sawai_part3(1,2,3,200,false,i);
+  handler_sawai_part3(3,4,2,300,false,i);
+}
 /*
 //part4成長
  //成長してる茎を描く
@@ -535,14 +574,15 @@ int takasa[]={1,1,1,1,1};
 
 //発生の表現 
 //part.1
-/*
+
 setLightVolume(0.04);
 handler_sawai_part3(3,3,2,500,true);
  
-  for(int i=0.04;i<0.8;i+=0.04)
+  for(float i=0.04;i<0.8;i+=0.04)
     {
    // setLightVolume(i);
     handler_sawai_part3(3,3,2,100,false);
+    delay(200);
     }  
 //for文で光強度の設定がうまくできない    
 handler_sawai_part3(3,4,4,800,false);
@@ -562,22 +602,27 @@ for(int i=0.08;i<1;i+=0.05){
   delay(350+i);
   //見ててつまらん
 }
-*/
+
 
 //光が4つの点を高速移動光る点は一つずつ 高さの制約が分かっていないのでうまくいっていたら点は増やす予定
 //無理なら別の案を考えるrightvolumeは入れるか考え中
 /*
-for(int i=0; i<10;i+=1)
-  {
-    setlii
-    handler_sawai_part3(1,3,2,300,true);
-    handler_sawai_part3(1,2,2,300,true);
-    handler_sawai_part3(3,3,2,300,true);
-    handler_sawai_part3(1,1,2,300,true);
 
-  }
-  clearAll();
-  
+float lights_2={
+          {0,0,0,0,0}
+          {0,i,0,i,0}
+          {0,0,0,0,0}  
+          {0,i,0,i,0}
+          {0,0,0,0,0}
+};
+for(float i=0.04;i<=1;i+=0.1){
+  setLightHeight(2,true);
+  drawPoints(lights_2);
+}
+
+
+
+
  //苦肉の策 
 //setLightHeight(2,true);
 int takasa4[]={0,1,1,1,0};
