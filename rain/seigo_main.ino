@@ -195,32 +195,6 @@ void test2(){
   }
 }
 
-/*
-//上に上がっていく雨の表現を行う
-//起点を複数指定できる。
-//場所に応じて平面の光の大きさを変えることができる。
-//関数で一つの光が上に上がっていくまでとする
-void perform_uprain(){
-  //起点の場所を決める
-  int vpos[2] = {2,2};
-  int hpos = 0; //hposは、0〜4
-
-  //光の高さをを変えていく
-  for(int i=0; i<5; i++){
-    //場所に応じて、光の大きさを変える.未対応
-
-    sprintf(BUF, "height %d", i);
-    Serial.println(BUF);
-    setLightHeight(i, true);
-
-    
-    setLightVolume(1);
-    drawCircle(vpos[0], vpos[1], 1, true);
-    delay(100);
-    clearAll();
-  }
-}
-*/
 
 //点の描画(複数同時)
 //float pos: 各位置の光の強さが入った二次元配列([[0, 0, 0, 0, 0]〜[0, 0, 0, 0, 0])
@@ -355,10 +329,6 @@ void diffusionThird(){
   }
 }
 
-//分解の表現4つ目（検討中）
-void diffusionFourth(){
-  
-}
 //メインループ
 void loop(){
   //動作確認
