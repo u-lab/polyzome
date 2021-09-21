@@ -288,27 +288,25 @@ void deathFirst(){
 }
 
 //死の表現2つ目
+//柱がランダムに消えていく
 void deathSecond(){
-  //柱がランダムで消えていく
-  clearHeightAll();
-  //柱がランダムで点いていく
-  setLightVolume(1);
-  int heights[5]={1,1,1,1,1};
-  setLightHeights(heights);
+  int downNumbers[25]={25,16,11,15,28,30,20,14,23,22,26,24,9,12,21,27,7,18,13,8,10,19,17,29,6};
+  int time=200;
   for(int i=0; i<25; i++){
-    dmx_master.setChannelValue(random(6,30), MAX_LIGHT_VOLUME);
-    delay(500);
+    dmx_master.setChannelValue(downNumbers[i], 0);
+    delay(time);
   }
-  //全点灯
-  for(int i=1; i<=30; i++){
-    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+  //柱がランダムについていく
+  int upNumbers[25]={12,16,7,20,30,27,6,22,13,17,18,11,10,9,25,15,8,26,24,19,14,21,23,28,29};
+  for(int i=0; i<25; i++){
+    dmx_master.setChannelValue(upNumbers[i], MAX_LIGHT_VOLUME);
+    delay(time);
   }
 }
 
 //死の表現3つ目
 void deathThird(){
   //外側から立方体が消えていく
-  setLightVolume(0);
   //第一段階
   int firstHeights[5]={0,1,1,1,0};
   setLightHeights(firstHeights);
@@ -320,6 +318,7 @@ void deathThird(){
     {0,0,0,0,0}
   };
   drawPoints(firstPlane);
+  delay(1000);
   //第二段階
   int secondHeights[5]={0,0,1,0,0};
   setLightHeights(secondHeights);
@@ -331,18 +330,15 @@ void deathThird(){
     {0,0,0,0,0}
   };
   drawPoints(secondPlane);
+  delay(1000);
   //全消灯
   clearAll();
   //フェードインで全点灯
-  for(int i=0; i<=125; i++){
-    for(int j=1; j<=30; j++){
-      dmx_master.setChannelValue(j, i);
-    }
-    delay(100);
-  }
+  fadeIn();
 }
 
 //分解の表現3つ目
+//全てのライトがフェードアウト
 void diffusionThird(){
   int heights[5]={1,1,1,1,1};
   setLightHeights(heights);
