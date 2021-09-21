@@ -18,6 +18,10 @@ void drawPoint(int x, int y, float lightVol){
   if(x<0 || 4<x || y<0 || 4<y){
     sprintf(BUF, "Input value is out of range %d %d", x, y);
     Serial.println(BUF);
+    if(x<0) x=0;
+    if(x>4) x=4;
+    if(y<0) y=0;
+    if(y>4) y=4;
   }
 
   int ch = 6+x+5*y;
@@ -77,15 +81,37 @@ void drawCircle(int x, int y, float radius, bool fillFg){
 // float lightVol 光の強度
 void drawCircle(int x, int y, float radius, bool fillFg, float lightVol){
   float dist;
+  char buf[10];
+ 
   //x, yを起点にして、radiusの範囲を走査して、半径の内側に入っているかを確認する
-  for(int i=x-radius/2; i<x+radius/2; i++){
-    for(int j=y-radius/2; j<y+radius/2; j++){
-      dist = (i-x)*(i-x)+(i-y)*(i-y);
-      if(dist <= radius*radius){
+  for(int i=x-radius; i<=x+radius; i++){
+    for(int j=y-radius; j<=y+radius; j++){
+      dist = pow(i-x, 2)+pow(j-y, 2);
+      
+      /*debug
+      dtostrf(radius,10,3,buf);  
+      sprintf(BUF, "drawCircle1 %d %d %d %d %s", x, y, i, j, buf);
+      Serial.print(BUF);
+      dtostrf(dist,10,3,buf);  
+      sprintf(BUF, " %s", buf);
+      Serial.println(BUF);
+      */ 
+      //全部埋める場合には、距離で判定する。
+      if(fillFg && dist <= radius*radius){
+        drawPoint(i, j, lightVol);
+      }
+      
+      //全部埋ない場合には、ある範囲の距離で判定する。
+      if(!fillFg && dist <= radius*radius && radius>0 &&  pow(radius-1, 2)+pow(radius-1, 2) <= dist ){
         drawPoint(i, j, lightVol);
       }
     } 
   }
+
+  //中を塗らない場合には、半径を一つ小さくしたものを消す
+  //if(fillFg == false && radius>0){
+  //  drawCircle(x, y, radius-1, true, 0);
+  //}
 }
 
 //四角の描画
@@ -105,20 +131,20 @@ void drawBox(int x, int y, float radius, bool fillFg, float lightVol){
   float dist;
   //中を埋める場合
   if(fillFg){ 
-    for(int i=x-radius/2; i<x+radius/2; i++){
-      for(int j=y-radius/2; j<y+radius/2; j++){
+    for(int i=x-radius; i<=x+radius; i++){
+      for(int j=y-radius; j<=y+radius; j++){
           drawPoint(i, j, lightVol);
       } 
     }
   }else{
   //中を埋めない場合
-    for(int i=x-radius/2; i<x+radius/2; i++){
-      drawPoint(i, y-radius/2, lightVol);
-      drawPoint(i, y+radius/2, lightVol);      
+    for(int i=x-radius; i<=x+radius; i++){
+      drawPoint(i, y-radius, lightVol);
+      drawPoint(i, y+radius, lightVol);      
     }
-    for(int i=y-radius/2; i<y+radius/2; i++){
-      drawPoint(x-radius/2, i, lightVol);
-      drawPoint(y+radius/2, i, lightVol);      
+    for(int i=y-radius; i<=y+radius; i++){
+      drawPoint(x-radius, i, lightVol);
+      drawPoint(x+radius, i, lightVol);      
     }
   }
 }
