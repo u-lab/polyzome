@@ -256,6 +256,23 @@ void allLighting (){
   drawPoints(plane);
 }
 
+//フェードインで全点灯
+void fadeIn (){
+  int heights[5]={1,1,1,1,1};
+  setLightHeights(heights);
+  for(float i=0; i<=1; i+=0.01){
+    float plane[][5]={
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i}
+    };
+    drawPoints(plane);
+    delay(10);
+  }
+}
+
 //死の表現1つ目
 void deathFirst(){
   //上から一段づつ消す
@@ -340,7 +357,6 @@ void diffusionThird(){
     drawPoints(plane);
     delay(10);
   }
-
 }
 
 //分解の表現4つ目（検討中）
@@ -349,30 +365,12 @@ void diffusionFourth(){
 }
 //メインループ
 void loop(){
-
   //動作確認
   //allLighting();
   //deathFirst();
   //deathSecond();
   //deathThird();
 
-  /*
-  //フェードインで全点灯
-  int heights[5]={1,1,1,1,1};
-  setLightHeights(heights);
-  for(float i=0; i<=1; i+=0.01){
-    float plane[][5]={
-      {i,i,i,i,i},
-      {i,i,i,i,i},
-      {i,i,i,i,i},
-      {i,i,i,i,i},
-      {i,i,i,i,i}
-    };
-    drawPoints(plane);
-    delay(10);
-  }
-  */
-
- //clearAll();
+  //clearAll();
 }
 
