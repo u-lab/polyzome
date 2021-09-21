@@ -292,7 +292,7 @@ void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear){
    }
 }
   /* 作成者 :澤井
-  ** 関数名 : handler_sawai_part4
+  ** 関数名 : handler_sawai_part3
   ** 引数 : int x          :表示させる点のx座標
             int y          :表示させる点のy座標
             int z          :表示させる点のz座標
@@ -304,7 +304,7 @@ void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear){
                  x,y,z座標を入力することで簡単に光る位置を設定できることができます。
                 **この関数は削除対象です。
   */
-void handler_sawai_part4(int x,int y, int z, int delay_time , bool All_clear,float lightVol){
+void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear,float lightVol){
    if(All_clear){
     drawPoint(x, y,lightVol);
     setLightHeight(z, true);
@@ -439,54 +439,79 @@ delay(300);
 setLightVolume(0.04);
 
 for(float i=0.03;i<=1;i+=0.01){
-  handler_sawai_part4(2,2,2,10,false,i);
+  handler_sawai_part3(2,2,2,10,false,i);
 }
 delay(100);
 
-//handler_sawai_part4(3,4,4,800,true,0.04);
+handler_sawai_part3(3,4,4,800,true,0.04);
 
-//handler_sawai_part4(2,4,4,500,true,0.02);
-handler_sawai_part4(1,3,3,500,true,0.05);
+handler_sawai_part3(2,4,4,500,true,0.02);
+handler_sawai_part3(1,3,3,500,true,0.05);
 //handler_sawai_part3(1,4,4,300,true);
 //TEST 繰り返し構文で setLightVolume上げてぴかぴかさせる？(予定:現状後回し)別の段でしてあげるときれいかも
-/*
-handler_sawai_part3(1,2,3,200,true);
-handler_sawai_part3(3,3,2,50,true);
-handler_sawai_part3(0,1,4,100,true);
 
-handler_sawai_part3(2,3,4,100,true);
-handler_sawai_part3(2,4,3,200,true);
-handler_sawai_part3(0,3,0,50,true);
-handler_sawai_part3(0,4,3,100,true);
-handler_sawai_part3(1,0,2,150,true);
+handler_sawai_part3(1,2,3,200,true,0.8);
+handler_sawai_part3(3,3,2,50,true,0.04);
+handler_sawai_part3(0,1,4,100,true,0.05);
+
+handler_sawai_part3(2,3,4,100,true,1);
+handler_sawai_part3(2,4,3,200,true,0.5);
+handler_sawai_part3(0,3,0,50,true,1);
+handler_sawai_part3(0,4,3,100,true,0.6);
+handler_sawai_part3(1,0,2,150,true,0.4;
 
 
-handler_sawai_part3(2,0,2,100,true);
-handler_sawai_part3(4,1,4,200,true);
-handler_sawai_part3(3,1,1,100,true);
-handler_sawai_part3(3,0,0,50,true);
-handler_sawai_part3(1,2,0,100,true);
-handler_sawai_part3(3,4,1,350,true);
-handler_sawai_part3(1,2,3,200,true);
-handler_sawai_part3(3,4,2,300,true);
+handler_sawai_part3(2,0,2,100,true,0.09);
+handler_sawai_part3(4,1,4,200,true,1);
+handler_sawai_part3(3,1,1,100,true,0.5);
+handler_sawai_part3(3,0,0,50,true,0.6);
+handler_sawai_part3(1,2,0,100,true,0.1);
+handler_sawai_part3(3,4,1,350,true,1);
+handler_sawai_part3(1,2,3,200,true,0.2);
+handler_sawai_part3(3,4,2,300,true,1);
 
 delay(500);
 //trueにして全部を高速点灯させることにする  本来は高さ指定の制限のために同じ高さにしていたがこっちの方が奇麗に見えるくねえ？？ってことで変更
 
-handler_sawai_part3(0,3,4,300,true);
-handler_sawai_part3(2,4,4,200,true);
-handler_sawai_part3(0,3,4,400,true);
-handler_sawai_part3(0,4,4,200,true);
-handler_sawai_part3(1,0,4,300,true);
-handler_sawai_part3(2,0,4,400,true);
-handler_sawai_part3(4,1,4,200,true);
-handler_sawai_part3(3,1,4,400,true);
-handler_sawai_part3(3,0,4,500,true);
-handler_sawai_part3(1,2,4,200,true);
-handler_sawai_part3(3,4,4,400,true);
-handler_sawai_part3(1,2,4,200,true);
-handler_sawai_part3(3,4,4,300,true);
-*/
+handler_sawai_part3(0,3,0,300,true,1);
+handler_sawai_part3(2,4,1,200,true,1);
+handler_sawai_part3(0,3,2,400,true,1);
+handler_sawai_part3(0,4,3,200,true,0.8);
+handler_sawai_part3(1,0,4,300,true,0.08);
+handler_sawai_part3(2,0,0,400,true,0.4);
+handler_sawai_part3(4,1,3,200,true,0.1);
+handler_sawai_part3(3,1,2,400,true,0.7);
+handler_sawai_part3(3,0,4,500,true,0.7);
+handler_sawai_part3(1,2,1,200,true,0.2);
+handler_sawai_part3(3,4,3,400,true,0.1);
+handler_sawai_part3(1,2,4,200,true,0.4);
+handler_sawai_part3(3,4,4,300,true,0.1);
+
+delay(500);
+
+handler_sawai_part3(0,3,2,300,true,1);
+handler_sawai_part3(2,4,4,200,true,1);
+handler_sawai_part3(0,3,4,400,true,1);
+handler_sawai_part3(0,4,1,200,true,0.8);
+handler_sawai_part3(1,0,2,300,true,0.08);
+handler_sawai_part3(2,0,2,400,true,0.4);
+handler_sawai_part3(4,1,3,200,true,0.1);
+handler_sawai_part3(3,1,2,400,true,0.7);
+handler_sawai_part3(3,0,2,500,true,0.7);
+handler_sawai_part3(1,2,4,200,true,0.2);
+handler_sawai_part3(3,4,1,400,true,0.1);
+handler_sawai_part3(1,2,1,200,true,0.4);
+handler_sawai_part3(3,4,0,300,true,0.1);
+handler_sawai_part3(2,0,2,100,true,0.09);
+handler_sawai_part3(4,1,4,200,true,1);
+handler_sawai_part3(3,1,1,100,true,0.5);
+handler_sawai_part3(3,0,0,50,true,0.6);
+handler_sawai_part3(1,2,0,100,true,0.1);
+handler_sawai_part3(3,4,1,350,true,1);
+handler_sawai_part3(1,2,3,200,true,0.2);
+handler_sawai_part3(3,4,2,300,true,1);
+
+
 /*
 //part4成長
  //成長してる茎を描く
