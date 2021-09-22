@@ -454,12 +454,12 @@ drawCircle(3, 3, 2, true);
 delay(300);
 //これぐらいで,追加予定あり
 */
-
+/*
 //part3 点をだんだん増やす作業
 setLightVolume(0.04);
 
 for(float i=0.03;i<=1;i+=0.01){
-  handler_sawai_part3(2,2,2,10,false,i);
+  handler_sawai_part3(2,2,2,70,false,i);
 }
 delay(100);
 
@@ -476,15 +476,15 @@ handler_sawai_part3(0,1,4,100,true,0.05);
 
 handler_sawai_part3(2,3,4,100,true,1);
 handler_sawai_part3(2,4,3,200,true,0.5);
-handler_sawai_part3(0,3,0,50,true,1);
+handler_sawai_part3(0,3,0,500,true,1);
 handler_sawai_part3(0,4,3,100,true,0.6);
-handler_sawai_part3(1,0,2,150,true,0.4;
+handler_sawai_part3(1,0,2,150,true,0.4);
 
 
 handler_sawai_part3(2,0,2,100,true,0.09);
 handler_sawai_part3(4,1,4,200,true,1);
 handler_sawai_part3(3,1,1,100,true,0.5);
-handler_sawai_part3(3,0,0,50,true,0.6);
+handler_sawai_part3(3,0,0,500,true,0.6);
 handler_sawai_part3(1,2,0,100,true,0.1);
 handler_sawai_part3(3,4,1,350,true,1);
 handler_sawai_part3(1,2,3,200,true,0.2);
@@ -494,7 +494,7 @@ delay(500);
 //trueにして全部を高速点灯させることにする  本来は高さ指定の制限のために同じ高さにしていたがこっちの方が奇麗に見えるくねえ？？ってことで変更
 
 handler_sawai_part3(0,3,0,300,true,1);
-handler_sawai_part3(2,4,1,200,true,1);
+handler_sawai_part3(2,4,1,300,true,1);
 handler_sawai_part3(0,3,2,400,true,1);
 handler_sawai_part3(0,4,3,200,true,0.8);
 handler_sawai_part3(1,0,4,300,true,0.08);
@@ -502,19 +502,19 @@ handler_sawai_part3(2,0,0,400,true,0.4);
 handler_sawai_part3(4,1,3,200,true,0.1);
 handler_sawai_part3(3,1,2,400,true,0.7);
 handler_sawai_part3(3,0,4,500,true,0.7);
-handler_sawai_part3(1,2,1,200,true,0.2);
+handler_sawai_part3(1,2,1,300,true,0.2);
 handler_sawai_part3(3,4,3,400,true,0.1);
 handler_sawai_part3(1,2,4,200,true,0.4);
 handler_sawai_part3(3,4,4,300,true,0.1);
 
 delay(500);
 
-float lights={
-          {0,0,1,0,0}
-          {0,1,0,1,0}
-          {1,0,0,0,1}  
-          {0,1,0,1,0}
-          {0,0,1,0,0}
+/*float lights={
+          {0,0,1,0,0},
+          {0,1,0,1,0},
+          {1,0,0,0,1},
+          {0,1,0,1,0},
+          {0,0,1,0,0},
 };
 
 for(int i=0;i<5;i++){
@@ -522,7 +522,8 @@ for(int i=0;i<5;i++){
   drawPoints(lights);
 }
 
-
+*/
+/*
 handler_sawai_part3(0,3,2,300,true,1);
 handler_sawai_part3(2,4,4,200,true,1);
 handler_sawai_part3(0,3,4,400,true,1);
@@ -539,7 +540,7 @@ handler_sawai_part3(3,4,0,300,true,0.1);
 handler_sawai_part3(2,0,2,100,true,0.09);
 handler_sawai_part3(4,1,4,200,true,1);
 handler_sawai_part3(3,1,1,100,true,0.5);
-handler_sawai_part3(3,0,0,50,true,0.6);
+handler_sawai_part3(3,0,0,500,true,0.6);
 handler_sawai_part3(1,2,0,100,true,0.1);
 handler_sawai_part3(3,4,1,350,true,1);
 handler_sawai_part3(1,2,3,200,true,0.2);
@@ -549,9 +550,10 @@ for(float i=0.04;i<=1;i+=0.1){
   handler_sawai_part3(1,2,0,100,false,i);
   handler_sawai_part3(3,4,1,350,false,i);
   handler_sawai_part3(1,2,3,200,false,i);
-  handler_sawai_part3(3,4,2,300,false,i);
+  handler_sawai_part3(3,3,2,300,false,i);
 }
-/*
+*/
+
 //part4成長
  //成長してる茎を描く
 setLightVolume(0.04);
@@ -560,21 +562,37 @@ int takasa[]={1,1,1,1,1};
  
 
   for(int i=0; i<5; i++){
-    for(int j=0; j<5; j+=2){
+    for(int j=0; j<5; j++){
       drawPoint(i,j);
       sprintf(BUF, "%d %d", i, j);
       Serial.println(BUF);
-      delay(500);
-     // clearPlaneAll();
+      delay(10);
+      //clearPlaneAll();
     }   
   }
   clearAll();
   //上のものはテストように追加
-*/
+  
+  /*
+setLightVolume(0.04);
+int takasa[]={1,1,1,1,1};
+ setLightHeights(takasa);
+ 
 
+  for(int i=4; i<=0; i--){
+    for(int j=4; j<=0; j--){
+      drawPoint(i,j);
+      sprintf(BUF, "%d %d", i, j);
+      Serial.println(BUF);
+      delay(10);
+      //clearPlaneAll();
+    }   
+  }
+  clearAll();
+*/
 //発生の表現 
 //part.1
-
+/*
 setLightVolume(0.04);
 handler_sawai_part3(3,3,2,500,true);
  
@@ -603,7 +621,7 @@ for(int i=0.08;i<1;i+=0.05){
   //見ててつまらん
 }
 
-
+*/
 //光が4つの点を高速移動光る点は一つずつ 高さの制約が分かっていないのでうまくいっていたら点は増やす予定
 //無理なら別の案を考えるrightvolumeは入れるか考え中
 /*
