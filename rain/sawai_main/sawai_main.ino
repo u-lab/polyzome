@@ -362,18 +362,15 @@ void drawPoints(float lightVol[][5]){
   }
 }
 
-
 //メインループ
 void loop(){
  
 //成長の表現 1 暫定です。実機テストが必要だと思うのでコピペで対応しています 
 //clearHeightAll()を使った方がいいのか(後で気づいた)、今のものは使えるのか？チェック待ち
 //澤井の完成予想: 光が横に流れていく
-/*
 
-int i=0;
-while( i<3){
-setLightVolume(0.02); 
+/*
+setLightVolume(1); 
 setLightHeight(2, true);
 drawLine(0, 2, 4, 2);
 setLightHeight(2, false);
@@ -401,11 +398,10 @@ setLightHeight(0, false);
   setLightVolume(1);
 setLightHeight(1, true);
 drawLine(3,2,4,4);
-i++;
-}
 */
+
 //成長の表現part2
-/*
+
 setLightVolume(0.04);
 int takasa[]={0,0,1,0,1};
  setLightHeights(takasa);
@@ -413,25 +409,25 @@ int takasa[]={0,0,1,0,1};
 drawCircle(2, 2, 2, true);
 delay(100);
 //clearHeightAll();
-*/
 
 
-/*
-//ここ怪しい
+
+
+//ここ怪しい数が少ないのでたしてください
 //変更済みあいはらさんのdrawpointを採用して光量調節をします
 for(float i=0.04;i<1;i+=0.01){
-
-  setLightHeight(4, true);
+ 
+  setLightHeight(3, true);
   drawPoint(0,3,i);
   drawPoint(3,3,i);
   drawPoint(4,3,i);
-  drawPoint(3,3,i);
+  drawPoint(3,2,i);
 
   delay(50);
  // clearAll();
 }
 clearAll();
-*/
+
 //int takasaを入れたので注意してください
 // drawcircleは調整中とのことで、いったん保留中
 /*
@@ -455,8 +451,8 @@ drawCircle(3, 3, 2, true);
 delay(300);
 //これぐらいで,追加予定あり
 */
-/*
- 
+
+
 setLightVolume(0.04);
 int takasa[]={1,1,1,1,1};
  setLightHeights(takasa);
@@ -525,7 +521,8 @@ handler_sawai_part3(3,4,4,300,true,0.1);
 
 delay(500);
 
-/*float lights={
+
+float lights[][5]={
           {0,0,1,0,0},
           {0,1,0,1,0},
           {1,0,0,0,1},
@@ -535,11 +532,43 @@ delay(500);
 
 for(int i=0;i<5;i++){
   setLightHeight(i,true);
+  delay(200);
   drawPoints(lights);
+    
+}
+  clearAll();
+
+  float lights2[][5]={
+          {0,0,1,0,0},
+          {0,1,0,1,0},
+          {1,0,0,0,1},
+          {0,1,0,1,0},
+          {0,0,1,0,0}
+};
+
+for(int i=0;i<3;i++){
+  setLightHeight(i,true);
+  delay(200);
+  drawPoints(lights2);
+    
+}
+  float lights3[][5]={
+          {1,1,1,1,1},
+          {1,1,0,1,1},
+          {1,0,0,0,1},
+          {1,1,0,1,1},
+          {1,1,1,1,1}
+};
+
+for(int i=3;i<5;i++){
+  setLightHeight(i,true);
+  delay(200);
+  drawPoints(lights3);
+    
 }
 
-*/
-/*
+
+
 handler_sawai_part3(0,3,2,300,true,1);
 handler_sawai_part3(2,4,4,200,true,1);
 handler_sawai_part3(0,3,4,400,true,1);
@@ -568,7 +597,7 @@ for(float i=0.04;i<=1;i+=0.1){
   handler_sawai_part3(1,2,3,200,false,i);
   handler_sawai_part3(3,3,2,300,false,i);
 }
-*/
+
 
 //part4成長
  //成長してる茎を描く
@@ -582,7 +611,7 @@ int takasa[]={1,1,1,1,1};
       drawPoint(i,j);
       sprintf(BUF, "%d %d", i, j);
       Serial.println(BUF);
-      delay(10);
+      delay(50);
       //clearPlaneAll();
     }   
   }
@@ -591,21 +620,24 @@ int takasa[]={1,1,1,1,1};
 
 //発生の表現 
 //part.1
-/*
+
 setLightVolume(0.04);
 handler_sawai_part3(3,3,2,500,true);
  
   for(float i=0.04;i<0.8;i+=0.04)
     {
-   // setLightVolume(i);
-    handler_sawai_part3(3,3,2,100,false);
-    delay(200);
+    setLightVolume(i);
+    handler_sawai_part3(2,2,2,100,false);
+    delay(20);
     }  
-//for文で光強度の設定がうまくできない    
-handler_sawai_part3(3,4,4,800,false);
-handler_sawai_part3(3,1,4,800,true);
-
+    
+//for文で光強度の設定がうまくできない 
+for(flaat i=0.02;i<=1;i+0.1){   
+  handler_sawai_part3(3,4,4,800,false);
+  handler_sawai_part3(3,1,4,800,false);
+}
  //2つから4つに増える   for文内のdelayは実機みて判断 高さのand制限のためつくかは不明
+
 
 for(int i=0.08;i<1;i+=0.05){
 
@@ -620,26 +652,33 @@ for(int i=0.08;i<1;i+=0.05){
   //見ててつまらん
 }
 
-*/
+
 //光が4つの点を高速移動光る点は一つずつ 高さの制約が分かっていないのでうまくいっていたら点は増やす予定
 //無理なら別の案を考えるrightvolumeは入れるか考え中
-/*
 
-float lights_2={
+
+
+  
+for(float j=0.04;j<1;j+=0.01){
+  setLightHeight(1,true);
+   setLightHeight(2,true);
+  setLightHeight(3,true);
+ float lights4[][5]={
           {0,0,0,0,0},
-          {0,i,0,i,0},
-          {0,0,0,0,0},
-          {0,i,0,i,0},
+          {0,j,0,j,0},
+          {0,0,j,0,0},
+          {0,j,0,j,0},
           {0,0,0,0,0}
 };
-for(float i=0.04;i<=1;i+=0.1){
-  setLightHeight(2,true);
-  drawPoints(lights_2);
-}
+
+  delay(50);
+  drawPoints(lights4);
+  }
+    
 
 
 
-
+/*
  //苦肉の策 
 //setLightHeight(2,true);
 int takasa4[]={0,1,1,1,0};
