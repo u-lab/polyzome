@@ -370,6 +370,7 @@ void loop(){
 //clearHeightAll()を使った方がいいのか(後で気づいた)、今のものは使えるのか？チェック待ち
 //澤井の完成予想: 光が横に流れていく
 /*
+
 int i=0;
 while( i<3){
 setLightVolume(0.02); 
@@ -455,6 +456,21 @@ delay(300);
 //これぐらいで,追加予定あり
 */
 /*
+ 
+setLightVolume(0.04);
+int takasa[]={1,1,1,1,1};
+ setLightHeights(takasa);
+  for(int i=0; i<5; i++){
+    for(int j=0; j<5; j+=2){
+      drawPoint(i,j);
+      sprintf(BUF, "%d %d", i, j);
+      Serial.println(BUF);
+      delay(50);
+      //clearPlaneAll();
+    }
+  }
+  clearAll();
+  //上のものはテストように追加
 //part3 点をだんだん増やす作業
 setLightVolume(0.04);
 
@@ -514,7 +530,7 @@ delay(500);
           {0,1,0,1,0},
           {1,0,0,0,1},
           {0,1,0,1,0},
-          {0,0,1,0,0},
+          {0,0,1,0,0}
 };
 
 for(int i=0;i<5;i++){
@@ -572,24 +588,7 @@ int takasa[]={1,1,1,1,1};
   }
   clearAll();
   //上のものはテストように追加
-  
-  /*
-setLightVolume(0.04);
-int takasa[]={1,1,1,1,1};
- setLightHeights(takasa);
- 
 
-  for(int i=4; i<=0; i--){
-    for(int j=4; j<=0; j--){
-      drawPoint(i,j);
-      sprintf(BUF, "%d %d", i, j);
-      Serial.println(BUF);
-      delay(10);
-      //clearPlaneAll();
-    }   
-  }
-  clearAll();
-*/
 //発生の表現 
 //part.1
 /*
@@ -627,10 +626,10 @@ for(int i=0.08;i<1;i+=0.05){
 /*
 
 float lights_2={
-          {0,0,0,0,0}
-          {0,i,0,i,0}
-          {0,0,0,0,0}  
-          {0,i,0,i,0}
+          {0,0,0,0,0},
+          {0,i,0,i,0},
+          {0,0,0,0,0},
+          {0,i,0,i,0},
           {0,0,0,0,0}
 };
 for(float i=0.04;i<=1;i+=0.1){
