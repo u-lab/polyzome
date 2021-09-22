@@ -227,6 +227,7 @@ void clearAll(){
   }
 }
 
+
 //メインループ
 //test
 void loop(){
