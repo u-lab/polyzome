@@ -362,13 +362,42 @@ void drawPoints(float lightVol[][5]){
   }
 }
 
+  
+       
+                                       
+                                  
+
+
 //メインループ
 void loop(){
  
 //成長の表現 1 暫定です。実機テストが必要だと思うのでコピペで対応しています 
 //clearHeightAll()を使った方がいいのか(後で気づいた)、今のものは使えるのか？チェック待ち
 //澤井の完成予想: 光が横に流れていく
+/*
+  for( int i=0;i<30;i++){
+     dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);delay(100);
+  }
+  for( int i=30;i>5;i--){
+     dmx_master.setChannelValue(i, 0);delay(100);
+  }
+*/
+handler_sawai_part3(2,2,2,300,false,1);delay(100);
+for(int i=12;i<25;i++){
+  if(!(i==15||i==16||i==20||i==21)){
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+     dmx_master.setChannelValue(3, MAX_LIGHT_VOLUME);
+  }
+}
+delay(100);
+for(int i=6;i<30;i++){
+ {
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+    dmx_master.setChannelValue(3, MAX_LIGHT_VOLUME);
+  }
+}
 
+  
 /*
 setLightVolume(1); 
 setLightHeight(2, true);
@@ -398,7 +427,6 @@ setLightHeight(0, false);
   setLightVolume(1);
 setLightHeight(1, true);
 drawLine(3,2,4,4);
-*/
 
 //成長の表現part2
 
@@ -450,7 +478,6 @@ int takasa4[]={1,1,0,0,0};
 drawCircle(3, 3, 2, true);
 delay(300);
 //これぐらいで,追加予定あり
-*/
 
 
 setLightVolume(0.04);
@@ -624,12 +651,14 @@ int takasa[]={1,1,1,1,1};
 setLightVolume(0.04);
 handler_sawai_part3(3,3,2,500,true);
  
-  for(float i=0.04;i<0.8;i+=0.04)
+  for(float i=0.04;i<0.8;i+=0.01)
     {
     setLightVolume(i);
     handler_sawai_part3(2,2,2,100,false);
     delay(20);
     }  
+
+    
     
 //for文で光強度の設定がうまくできない 
 for(flaat i=0.02;i<=1;i+0.1){   
@@ -676,9 +705,12 @@ for(float j=0.04;j<1;j+=0.01){
   }
     
 
-
-
-/*
+handler_sawai_part3(2,2,2,300,true,1);
+for(int i=12;i<25;i++){
+  if(!(i=15||i=16||i=20||i=21))
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+     dmx_master.setChannelValue(2, MAX_LIGHT_VOLUME);
+}
  //苦肉の策 
 //setLightHeight(2,true);
 int takasa4[]={0,1,1,1,0};
@@ -694,5 +726,7 @@ for(int i=0; i<10;i+=1)
     handler_sawai_part3(1,1,4,300,true);    
 
   }
+
 */
+
 }
