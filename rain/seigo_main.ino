@@ -216,7 +216,14 @@ void drawPoints(float lightVol[][5]){
   }
 }
 
-//全点灯
+/*
+** 関数名 : allLighting
+** 引数 : なし
+** 戻り値 : なし
+** 関数の機能 : 全点灯
+** 作者: seigo
+** 日付: 2021/09/23
+*/
 void allLighting (){
   int heights[5]={1,1,1,1,1};
   setLightHeights(heights);
@@ -234,14 +241,10 @@ void allLighting (){
 ** 関数名 : fadeIn
 ** 引数 : int fade : フェードインのスピード(基準:20)
 ** 戻り値 : なし
-** 関数の機能 : <説明>
-** 作者: 関数作った人
-** 日付: 関数作った日
+** 関数の機能 : フェードインで全点灯
+** 作者: seigo
+** 日付: 2021/09/23
 */
-
-
-//フェードインで全点灯
-//time 20ぐらいが適正
 void fadeIn (int fade){
   int heights[5]={1,1,1,1,1};
   setLightHeights(heights);
@@ -258,14 +261,6 @@ void fadeIn (int fade){
   }
 }
 
-/*
-** 関数名 : <name>
-** 引数 : <型> <変数名> : <役割>
-** 戻り値 : <型> <変数名> : <役割>
-** 関数の機能 : <説明>
-** 作者: 関数作った人
-** 日付: 関数作った日
-*/
 /*
 ** 関数名 : deathFirst
 ** 引数 : int time : ライトが変わるスピード(基準:500)
@@ -344,7 +339,7 @@ void deathThird(int time, int fade){
 
 /*
 ** 関数名 : diffusionThird
-** 引数 : int fade : フェードアウト・インのスピード(基準:20)
+** 引数 : int fade : フェードアウト・インのスピード(基準:10)
 ** 戻り値 : なし
 ** 関数の機能 : 分解の表現3つ目、全てのライトがフェードアウトし、フェードインで全点灯
 ** 作者: seigo
