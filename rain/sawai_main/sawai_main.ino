@@ -266,6 +266,12 @@ void perform_uprain(){
     clearAll();
   }
 }
+
+
+
+
+
+
   /* 作成者 :澤井
   ** 関数名 : handler_sawai_part3
   ** 引数 : int x          :表示させる点のx座標
@@ -362,31 +368,219 @@ void drawPoints(float lightVol[][5]){
   }
 }
 
-  
-       
-                                       
-                                  
+void  fade_light(){
+    for(float i=1;i>=0;i-=0.01){
+    float plane[][5]={
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i}
+    };
+    drawPoints(plane);
+    delay(50);
+  }
 
+}
+
+
+/*
+** 関数名 : grow_in_de_creace
+** 引数 : なし
+** 関数の機能 :成長の1つ目、すべてのライトがつく、消えるをウェーブのように行う
+** 作者: 澤井
+** 日付: 2021/9/24
+*/  
+int grow_in_de_creace(){  
+  for( int i=0;i<30;i++){
+     dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+     delay(50);
+  }
+  for( int i=30;i>5;i--){
+     dmx_master.setChannelValue(i, 0);
+     delay(50);
+ }
+}  
+
+/*
+** 関数名 : grow_spredingcircle
+** 引数 :    int height :光らせる高さ(1～5)
+** 関数の機能 : 成長の表現二つ目,サークルが中心から広がっていく
+** 作者: 澤井
+** 日付: 2021/9/24
+*/
+int grow_spredingcircle( int height){
+ 
+  
+  dmx_master.setChannelValue(height, MAX_LIGHT_VOLUME);
+  drawPoint(2,2,1)
+  delay(400);
+  for(float i=0;i<=1;i+=0.01){  
+    float plane[][5]={
+     {0,0,0,0,0},
+     {0,i,i,i,0},
+     {0,i,i,i,0},
+     {0,i,i,i,0},
+     {0,0,0,0,0}
+    }; 
+    drawPoints(plane);
+    delay(50);
+  }   
+
+  delay(300);
+
+  for(float i=0;i<=1;i+=0.01){
+    
+  
+    drawPoints(plan2);
+    delay(50);
+  }   
+  delay(300);
+}  
+
+/*
+** 関数名 : grow_lightbox
+** 引数 : int delaytime:光量maxまで行った後、減らすまでのフェーズに移る待機時間
+** 関数の機能 : 成長の表現3つ目,3*3のboxが光量が上がっていって最後まで行くと消えていく
+** 作者: 澤井
+** 日付: 2021/9/24
+*/
+int grow_lightbox(int delaytime){
+
+  int takasa[]={0,1,1,1,0};
+  setLightHeights(takasa);
+  for(float i=0;i<=1;i+=0.01){  
+    float plane[][5]={
+      {0,0,0,0,0},
+      {0,i,i,i,0},
+      {0,i,i,i,0},
+      {0,i,i,i,0},
+      {0,0,0,0,0}
+    };
+    drawPoints(plane);
+    delay(50);
+  }
+  delay(delaytim);
+  for(float i=1;i>=0;i-=0.01){
+    float plane[][5]={
+      {0,0,0,0,0},
+      {0,i,i,i,0},
+      {0,i,i,i,0},
+      {0,i,i,i,0},
+      {0,0,0,0,0}
+    };
+    drawPoints(plane);
+    delay(50);
+  }
+}      
+/*
+** 関数名 : growkamo_fireworks
+** 引数 : 今のところなし
+** 関数の機能 : はなび
+** 作者: 澤井
+** 日付: 2021/9/24
+*/                                   
+void growkamo_fireworks(){
+int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};  
+  for(int i=0;i<=10;i++){
+    for(int k=0;k<=4;k++){
+      setLightHeight(k, true); 
+      dmx_master.setChannelValue(launch_spots[i], 90+k*7);
+      delay(30+k*3);
+      setLightHeight(k, false);
+    }
+  }
+  for(int k=0;k<=2;k++){
+    dmx_master.setChannelValue(launch_spots[i], 90+k*7);
+    setLightHeight(k, true); 
+    delay(70+k*10);
+    if(k!=2)setLightHeight(k, false); 
+    if(k==2){
+      drawPoint(2,2,0.8);
+      delay(1000);
+    }
+  //高さ2は消えてないはず  
+  for(float i=0.8;i>=0;i-=0.01){
+    drawPoint(2,2,i);
+    delay(50);
+  }
+  grow_lightbox(0);
+
+  int heights[5]={1,1,1,1,1};
+  setLightHeights(heights);
+  float plane[][5]={
+      {1,1,1,1,1},
+      {1,1,1,1,1},
+      {1,1,1,1,1},
+      {1,1,1,1,1},
+      {1,1,1,1,1}
+    };
+  drawPoints(plane);
+  delay(2000);
+ 
+ clearAll();
+}                                
+
+/*
+** 関数名 : uu
+** 引数 : bool clearPlane :clearplaneを途中に入れます
+          bool clearAll   :clearallを入れます
+** 関数の機能 : 発生の表現一個目、たららんっと光が横に流れていく
+** 作者: 澤井
+** 日付: 2021/9/24
+*/    
+int uu(bool clearPlane,bool clearAll ){
+
+  setLightVolume(0.04);
+int takasa[]={1,1,1,1,1};
+ setLightHeights(takasa);
+  for(int i=0; i<5; i++){
+    for(int j=0; j<5; j+=2){
+      drawPoint(i,j);
+      sprintf(BUF, "%d %d", i, j);
+      Serial.println(BUF);
+      delay(50);
+      if(clearPlane)clearPlaneAll();
+    }
+  }
+ if(clearAll)clearAll();
+}
+
+void osero(){
+ 
+  for(int g=0;g<10;g++){
+
+  float plane[][5]={
+      {i,k,i,k,i},
+      {k,i,k,i,k},
+      {i,k,i,k,i},
+      {k,i,k,i,k},
+      {i,k,i,k,i}
+  };
+  for(float i=0;i<=1;i+=0.01){
+    drawPoints(plane);
+    delay(20);
+  }
+  for(float k=0;k<=1;k+=0.01){
+    drawPoints(plane);
+    delay(20);
+  }
+
+   
+}
+
+void
 
 //メインループ
 void loop(){
  
-//成長の表現 1 暫定です。実機テストが必要だと思うのでコピペで対応しています 
-//clearHeightAll()を使った方がいいのか(後で気づいた)、今のものは使えるのか？チェック待ち
-//澤井の完成予想: 光が横に流れていく
-/*
-  for( int i=0;i<30;i++){
-     dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);delay(100);
-  }
-  for( int i=30;i>5;i--){
-     dmx_master.setChannelValue(i, 0);delay(100);
-  }
-*/
+
+//円が広がっていく表現明日の作業でうまくいくようならここは削除
 handler_sawai_part3(2,2,2,300,false,1);delay(100);
-for(int i=12;i<25;i++){
+for(int i=12;i<24;i++){
   if(!(i==15||i==16||i==20||i==21)){
     dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
-     dmx_master.setChannelValue(3, MAX_LIGHT_VOLUME);
+    dmx_master.setChannelValue(3, MAX_LIGHT_VOLUME);
   }
 }
 delay(100);
@@ -396,103 +590,53 @@ for(int i=6;i<30;i++){
     dmx_master.setChannelValue(3, MAX_LIGHT_VOLUME);
   }
 }
-
-  
-/*
-setLightVolume(1); 
-setLightHeight(2, true);
-drawLine(0, 2, 4, 2);
-setLightHeight(2, false);
-setLightHeight(4, true);
-drawLine(3,2,4,4);
-setLightHeight(4, true);
-setLightHeight(0, true);
-drawLine(1, 1, 3, 3);
-setLightHeight(0, false);
-  setLightVolume(0.05);
-setLightHeight(1, true);
-drawLine(3,2,4,4);
-setLightHeight(1,false);
-setLightHeight(2, true);
-drawLine(0, 2, 4, 2);
-setLightHeight(2, false);
-  setLightVolume(0.5);
-setLightHeight(4, true);
-drawLine(3,2,4,4);
-setLightHeight(4, false);
-  setLightVolume(0.05);
-setLightHeight(0, true);
-drawLine(1, 1, 3, 3);
-setLightHeight(0, false);
-  setLightVolume(1);
-setLightHeight(1, true);
-drawLine(3,2,4,4);
-
-//成長の表現part2
-
-setLightVolume(0.04);
-int takasa[]={0,0,1,0,1};
- setLightHeights(takasa);
-//setLightHeight(2, true);
-drawCircle(2, 2, 2, true);
-delay(100);
-//clearHeightAll();
-
-
-
-
-//ここ怪しい数が少ないのでたしてください
-//変更済みあいはらさんのdrawpointを採用して光量調節をします
-for(float i=0.04;i<1;i+=0.01){
- 
-  setLightHeight(3, true);
-  drawPoint(0,3,i);
-  drawPoint(3,3,i);
-  drawPoint(4,3,i);
-  drawPoint(3,2,i);
-
-  delay(50);
- // clearAll();
-}
-clearAll();
-
-//int takasaを入れたので注意してください
-// drawcircleは調整中とのことで、いったん保留中
-/*
-int takasa2[] ={0,0,1,1,1};
- setLightHeights(takasa2);
-//setLightHeight(4, true);
-drawCircle(4, 4, 3, true);
-//この辺の扱いが難しい
-//drawCircle(0,false);にするとどうなる？heightだと思うけど？？
-clearHeightAll();
-//setLightHeight(0, true);
- int  takasa3[]={1,1,1,1,0};
- setLightHeights(takasa3);
-drawCircle(0, 0, 4, true);
-delay(300);
-clearHeightAll();
-//setLightHeight(2, true);
-int takasa4[]={1,1,0,0,0};
- setLightHeights(takasa4);
-drawCircle(3, 3, 2, true);
-delay(300);
-//これぐらいで,追加予定あり
-
-
-setLightVolume(0.04);
-int takasa[]={1,1,1,1,1};
- setLightHeights(takasa);
-  for(int i=0; i<5; i++){
-    for(int j=0; j<5; j+=2){
-      drawPoint(i,j);
-      sprintf(BUF, "%d %d", i, j);
-      Serial.println(BUF);
-      delay(50);
-      //clearPlaneAll();
-    }
+delay(400);
+for(int i=12;i<24;i++){
+  if(!(i==15||i==16||i==20||i==21)){
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+    dmx_master.setChannelValue(2, MAX_LIGHT_VOLUME);
+    dmx_master.setChannelValue(3, MAX_LIGHT_VOLUME);
+    dmx_master.setChannelValue(4, MAX_LIGHT_VOLUME);
   }
-  clearAll();
+}
+
+  grow_in_de_creace();
+  grow_spredingcircle(3);
+  grow_lightbox(500);
+  growkamo_fireworks();
+
+
+uu(false,true);
+
+ setLightVolume(1); 
+ setLightHeight(2, true);
+ drawLine(0, 2, 4, 2);
+ setLightHeight(2, false);
+ setLightHeight(4, true);
+ drawLine(3,2,4,4);
+ setLightHeight(4, true);
+ setLightHeight(0, true);
+ drawLine(1, 1, 3, 3);
+ setLightHeight(0, false);
+  setLightVolume(0.05);
+ setLightHeight(1, true);
+ drawLine(3,2,4,4);
+ setLightHeight(1,false);
+ setLightHeight(2, true);
+ drawLine(0, 2, 4, 2);
+ setLightHeight(2, false);
+  setLightVolume(0.5);
+ setLightHeight(4, true);
+ drawLine(3,2,4,4);
+ setLightHeight(4, false);
+  setLightVolume(0.05);
+ setLightHeight(0, true);
+ drawLine(1, 1, 3, 3);
+ setLightHeight(0, false);
+  setLightVolume(1);
+ setLightHeight(1, true);
+ drawLine(3,2,4,4);
+
   //上のものはテストように追加
 //part3 点をだんだん増やす作業
 setLightVolume(0.04);
@@ -625,24 +769,8 @@ for(float i=0.04;i<=1;i+=0.1){
   handler_sawai_part3(3,3,2,300,false,i);
 }
 
+osero();
 
-//part4成長
- //成長してる茎を描く
-setLightVolume(0.04);
-int takasa[]={1,1,1,1,1};
- setLightHeights(takasa);
- 
-
-  for(int i=0; i<5; i++){
-    for(int j=0; j<5; j++){
-      drawPoint(i,j);
-      sprintf(BUF, "%d %d", i, j);
-      Serial.println(BUF);
-      delay(50);
-      //clearPlaneAll();
-    }   
-  }
-  clearAll();
   //上のものはテストように追加
 
 //発生の表現 
@@ -702,31 +830,11 @@ for(float j=0.04;j<1;j+=0.01){
 
   delay(50);
   drawPoints(lights4);
+  
   }
     
 
-handler_sawai_part3(2,2,2,300,true,1);
-for(int i=12;i<25;i++){
-  if(!(i=15||i=16||i=20||i=21))
-    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
-     dmx_master.setChannelValue(2, MAX_LIGHT_VOLUME);
-}
- //苦肉の策 
-//setLightHeight(2,true);
-int takasa4[]={0,1,1,1,0};
-setLightHeights(takasa4);
-test_drawBox_var2(2, 2, 2, false, 300, true);
 
-setLightVolume(1);
-for(int i=0; i<10;i+=1)
-  {
-    handler_sawai_part3(1,3,4,300,true);    
-    handler_sawai_part3(1,2,4,300,true);  
-    handler_sawai_part3(3,3,4,300,true);  
-    handler_sawai_part3(1,1,4,300,true);    
 
-  }
-
-*/
 
 }
