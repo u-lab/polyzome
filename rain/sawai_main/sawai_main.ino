@@ -382,7 +382,7 @@ void  fade_light(){
   }
 
 }
-
+/*
 
 /*
 ** 関数名 : grow_in_de_creace
@@ -413,26 +413,32 @@ int grow_spredingcircle( int height){
  
   
   dmx_master.setChannelValue(height, MAX_LIGHT_VOLUME);
-  drawPoint(2,2,1)
+  drawPoint(2,2,1);
   delay(400);
   for(float i=0;i<=1;i+=0.01){  
-    float plane[][5]={
+    float plane2[][5]={
      {0,0,0,0,0},
      {0,i,i,i,0},
      {0,i,i,i,0},
      {0,i,i,i,0},
      {0,0,0,0,0}
     }; 
-    drawPoints(plane);
+    drawPoints(plane2);
     delay(50);
   }   
 
   delay(300);
 
   for(float i=0;i<=1;i+=0.01){
-    
+        float plane2[][5]={
+     {0,0,0,0,0},
+     {0,i,i,i,0},
+     {0,i,i,i,0},
+     {0,i,i,i,0},
+     {0,0,0,0,0}
+    }; 
   
-    drawPoints(plan2);
+    drawPoints(plane2);
     delay(50);
   }   
   delay(300);
@@ -460,7 +466,7 @@ int grow_lightbox(int delaytime){
     drawPoints(plane);
     delay(50);
   }
-  delay(delaytim);
+  delay(delaytime);
   for(float i=1;i>=0;i-=0.01){
     float plane[][5]={
       {0,0,0,0,0},
@@ -472,7 +478,9 @@ int grow_lightbox(int delaytime){
     drawPoints(plane);
     delay(50);
   }
-}      
+}    
+
+
 /*
 ** 関数名 : growkamo_fireworks
 ** 引数 : 今のところなし
@@ -491,10 +499,10 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
     }
   }
   for(int k=0;k<=2;k++){
-    dmx_master.setChannelValue(launch_spots[i], 90+k*7);
+    dmx_master.setChannelValue(launch_spots[k], 90+k*7);
     setLightHeight(k, true); 
     delay(70+k*10);
-    if(k!=2)setLightHeight(k, false); 
+    if(k!=2){setLightHeight(k, false);} 
     if(k==2){
       drawPoint(2,2,0.8);
       delay(1000);
@@ -521,6 +529,7 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
  clearAll();
 }                                
 
+
 /*
 ** 関数名 : uu
 ** 引数 : bool clearPlane :clearplaneを途中に入れます
@@ -545,32 +554,29 @@ int takasa[]={1,1,1,1,1};
   }
  if(clearAll)clearAll();
 }
-
+/*
 void osero(){
- 
-  for(int g=0;g<10;g++){
-
-  float plane[][5]={
+ for(int g=0;g<10;g++){
+    float plane[][5]={
       {i,k,i,k,i},
       {k,i,k,i,k},
       {i,k,i,k,i},
       {k,i,k,i,k},
       {i,k,i,k,i}
-  };
-  for(float i=0;i<=1;i+=0.01){
+    };
+ for(float i=0;i<=1;i+=0.01){
     drawPoints(plane);
     delay(20);
-  }
-  for(float k=0;k<=1;k+=0.01){
+ }
+ for(float k=0;k<=1;k+=0.01){
     drawPoints(plane);
     delay(20);
-  }
+ }
 
-   
 }
 
-void
-
+*/
+*/
 //メインループ
 void loop(){
  
@@ -599,7 +605,7 @@ for(int i=12;i<24;i++){
     dmx_master.setChannelValue(4, MAX_LIGHT_VOLUME);
   }
 }
-
+/*
   grow_in_de_creace();
   grow_spredingcircle(3);
   grow_lightbox(500);
@@ -833,7 +839,7 @@ for(float j=0.04;j<1;j+=0.01){
   
   }
     
-
+*/
 
 
 
