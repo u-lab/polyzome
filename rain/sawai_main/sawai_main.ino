@@ -424,22 +424,21 @@ int grow_spredingcircle( int height){
      {0,0,0,0,0}
     }; 
     drawPoints(plane2);
-    delay(50);
+    delay(20);
   }   
 
-  delay(300);
 
   for(float i=0;i<=1;i+=0.01){
         float plane2[][5]={
-     {0,0,0,0,0},
-     {0,i,i,i,0},
-     {0,i,i,i,0},
-     {0,i,i,i,0},
-     {0,0,0,0,0}
+     {i,i,i,i,i},
+     {i,i,i,i,i},
+     {i,i,i,i,i},
+     {i,i,i,i,i},
+     {i,i,i,i,i}
     }; 
   
     drawPoints(plane2);
-    delay(50);
+    delay(20);
   }   
   delay(300);
 }  
@@ -487,7 +486,8 @@ int grow_lightbox(int delaytime){
 ** 関数の機能 : はなび
 ** 作者: 澤井
 ** 日付: 2021/9/24
-*/                                   
+*/  
+                                
 void growkamo_fireworks(){
 int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};  
   for(int i=0;i<=10;i++){
@@ -507,6 +507,7 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
       drawPoint(2,2,0.8);
       delay(1000);
     }
+  }  
   //高さ2は消えてないはず  
   for(float i=0.8;i>=0;i-=0.01){
     drawPoint(2,2,i);
@@ -537,8 +538,9 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
 ** 関数の機能 : 発生の表現一個目、たららんっと光が横に流れていく
 ** 作者: 澤井
 ** 日付: 2021/9/24
-*/    
-int uu(bool clearPlane,bool clearAll ){
+*/ 
+
+int uu(bool clearPlane,bool clear_All ){
 
   setLightVolume(0.04);
 int takasa[]={1,1,1,1,1};
@@ -552,35 +554,105 @@ int takasa[]={1,1,1,1,1};
       if(clearPlane)clearPlaneAll();
     }
   }
- if(clearAll)clearAll();
+ if(clear_All)clearAll();
 }
-/*
+
+
 void osero(){
- for(int g=0;g<10;g++){
-    float plane[][5]={
-      {i,k,i,k,i},
-      {k,i,k,i,k},
-      {i,k,i,k,i},
-      {k,i,k,i,k},
-      {i,k,i,k,i}
+ float i=1,k=1;
+
+ //for(float i=0;i<=1;i+=0.01){
+      float plane[][5]={
+      {i,0,i,0,i},
+      {0,i,0,i,0},
+      {i,0,i,0,i},
+      {0,i,0,i,0},
+      {i,0,i,0,i}
     };
- for(float i=0;i<=1;i+=0.01){
     drawPoints(plane);
-    delay(20);
- }
- for(float k=0;k<=1;k+=0.01){
+    //delay(40);
+// }
+ //delay(500);
+// for(float k=0;k<=1;k+=0.01){
+    float plane7[][5]={
+        {0,k,0,k,0},
+        {k,0,k,0,k},
+        {0,k,0,k,0},
+        {k,0,k,0,k},
+        {0,k,0,k,0}
+    };
+    drawPoints(plane7);
+    //delay(40);
+ //  }
+
+ 
+/*
+** 関数名 : ossero2
+** 引数 : nasi
+** 関数の機能 : オセロっぽいものの改変
+** 作者: 澤井
+** 日付: 2021/9/24
+*/  
+}
+void osero2(){
+ float i=1,k=1;
+
+ //for(float i=0;i<=1;i+=0.01){
+      float plane[][5]={
+      {i,0,i,0,i},
+      {0,i,0,i,0},
+      {i,0,i,0,i},
+      {0,i,0,i,0},
+      {i,0,i,0,i}
+    };
     drawPoints(plane);
-    delay(20);
- }
+    //delay(40);
+// }
+ //delay(500);
+// for(float k=0;k<=1;k+=0.01){
+    float plane7[][5]={
+        {0,k,0,k,0},
+        {k,0,k,0,k},
+        {0,k,0,k,0},
+        {k,0,k,0,k},
+        {0,k,0,k,0}
+    };
+    drawPoints(plane7);
+    //delay(40);
+ //  }
+
+  
+}
+
+void hanahubuki(){
+uu(true,true); 
+for(float j=0.04;j<=1;j+=0.01){
+  setLightHeight(1,true);
+   setLightHeight(2,true);
+  setLightHeight(3,true);
+  setLightHeight(4,true);
+  setLightHeight(0,true);
+ float lights4[][5]={
+          {0,0,0,0,0},
+          {0,j,0,j,0},
+          {0,0,j,0,0},
+          {0,j,0,j,0},
+          {0,0,0,0,0}
+};
+
+
+  drawPoints(lights4);
+    delay(70);
+  }
+clearAll();    
 
 }
 
-*/
-*/
+
 //メインループ
 void loop(){
  
-
+/*
 //円が広がっていく表現明日の作業でうまくいくようならここは削除
 handler_sawai_part3(2,2,2,300,false,1);delay(100);
 for(int i=12;i<24;i++){
@@ -605,15 +677,16 @@ for(int i=12;i<24;i++){
     dmx_master.setChannelValue(4, MAX_LIGHT_VOLUME);
   }
 }
-/*
-  grow_in_de_creace();
-  grow_spredingcircle(3);
-  grow_lightbox(500);
-  growkamo_fireworks();
+*/
+
+ // grow_in_de_creace();
+  //grow_spredingcircle(3);
+  //grow_lightbox(500);
+  //growkamo_fireworks();
 
 
 uu(false,true);
-
+/*
  setLightVolume(1); 
  setLightHeight(2, true);
  drawLine(0, 2, 4, 2);
@@ -774,14 +847,14 @@ for(float i=0.04;i<=1;i+=0.1){
   handler_sawai_part3(1,2,3,200,false,i);
   handler_sawai_part3(3,3,2,300,false,i);
 }
-
-osero();
+*/
+//osero2();
 
   //上のものはテストように追加
 
 //発生の表現 
 //part.1
-
+/*
 setLightVolume(0.04);
 handler_sawai_part3(3,3,2,500,true);
  
@@ -795,7 +868,7 @@ handler_sawai_part3(3,3,2,500,true);
     
     
 //for文で光強度の設定がうまくできない 
-for(flaat i=0.02;i<=1;i+0.1){   
+for(float i=0.02;i<=1;i+0.1){   
   handler_sawai_part3(3,4,4,800,false);
   handler_sawai_part3(3,1,4,800,false);
 }
@@ -814,32 +887,12 @@ for(int i=0.08;i<1;i+=0.05){
   delay(350+i);
   //見ててつまらん
 }
-
+*/
 
 //光が4つの点を高速移動光る点は一つずつ 高さの制約が分かっていないのでうまくいっていたら点は増やす予定
 //無理なら別の案を考えるrightvolumeは入れるか考え中
 
-
-
-  
-for(float j=0.04;j<1;j+=0.01){
-  setLightHeight(1,true);
-   setLightHeight(2,true);
-  setLightHeight(3,true);
- float lights4[][5]={
-          {0,0,0,0,0},
-          {0,j,0,j,0},
-          {0,0,j,0,0},
-          {0,j,0,j,0},
-          {0,0,0,0,0}
-};
-
-  delay(50);
-  drawPoints(lights4);
-  
-  }
-    
-*/
+hanahubuki();
 
 
 
