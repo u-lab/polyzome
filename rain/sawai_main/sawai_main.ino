@@ -555,7 +555,7 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
       {1,1,1,1,1}
     };
   drawPoints(plane);
-  delay(700);
+  delay(600);
  
  clearAll();
 delay(100);
@@ -571,14 +571,14 @@ clearAll();
 ** 関数名 : uu
 ** 引数 : bool clearPlane :clearplaneを途中に入れます
           bool clearAll   :clearallを入れます
-** 関数の機能 : 発生の表現一個目、たららんっと光が横に流れていく
+** 関数の機能 : 発生の表現一個目、たららんっと光が横に流れていく slack参照
 ** 作者: 澤井
 ** 日付: 2021/9/24
 */ 
 
 int uu(bool clearPlane,bool clear_All ){
 
-  setLightVolume(0.04);
+  setLightVolume(1);
 int takasa[]={1,1,1,1,1};
  setLightHeights(takasa);
   for(int i=0; i<5; i++){
@@ -632,7 +632,7 @@ void osero(){
 }
 void osero2(){
  float i=1,k=1;
-
+ int feights[]={1,1,1,1,1};
  //for(float i=0;i<=1;i+=0.01){
       float plane[][5]={
       {i,0,i,0,i},
@@ -662,26 +662,27 @@ void osero2(){
 
 void hanahubuki(){
 uu(true,true); 
-for(float j=0.04;j<=1;j+=0.01){
-  setLightHeight(1,true);
-   setLightHeight(2,true);
-  setLightHeight(3,true);
-  setLightHeight(4,true);
-  setLightHeight(0,true);
+uu(true,true);
+uu(true,true);
+for(int i;i<5;i++){
+for(float j=0.04;j<=1;j+=0.1){
+  setLightHeight(i,true);
+
  float lights4[][5]={
           {0,0,0,0,0},
           {0,j,0,j,0},
           {0,0,j,0,0},
           {0,j,0,j,0},
           {0,0,0,0,0}
-};
+  };
 
 
-  drawPoints(lights4);
-    delay(70);
+    drawPoints(lights4);
+      delay(70);
+   }
+  clearAll();    
+
   }
-clearAll();    
-
 }
 
 void grow_part1_3(){
@@ -718,60 +719,58 @@ void grow_part1_3(){
   //part3 点をだんだん増やす作業
   all_trye();
 
-  setLightVolume(0.04);
-
-  for(float i=0.03;i<=1;i+=0.01){
-    handler_sawai_part3(2,2,2,70,false,i);
-  }
-  delay(100);
+  setLightVolume(1);
+  
+  handler_sawai_part3(2,2,2,70,true);
+  
 
  clearAll();
 
-  handler_sawai_part3(3,4,4,800,true,0.04);
+  handler_sawai_part3(3,4,4,800,true);
 
-  handler_sawai_part3(2,4,4,500,true,0.02);
-  handler_sawai_part3(1,3,3,500,true,0.05);
+  handler_sawai_part3(2,4,4,500,true);
+  handler_sawai_part3(1,3,3,500,true);
   //handler_sawai_part3(1,4,4,300,true);
   //TEST 繰り返し構文で setLightVolume上げてぴかぴかさせる？(予定:現状後回し)別の段でしてあげるときれいかも
 
-  handler_sawai_part3(1,2,3,200,true,0.8);
-  handler_sawai_part3(3,3,2,350,true,0.04);
-  handler_sawai_part3(0,1,4,100,true,0.05);
+  handler_sawai_part3(1,2,3,200,true);
+  handler_sawai_part3(3,3,2,350,true);
+  handler_sawai_part3(0,1,4,100,true);
 
-  handler_sawai_part3(2,3,4,300,true,1);
-  handler_sawai_part3(2,4,3,200,true,0.5);
-  handler_sawai_part3(0,3,0,500,true,1);
-  handler_sawai_part3(0,4,3,300,true,0.6);
-  handler_sawai_part3(1,0,2,400,true,0.4);
+  handler_sawai_part3(2,3,4,300,true);
+  handler_sawai_part3(2,4,3,200,true);
+  handler_sawai_part3(0,3,0,500,true);
+  handler_sawai_part3(0,4,3,300,true);
+  handler_sawai_part3(1,0,2,400,true);
 
 
-  handler_sawai_part3(2,0,2,300,true,0.09);
-  handler_sawai_part3(4,1,4,200,true,1);
-  handler_sawai_part3(3,1,1,400,true,0.5);
-  handler_sawai_part3(3,0,0,500,true,0.6);
-  handler_sawai_part3(1,2,0,420,true,0.1);
-  handler_sawai_part3(3,4,1,350,true,1);
-  handler_sawai_part3(1,2,3,300,true,0.2);
-  handler_sawai_part3(3,4,2,400,true,1);
+  handler_sawai_part3(2,0,2,300,true);
+  handler_sawai_part3(4,1,4,200,true);
+  handler_sawai_part3(3,1,1,400,true);
+  handler_sawai_part3(3,0,0,500,true);
+  handler_sawai_part3(1,2,0,420,true);
+  handler_sawai_part3(3,4,1,350,true);
+  handler_sawai_part3(1,2,3,300,true);
+  handler_sawai_part3(3,4,2,400,true);
 
-  delay(500);
+
   //trueにして全部を高速点灯させることにする  本来は高さ指定の制限のために同じ高さにしていたがこっちの方が奇麗に見えるくねえ？？ってことで変更
 
-  handler_sawai_part3(0,3,0,300,true,1);
-  handler_sawai_part3(2,4,1,300,true,1);
-  handler_sawai_part3(0,3,2,400,true,1);
-  handler_sawai_part3(0,4,3,300,true,0.8);
-  handler_sawai_part3(1,0,4,300,true,0.08);
-  handler_sawai_part3(2,0,0,400,true,0.4);
-  handler_sawai_part3(4,1,3,350,true,0.1);
-  handler_sawai_part3(3,1,2,400,true,0.7);
-  handler_sawai_part3(3,0,4,500,true,0.7);
-  handler_sawai_part3(1,2,1,300,true,0.2);
-  handler_sawai_part3(3,4,3,400,true,0.1);
-  handler_sawai_part3(1,2,4,300,true,0.4);
-  handler_sawai_part3(3,4,4,300,true,0.1);
+  handler_sawai_part3(0,3,0,300,true);
+  handler_sawai_part3(2,4,1,300,true);
+  handler_sawai_part3(0,3,2,400,true);
+  handler_sawai_part3(0,4,3,300,true);
+  handler_sawai_part3(1,0,4,300,true);
+  handler_sawai_part3(2,0,0,400,true);
+  handler_sawai_part3(4,1,3,350,true);
+  handler_sawai_part3(3,1,2,400,true);
+  handler_sawai_part3(3,0,4,500,true);
+  handler_sawai_part3(1,2,1,300,true);
+  handler_sawai_part3(3,4,3,400,true);
+  handler_sawai_part3(1,2,4,300,true);
+  handler_sawai_part3(3,4,4,300,true);
 
-  delay(500);
+  
 
 
   float lights[][5]={
@@ -798,7 +797,7 @@ void grow_part1_3(){
           {0,0,1,0,0}
   };
 
-  for(int i=0;i<3;i++){
+  for(int i=0;i<5;i++){
     setLightHeight(i,true);
     delay(200);
     drawPoints(lights2);
@@ -812,7 +811,7 @@ void grow_part1_3(){
                        {1,1,1,1,1}
                        };
 
-  for(int i=3;i<5;i++){
+  for(int i=0;i<5;i++){
     setLightHeight(i,true);
     delay(200);
     drawPoints(lights3);
@@ -820,7 +819,7 @@ void grow_part1_3(){
   }
 
 
-
+/*
   handler_sawai_part3(0,3,2,300,true,1);
   handler_sawai_part3(2,4,4,400,true,1);
   handler_sawai_part3(0,3,4,400,true,1);
@@ -842,7 +841,7 @@ void grow_part1_3(){
   handler_sawai_part3(3,4,1,350,true,1);
   handler_sawai_part3(1,2,3,200,true,0.2);
   handler_sawai_part3(3,4,2,300,true,1);
-
+*/
  all_trye();
  fade_light();
 }
@@ -879,8 +878,8 @@ void loop(){
  
   saisyo();
   grow_in_de_creace();
-  grow_spredingcircle(3);
-  grow_lightbox(500);
+  //grow_spredingcircle(3);
+  //grow_lightbox(500);
   growkamo_fireworks();
   grow_in_de_creace();
   uu(false,true);
