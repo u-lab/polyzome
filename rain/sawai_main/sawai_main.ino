@@ -369,6 +369,13 @@ void drawPoints(float lightVol[][5]){
   }
 }
 
+/*
+  ** 関数名 : all_trye
+  ** 引数 : なし
+  ** 関数の機能 : フェードin なかったので作ったフェードアウトと組み合わせて使うと良き
+  ** 作者: 澤井
+  ** 日付: 9/23
+  */
 void all_trye(){
     for(float i=0;i<=1;i+=0.1){
     float plane[][5]={
@@ -384,6 +391,13 @@ void all_trye(){
 
 }
 
+  /*
+  ** 関数名 : fade_light
+  ** 引数 : なし
+  ** 関数の機能 : フェードout なかったので作った.フェードinと組み合わせて使うと良き
+  ** 作者: 澤井
+  ** 日付: 9/23
+  */
 void  fade_light(){
     for(float i=1;i>=0;i-=0.01){
     float plane[][5]={
