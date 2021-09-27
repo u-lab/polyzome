@@ -883,11 +883,20 @@ void loop(){
   grow_lightbox(500);
   growkamo_fireworks();
   grow_in_de_creace();
+
   uu(false,true);
-  uu(true,false);
-  grow_part1_3();
+
+
+ uu(true,false);
+ grow_part1_3();
   osero2();
-  hanahubuki();
+
+
+
+//光が4つの点を高速移動光る点は一つずつ 高さの制約が分かっていないのでうまくいっていたら点は増やす予定
+//無理なら別の案を考えるrightvolumeは入れるか考え中
+
+ hanahubuki();
 
 
 
