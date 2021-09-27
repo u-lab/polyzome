@@ -314,6 +314,7 @@ void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear,flo
    if(All_clear){
     drawPoint(x, y,lightVol);
     setLightHeight(z, true);
+    delay(30);
     delay(delay_time); 
     clearAll();
    }
@@ -366,6 +367,21 @@ void drawPoints(float lightVol[][5]){
       dmx_master.setChannelValue(ch, val);
     }
   }
+}
+
+void all_trye(){
+    for(float i=0;i<=1;i+=0.1){
+    float plane[][5]={
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i},
+      {i,i,i,i,i}
+    };
+    drawPoints(plane);
+    delay(50);
+  }
+
 }
 
 void  fade_light(){
@@ -648,11 +664,172 @@ clearAll();
 
 }
 
+void grow_part1_3(){
+  setLightVolume(1); 
+  setLightHeight(2, true);
+  drawLine(0, 2, 4, 2);
+  setLightHeight(2, false);
+  setLightHeight(4, true);
+  drawLine(3,2,4,4);
+  setLightHeight(4, true);
+  setLightHeight(0, true);
+  drawLine(1, 1, 3, 3);
+  setLightHeight(0, false);
+  setLightVolume(0.05);
+  setLightHeight(1, true);
+  drawLine(3,2,4,4);
+  setLightHeight(1,false);
+  setLightHeight(2, true);
+  drawLine(0, 2, 4, 2);
+  setLightHeight(2, false);
+  setLightVolume(0.5);
+  setLightHeight(4, true);
+  drawLine(3,2,4,4);
+  setLightHeight(4, false);
+  setLightVolume(0.05);
+  setLightHeight(0, true);
+  drawLine(1, 1, 3, 3);
+  setLightHeight(0, false);
+  setLightVolume(1);
+  setLightHeight(1, true);
+  drawLine(3,2,4,4);
 
+  //上のものはテストように追加
+  //part3 点をだんだん増やす作業
+  all_trye();
+
+  setLightVolume(0.04);
+
+  for(float i=0.03;i<=1;i+=0.01){
+    handler_sawai_part3(2,2,2,70,false,i);
+  }
+  delay(100);
+
+  crearAll();
+
+  handler_sawai_part3(3,4,4,800,true,0.04);
+
+  handler_sawai_part3(2,4,4,500,true,0.02);
+  handler_sawai_part3(1,3,3,500,true,0.05);
+  //handler_sawai_part3(1,4,4,300,true);
+  //TEST 繰り返し構文で setLightVolume上げてぴかぴかさせる？(予定:現状後回し)別の段でしてあげるときれいかも
+
+  handler_sawai_part3(1,2,3,200,true,0.8);
+  handler_sawai_part3(3,3,2,350,true,0.04);
+  handler_sawai_part3(0,1,4,100,true,0.05);
+
+  handler_sawai_part3(2,3,4,300,true,1);
+  handler_sawai_part3(2,4,3,200,true,0.5);
+  handler_sawai_part3(0,3,0,500,true,1);
+  handler_sawai_part3(0,4,3,300,true,0.6);
+  handler_sawai_part3(1,0,2,400,true,0.4);
+
+
+  handler_sawai_part3(2,0,2,300,true,0.09);
+  handler_sawai_part3(4,1,4,200,true,1);
+  handler_sawai_part3(3,1,1,400,true,0.5);
+  handler_sawai_part3(3,0,0,500,true,0.6);
+  handler_sawai_part3(1,2,0,420,true,0.1);
+  handler_sawai_part3(3,4,1,350,true,1);
+  handler_sawai_part3(1,2,3,300,true,0.2);
+  handler_sawai_part3(3,4,2,400,true,1);
+
+  delay(500);
+  //trueにして全部を高速点灯させることにする  本来は高さ指定の制限のために同じ高さにしていたがこっちの方が奇麗に見えるくねえ？？ってことで変更
+
+  handler_sawai_part3(0,3,0,300,true,1);
+  handler_sawai_part3(2,4,1,300,true,1);
+  handler_sawai_part3(0,3,2,400,true,1);
+  handler_sawai_part3(0,4,3,300,true,0.8);
+  handler_sawai_part3(1,0,4,300,true,0.08);
+  handler_sawai_part3(2,0,0,400,true,0.4);
+  handler_sawai_part3(4,1,3,350,true,0.1);
+  handler_sawai_part3(3,1,2,400,true,0.7);
+  handler_sawai_part3(3,0,4,500,true,0.7);
+  handler_sawai_part3(1,2,1,300,true,0.2);
+  handler_sawai_part3(3,4,3,400,true,0.1);
+  handler_sawai_part3(1,2,4,300,true,0.4);
+  handler_sawai_part3(3,4,4,300,true,0.1);
+
+  delay(500);
+
+
+  float lights[][5]={
+                    {0,0,1,0,0},
+                    {0,1,0,1,0},
+                    {1,0,0,0,1},
+                    {0,1,0,1,0},
+                    {0,0,1,0,0}
+                    };
+
+  for(int i=0;i<5;i++){
+    setLightHeight(i,true);
+    delay(300);
+    drawPoints(lights);
+    
+  }
+  clearAll();
+
+  float lights2[][5]={
+          {0,0,1,0,0},
+          {0,1,0,1,0},
+          {1,0,0,0,1},
+          {0,1,0,1,0},
+          {0,0,1,0,0}
+  };
+
+  for(int i=0;i<3;i++){
+    setLightHeight(i,true);
+    delay(200);
+    drawPoints(lights2);
+    
+  }
+    float lights3[][5]={
+                       {1,1,1,1,1},
+                       {1,1,0,1,1},
+                       {1,0,0,0,1},
+                       {1,1,0,1,1},
+                       {1,1,1,1,1}
+                       };
+
+  for(int i=3;i<5;i++){
+    setLightHeight(i,true);
+    delay(200);
+    drawPoints(lights3);
+    
+  }
+
+
+
+  handler_sawai_part3(0,3,2,300,true,1);
+  handler_sawai_part3(2,4,4,400,true,1);
+  handler_sawai_part3(0,3,4,400,true,1);
+  handler_sawai_part3(0,4,1,200,true,0.8);
+  handler_sawai_part3(1,0,2,300,true,0.08);
+  handler_sawai_part3(2,0,2,400,false,0.4);
+  handler_sawai_part3(4,1,3,500,false,0.1);
+  handler_sawai_part3(3,1,2,400,false,0.7);
+  handler_sawai_part3(3,0,2,500,false,0.7);
+  handler_sawai_part3(1,2,4,200,true,0.2);
+  handler_sawai_part3(3,4,1,400,true,0.1);
+  handler_sawai_part3(1,2,1,200,true,0.4);
+  handler_sawai_part3(3,4,0,300,true,0.1);
+  handler_sawai_part3(2,0,2,100,true,0.09);
+  handler_sawai_part3(4,1,4,200,true,1);
+  handler_sawai_part3(3,1,1,100,true,0.5);
+  handler_sawai_part3(3,0,0,500,true,0.6);
+  handler_sawai_part3(1,2,0,100,true,0.1);
+  handler_sawai_part3(3,4,1,350,true,1);
+  handler_sawai_part3(1,2,3,200,true,0.2);
+  handler_sawai_part3(3,4,2,300,true,1);
+
+ all_trye();
+ fade_light();
+}
 //メインループ
 void loop(){
  
-/*
+
 //円が広がっていく表現明日の作業でうまくいくようならここは削除
 handler_sawai_part3(2,2,2,300,false,1);delay(100);
 for(int i=12;i<24;i++){
@@ -677,222 +854,27 @@ for(int i=12;i<24;i++){
     dmx_master.setChannelValue(4, MAX_LIGHT_VOLUME);
   }
 }
-*/
-
- // grow_in_de_creace();
-  //grow_spredingcircle(3);
-  //grow_lightbox(500);
-  //growkamo_fireworks();
 
 
-uu(false,true);
-/*
- setLightVolume(1); 
- setLightHeight(2, true);
- drawLine(0, 2, 4, 2);
- setLightHeight(2, false);
- setLightHeight(4, true);
- drawLine(3,2,4,4);
- setLightHeight(4, true);
- setLightHeight(0, true);
- drawLine(1, 1, 3, 3);
- setLightHeight(0, false);
-  setLightVolume(0.05);
- setLightHeight(1, true);
- drawLine(3,2,4,4);
- setLightHeight(1,false);
- setLightHeight(2, true);
- drawLine(0, 2, 4, 2);
- setLightHeight(2, false);
-  setLightVolume(0.5);
- setLightHeight(4, true);
- drawLine(3,2,4,4);
- setLightHeight(4, false);
-  setLightVolume(0.05);
- setLightHeight(0, true);
- drawLine(1, 1, 3, 3);
- setLightHeight(0, false);
-  setLightVolume(1);
- setLightHeight(1, true);
- drawLine(3,2,4,4);
-
-  //上のものはテストように追加
-//part3 点をだんだん増やす作業
-setLightVolume(0.04);
-
-for(float i=0.03;i<=1;i+=0.01){
-  handler_sawai_part3(2,2,2,70,false,i);
-}
-delay(100);
-
-handler_sawai_part3(3,4,4,800,true,0.04);
-
-handler_sawai_part3(2,4,4,500,true,0.02);
-handler_sawai_part3(1,3,3,500,true,0.05);
-//handler_sawai_part3(1,4,4,300,true);
-//TEST 繰り返し構文で setLightVolume上げてぴかぴかさせる？(予定:現状後回し)別の段でしてあげるときれいかも
-
-handler_sawai_part3(1,2,3,200,true,0.8);
-handler_sawai_part3(3,3,2,50,true,0.04);
-handler_sawai_part3(0,1,4,100,true,0.05);
-
-handler_sawai_part3(2,3,4,100,true,1);
-handler_sawai_part3(2,4,3,200,true,0.5);
-handler_sawai_part3(0,3,0,500,true,1);
-handler_sawai_part3(0,4,3,100,true,0.6);
-handler_sawai_part3(1,0,2,150,true,0.4);
+  grow_in_de_creace();
+  grow_spredingcircle(3);
+  grow_lightbox(500);
+  growkamo_fireworks();
 
 
-handler_sawai_part3(2,0,2,100,true,0.09);
-handler_sawai_part3(4,1,4,200,true,1);
-handler_sawai_part3(3,1,1,100,true,0.5);
-handler_sawai_part3(3,0,0,500,true,0.6);
-handler_sawai_part3(1,2,0,100,true,0.1);
-handler_sawai_part3(3,4,1,350,true,1);
-handler_sawai_part3(1,2,3,200,true,0.2);
-handler_sawai_part3(3,4,2,300,true,1);
-
-delay(500);
-//trueにして全部を高速点灯させることにする  本来は高さ指定の制限のために同じ高さにしていたがこっちの方が奇麗に見えるくねえ？？ってことで変更
-
-handler_sawai_part3(0,3,0,300,true,1);
-handler_sawai_part3(2,4,1,300,true,1);
-handler_sawai_part3(0,3,2,400,true,1);
-handler_sawai_part3(0,4,3,200,true,0.8);
-handler_sawai_part3(1,0,4,300,true,0.08);
-handler_sawai_part3(2,0,0,400,true,0.4);
-handler_sawai_part3(4,1,3,200,true,0.1);
-handler_sawai_part3(3,1,2,400,true,0.7);
-handler_sawai_part3(3,0,4,500,true,0.7);
-handler_sawai_part3(1,2,1,300,true,0.2);
-handler_sawai_part3(3,4,3,400,true,0.1);
-handler_sawai_part3(1,2,4,200,true,0.4);
-handler_sawai_part3(3,4,4,300,true,0.1);
-
-delay(500);
-
-
-float lights[][5]={
-          {0,0,1,0,0},
-          {0,1,0,1,0},
-          {1,0,0,0,1},
-          {0,1,0,1,0},
-          {0,0,1,0,0}
-};
-
-for(int i=0;i<5;i++){
-  setLightHeight(i,true);
-  delay(200);
-  drawPoints(lights);
-    
-}
-  clearAll();
-
-  float lights2[][5]={
-          {0,0,1,0,0},
-          {0,1,0,1,0},
-          {1,0,0,0,1},
-          {0,1,0,1,0},
-          {0,0,1,0,0}
-};
-
-for(int i=0;i<3;i++){
-  setLightHeight(i,true);
-  delay(200);
-  drawPoints(lights2);
-    
-}
-  float lights3[][5]={
-          {1,1,1,1,1},
-          {1,1,0,1,1},
-          {1,0,0,0,1},
-          {1,1,0,1,1},
-          {1,1,1,1,1}
-};
-
-for(int i=3;i<5;i++){
-  setLightHeight(i,true);
-  delay(200);
-  drawPoints(lights3);
-    
-}
+  uu(false,true);
 
 
 
-handler_sawai_part3(0,3,2,300,true,1);
-handler_sawai_part3(2,4,4,200,true,1);
-handler_sawai_part3(0,3,4,400,true,1);
-handler_sawai_part3(0,4,1,200,true,0.8);
-handler_sawai_part3(1,0,2,300,true,0.08);
-handler_sawai_part3(2,0,2,400,true,0.4);
-handler_sawai_part3(4,1,3,200,true,0.1);
-handler_sawai_part3(3,1,2,400,true,0.7);
-handler_sawai_part3(3,0,2,500,true,0.7);
-handler_sawai_part3(1,2,4,200,true,0.2);
-handler_sawai_part3(3,4,1,400,true,0.1);
-handler_sawai_part3(1,2,1,200,true,0.4);
-handler_sawai_part3(3,4,0,300,true,0.1);
-handler_sawai_part3(2,0,2,100,true,0.09);
-handler_sawai_part3(4,1,4,200,true,1);
-handler_sawai_part3(3,1,1,100,true,0.5);
-handler_sawai_part3(3,0,0,500,true,0.6);
-handler_sawai_part3(1,2,0,100,true,0.1);
-handler_sawai_part3(3,4,1,350,true,1);
-handler_sawai_part3(1,2,3,200,true,0.2);
-handler_sawai_part3(3,4,2,300,true,1);
-
-for(float i=0.04;i<=1;i+=0.1){
-  handler_sawai_part3(1,2,0,100,false,i);
-  handler_sawai_part3(3,4,1,350,false,i);
-  handler_sawai_part3(1,2,3,200,false,i);
-  handler_sawai_part3(3,3,2,300,false,i);
-}
-*/
-//osero2();
-
-  //上のものはテストように追加
-
-//発生の表現 
-//part.1
-/*
-setLightVolume(0.04);
-handler_sawai_part3(3,3,2,500,true);
- 
-  for(float i=0.04;i<0.8;i+=0.01)
-    {
-    setLightVolume(i);
-    handler_sawai_part3(2,2,2,100,false);
-    delay(20);
-    }  
-
-    
-    
-//for文で光強度の設定がうまくできない 
-for(float i=0.02;i<=1;i+0.1){   
-  handler_sawai_part3(3,4,4,800,false);
-  handler_sawai_part3(3,1,4,800,false);
-}
- //2つから4つに増える   for文内のdelayは実機みて判断 高さのand制限のためつくかは不明
+  grow_part1_3();
+  osero2();
 
 
-for(int i=0.08;i<1;i+=0.05){
-
-  int takasa[]={0,1,0,1,0};
-  setLightHeights(takasa);
-  drawPoint(1,3);
-  drawPoint(1,2);
-  drawPoint(3,3);
-  drawPoint(1,1);
-
-  delay(350+i);
-  //見ててつまらん
-}
-*/
 
 //光が4つの点を高速移動光る点は一つずつ 高さの制約が分かっていないのでうまくいっていたら点は増やす予定
 //無理なら別の案を考えるrightvolumeは入れるか考え中
 
-hanahubuki();
+ hanahubuki();
 
 
 
