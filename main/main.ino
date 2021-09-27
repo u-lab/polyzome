@@ -53,6 +53,33 @@ void loop()
   //test_drawCircle();  //test OK
   //test_drawBox();   //test OK
 
+  //動作確認@sawai
+  //  saisyo();
+ // grow_in_de_creace();
+  //grow_spredingcircle(3);
+  //grow_lightbox(500);
+ // growkamo_fireworks();
+ // grow_in_de_creace();
+ // uu(false,true);
+  //uu(true,false);
+ // grow_part1_3();
+ // osero2();
+ // hanahubuki();
+  
+  //動作確認@seigo
+  /*
+  allLighting();
+  delay(500);
+  deathFirst(600);
+  deathSecond(200);
+  deathThird(600, 20);
+  diffusionThird(20);
+  
+  //@aoki
+  diffusionFirst(1200,0.1);
+  diffusionSecond(1200,0.1);
+
+
   /*
   setLightVolume(0.1);
   //実行するものに対して、コメントを外す。そのうち、シリアル経由でパソコンから切り替えられるようにする。
@@ -63,5 +90,6 @@ setLightHeight(1, true);delay(500);
 setLightHeight(1, false);delay(500);
 clearAll();
  }*/
- 
+ clearAll();
+ setLightVolume(0.02);
 }
