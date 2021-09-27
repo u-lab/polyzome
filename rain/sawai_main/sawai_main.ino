@@ -521,7 +521,7 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
     if(k!=2){setLightHeight(k, false);} 
     if(k==2){
       drawPoint(2,2,0.8);
-      delay(1000);
+      delay(500);
     }
   }  
   //高さ2は消えてないはず  
@@ -541,9 +541,15 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
       {1,1,1,1,1}
     };
   drawPoints(plane);
-  delay(2000);
+  delay(700);
  
  clearAll();
+delay(100);
+ drawPoints(plane);
+
+delay(200);
+
+clearAll();
 }                                
 
 
@@ -705,7 +711,7 @@ void grow_part1_3(){
   }
   delay(100);
 
-  crearAll();
+ clearAll();
 
   handler_sawai_part3(3,4,4,800,true,0.04);
 
@@ -860,13 +866,13 @@ for(int i=12;i<24;i++){
   grow_spredingcircle(3);
   grow_lightbox(500);
   growkamo_fireworks();
-
+  grow_in_de_creace();
 
   uu(false,true);
 
 
-
-  grow_part1_3();
+ uu(true,false);
+ grow_part1_3();
   osero2();
 
 
