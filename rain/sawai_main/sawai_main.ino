@@ -268,7 +268,47 @@ void perform_uprain(){
 }
 
 
+//点の描画
+//x,y:描画する位置(0〜4)
+//lightVol: 光の強度(0〜1)
+void drawPoint(int x, int y, float lightVol){
+  if(x<0 || 4<x || y<0 || 4<y){
+    sprintf(BUF, "Input value is out of range %d %d", x, y);
+    Serial.println(BUF);
+  }
 
+  int ch = 6+x+5*y;
+  int val=0;
+  if(lightVol > 0){
+    val = int(lightVol*MAX_LIGHT_VOLUME);
+  }else{
+    val = 0;
+  }
+  sprintf(BUF, "drawPoint x[%d] y[%d] ch[%d] val[%d]", x, y, ch, val);
+  Serial.println(BUF);
+  dmx_master.setChannelValue(ch, val);
+}
+
+
+//点の描画(複数同時)
+//float pos: 各位置の光の強さが入った二次元配列([[0, 0, 0, 0, 0]〜[0, 0, 0, 0, 0])
+//int lightFg: 1:点灯、0:消灯
+void drawPoints(float lightVol[][5]){
+  for(int i=0; i<5; i++){
+    for(int j=0; j<5; j++){
+      int ch = 6+i+5*j;
+      int val = 0;
+  
+      if(lightVol[i][j] > 0){
+        val = int(lightVol[i][j]*MAX_LIGHT_VOLUME);
+      }else{
+        val = 0;
+      }
+      Serial.println(BUF);
+      dmx_master.setChannelValue(ch, val);
+    }
+  }
+}
 
 
 
@@ -284,6 +324,7 @@ void perform_uprain(){
                 **この関数は削除対象です。
   */
 void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear){
+  setLightVolume(1);
    if(All_clear){
     drawPoint(x, y);
     setLightHeight(z, true);
@@ -327,45 +368,21 @@ void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear,flo
 }
 
 
-//点の描画
-//x,y:描画する位置(0〜4)
-//lightVol: 光の強度(0〜1)
-void drawPoint(int x, int y, float lightVol){
-  if(x<0 || 4<x || y<0 || 4<y){
-    sprintf(BUF, "Input value is out of range %d %d", x, y);
-    Serial.println(BUF);
-  }
 
-  int ch = 6+x+5*y;
-  int val=0;
-  if(lightVol > 0){
-    val = int(lightVol*MAX_LIGHT_VOLUME);
-  }else{
-    val = 0;
-  }
-  sprintf(BUF, "drawPoint x[%d] y[%d] ch[%d] val[%d]", x, y, ch, val);
-  Serial.println(BUF);
-  dmx_master.setChannelValue(ch, val);
-}
-
-
-//点の描画(複数同時)
-//float pos: 各位置の光の強さが入った二次元配列([[0, 0, 0, 0, 0]〜[0, 0, 0, 0, 0])
-//int lightFg: 1:点灯、0:消灯
-void drawPoints(float lightVol[][5]){
-  for(int i=0; i<5; i++){
-    for(int j=0; j<5; j++){
-      int ch = 6+i+5*j;
-      int val = 0;
-  
-      if(lightVol[i][j] > 0){
-        val = int(lightVol[i][j]*MAX_LIGHT_VOLUME);
-      }else{
-        val = 0;
-      }
-      Serial.println(BUF);
-      dmx_master.setChannelValue(ch, val);
-    }
+/*
+** 関数名 : surge
+** 引数 : なし
+** 関数の機能 : handrersawaiの文がすごく長かったので行を少なくすむように調整
+**              後ろで点の描写を行っているため最初に配置   int boxnum[][]={{0,3,2},{2,4,4},{0,3,2},{0,4,1},{1,0,2},{2,0,2},{4,1,3},{3,1,2},{3,0,2},{1,2,4},
+                  {3,4,0},{1,2,1},{3,4,2},{2,0,2},{4,1,4},{3,0,3},{3,1,1},{3,0,0},{1,2,4},{3,3,3},{3,4,2},
+                 };
+** 作者: 澤井
+** 日付: 2021/9/28
+*/ 
+void surge(int box[][3]){
+ 
+  for(int i=0;i<21;i++){
+    handler_sawai_part3(boxnum[i][0],boxnum[i][1],boxnum[i][2],50,true);
   }
 }
 
@@ -373,6 +390,7 @@ void drawPoints(float lightVol[][5]){
   ** 関数名 : all_trye
   ** 引数 : なし
   ** 関数の機能 : フェードin なかったので作ったフェードアウトと組み合わせて使うと良き
+  ** 注意；高さの指定をしてくれ 
   ** 作者: 澤井
   ** 日付: 9/23
   */
@@ -386,7 +404,7 @@ void all_trye(){
       {i,i,i,i,i}
     };
     drawPoints(plane);
-    delay(50);
+    delay(20);
   }
 
 }
@@ -395,22 +413,23 @@ void all_trye(){
   ** 関数名 : fade_light
   ** 引数 : なし
   ** 関数の機能 : フェードout なかったので作った.フェードinと組み合わせて使うと良き
+  ** 注意；高さの指定をしてくれ 
   ** 作者: 澤井
   ** 日付: 9/23
   */
 void  fade_light(){
-    for(float i=1;i>=0;i-=0.01){
-    float plane[][5]={
-      {i,i,i,i,i},
-      {i,i,i,i,i},
-      {i,i,i,i,i},
-      {i,i,i,i,i},
-      {i,i,i,i,i}
-    };
-    drawPoints(plane);
-    delay(50);
-  }
-
+   
+      for(float i=1;i>=0;i-=0.01){
+       float plane[][5]={
+        {i,i,i,i,i},
+        {i,i,i,i,i},
+        {i,i,i,i,i},
+        {i,i,i,i,i},
+        {i,i,i,i,i}
+       };
+       drawPoints(plane);
+       delay(20);
+      }
 }
 /*
 
@@ -633,6 +652,7 @@ void osero(){
 void osero2(){
  float i=1,k=1;
  int feights[]={1,1,1,1,1};
+ setLightHeights(feights);
  //for(float i=0;i<=1;i+=0.01){
       float plane[][5]={
       {i,0,i,0,i},
@@ -661,30 +681,105 @@ void osero2(){
 }
 
 void hanahubuki(){
-uu(true,true); 
-uu(true,true);
-uu(true,true);
-for(int i;i<5;i++){
-for(float j=0.04;j<=1;j+=0.1){
-  setLightHeight(i,true);
+  uu(true,true); 
+  uu(true,true);
+  uu(true,true);
+  for(int i;i<5;i++){
+    for(float j=0.04;j<=1;j+=0.1){
+     setLightHeight(i,true);
 
- float lights4[][5]={
-          {0,0,0,0,0},
-          {0,j,0,j,0},
-          {0,0,j,0,0},
-          {0,j,0,j,0},
-          {0,0,0,0,0}
-  };
+     float lights4[][5]={
+              {j,0,j,0,j},
+              {0,j,0,j,0},
+              {j,0,j,0,j},
+              {0,j,0,j,0},
+              {j,0,j,0,j}
+              };
 
-
-    drawPoints(lights4);
-      delay(70);
+     drawPoints(lights4);
+       delay(20);
    }
-  clearAll();    
+   clearAll();    
 
   }
 }
 
+void light_run(){
+  for(int i=;i<=5;i++){
+     dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+      for(int j=6;j<=10;i++){
+       dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
+       delay(20);
+      }
+      for(int j=10;j<=30;j+=5){
+       dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
+       delay(20);
+      }
+      for(int j=30;j<=26;j-=1){
+       dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
+       delay(20);
+      }
+      for(int j=26;j<=6;j-=5){
+       dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
+       delay(20);
+      }  
+  }
+  int heights[5]={1,1,1,1,1};
+      setLightHeights(heights);
+  fade_light();
+}
+
+void Theater of life(){
+  dmx_master.setChannelValue(1,MAX_LIGHT_VOLUME);
+  all_trye();
+  for(float i=1;i>=0;i-=0.01){
+    float plane[][5]={
+        {i,i,i,i,i},
+        {i,1,i,1,i},
+        {1,i,i,i,1},
+        {i,1,i,1,i},
+        {i,i,i,i,i}
+    };
+    drawPoints(plane);
+    delay(20);
+  for(int i=1;i<=5;i++){
+     dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
+  }  
+void What_do_you_thINK(){
+  int dimax[]={12,16,22,24,20,14};
+  int finish[6];
+  int continue[5]={0,0,0,0,0};
+  for(int i=0;i<6;i++){
+    dmx_master.setChannelValue(dimax[i],MAX_LIGHT_VOLUME);
+    for(int k=0;k<=5;k++){  
+     if(k!=0){continue[k]=1;
+     setLightHeights(continue); 
+      if(finish[0]!=0){
+      mode2(finish);
+      }
+     if(k=5){
+        finish[i]=dimax[i];
+    }
+      if(k=5){
+        finish[i]=dimax[i];
+        brake;
+      }
+    }  
+  mode2(finish);  
+  }
+
+}
+
+
+
+void mode2(int *finish){
+ clearAll();
+  for(int i=0;i<6;i++){
+    dmx_master.setChannelValue(finish[i],MAX_LIGHT_VOLUME);
+     int heights[5]={1,1,1,1,1};
+    setLightHeights(heights);
+  }
+} 
 void grow_part1_3(){
   setLightVolume(1); 
   setLightHeight(2, true);
@@ -720,41 +815,16 @@ void grow_part1_3(){
   all_trye();
 
   setLightVolume(1);
+   int boxnum[][]={{0,3,2},{2,4,4},{0,3,2},{0,4,1},{1,0,2},{2,0,2},{4,1,3},{3,1,2},{3,0,2},{1,2,4},
+                  {3,4,0},{1,2,1},{3,4,2},{2,0,2},{4,1,4},{3,0,3},{3,1,1},{3,0,0},{1,2,4},{3,3,3},{3,4,2},
+                 ,{2,2,2},{3,4,4},{1,3,3},{2,4,4},{1,0,0},{1,2,0}};
+  surge(boxnum)；    
+
+  int boxnum2[][]={{0,0,0},{1,0,0},{2,0,0},{},{},{},{},{},{},{},{},{}}           
   
-  handler_sawai_part3(2,2,2,70,true);
-  
-
- clearAll();
-
-  handler_sawai_part3(3,4,4,800,true);
-
-  handler_sawai_part3(2,4,4,500,true);
-  handler_sawai_part3(1,3,3,500,true);
-  //handler_sawai_part3(1,4,4,300,true);
-  //TEST 繰り返し構文で setLightVolume上げてぴかぴかさせる？(予定:現状後回し)別の段でしてあげるときれいかも
-
-  handler_sawai_part3(1,2,3,200,true);
-  handler_sawai_part3(3,3,2,350,true);
-  handler_sawai_part3(0,1,4,100,true);
-
-  handler_sawai_part3(2,3,4,300,true);
-  handler_sawai_part3(2,4,3,200,true);
-  handler_sawai_part3(0,3,0,500,true);
-  handler_sawai_part3(0,4,3,300,true);
-  handler_sawai_part3(1,0,2,400,true);
 
 
-  handler_sawai_part3(2,0,2,300,true);
-  handler_sawai_part3(4,1,4,200,true);
-  handler_sawai_part3(3,1,1,400,true);
-  handler_sawai_part3(3,0,0,500,true);
-  handler_sawai_part3(1,2,0,420,true);
-  handler_sawai_part3(3,4,1,350,true);
-  handler_sawai_part3(1,2,3,300,true);
-  handler_sawai_part3(3,4,2,400,true);
-
-
-  //trueにして全部を高速点灯させることにする  本来は高さ指定の制限のために同じ高さにしていたがこっちの方が奇麗に見えるくねえ？？ってことで変更
+ 
 
   handler_sawai_part3(0,3,0,300,true);
   handler_sawai_part3(2,4,1,300,true);
@@ -804,11 +874,11 @@ void grow_part1_3(){
     
   }
     float lights3[][5]={
-                       {1,1,1,1,1},
-                       {1,1,0,1,1},
-                       {1,0,0,0,1},
-                       {1,1,0,1,1},
-                       {1,1,1,1,1}
+             {1,1,1,1,1},
+             {1,1,0,1,1},
+             {1,0,0,0,1},
+             {1,1,0,1,1},
+             {1,1,1,1,1}
                        };
 
   for(int i=0;i<5;i++){
@@ -818,34 +888,23 @@ void grow_part1_3(){
     
   }
 
-
-/*
-  handler_sawai_part3(0,3,2,300,true,1);
-  handler_sawai_part3(2,4,4,400,true,1);
-  handler_sawai_part3(0,3,4,400,true,1);
-  handler_sawai_part3(0,4,1,200,true,0.8);
-  handler_sawai_part3(1,0,2,300,true,0.08);
-  handler_sawai_part3(2,0,2,400,false,0.4);
-  handler_sawai_part3(4,1,3,500,false,0.1);
-  handler_sawai_part3(3,1,2,400,false,0.7);
-  handler_sawai_part3(3,0,2,500,false,0.7);
-  handler_sawai_part3(1,2,4,200,true,0.2);
-  handler_sawai_part3(3,4,1,400,true,0.1);
-  handler_sawai_part3(1,2,1,200,true,0.4);
-  handler_sawai_part3(3,4,0,300,true,0.1);
-  handler_sawai_part3(2,0,2,100,true,0.09);
-  handler_sawai_part3(4,1,4,200,true,1);
-  handler_sawai_part3(3,1,1,100,true,0.5);
-  handler_sawai_part3(3,0,0,500,true,0.6);
-  handler_sawai_part3(1,2,0,100,true,0.1);
-  handler_sawai_part3(3,4,1,350,true,1);
-  handler_sawai_part3(1,2,3,200,true,0.2);
-  handler_sawai_part3(3,4,2,300,true,1);
-*/
  all_trye();
  fade_light();
 }
 
+/*
+** 関数名 : surge
+** 引数 : なし
+** 関数の機能 : handrersawaiの分がすごく長かったので行を少なくすむように調整
+** 作者: 澤井
+** 日付: 2021/9/28
+*/ 
+void surge(int box[][3]){
+ 
+  for(int i=0;i<21;i++){
+    handler_sawai_part3(boxnum[i][0],boxnum[i][1],boxnum[i][2],50,true);
+  }
+}
 
 void saisyo(){
   //円が広がっていく表現明日の作業でうまくいくようならここは削除
@@ -887,7 +946,7 @@ void loop(){
   grow_part1_3();
   osero2();
   hanahubuki();
-
+  What_do_you_thINK(); 
 
 
 }
