@@ -379,12 +379,12 @@ void handler_sawai_part3(int x,int y, int z, int delay_time , bool All_clear,flo
 ** 作者: 澤井
 ** 日付: 2021/9/28
 */ 
-void surge(int box[][3]){
+//void surge(int box[][3]){
  
-  for(int i=0;i<21;i++){
-    handler_sawai_part3(boxnum[i][0],boxnum[i][1],boxnum[i][2],50,true);
-  }
-}
+ // for(int i=0;i<21;i++){
+   // handler_sawai_part3(boxnum[i][0],boxnum[i][1],boxnum[i][2],50,true);
+//  }
+//}
 
 /*
   ** 関数名 : all_trye
@@ -536,7 +536,7 @@ int grow_lightbox(int delaytime){
 ** 作者: 澤井
 ** 日付: 2021/9/24
 */  
-                                
+/*                                
 void growkamo_fireworks(){
 int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};  
   for(int i=0;i<=10;i++){
@@ -546,6 +546,7 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
       delay(30+k*3);
       setLightHeight(k, false);
     }
+   //clearPlaneAll();
   }
   for(int k=0;k<=2;k++){
     dmx_master.setChannelValue(launch_spots[k], 90+k*7);
@@ -562,7 +563,7 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
     drawPoint(2,2,i);
     delay(50);
   }
-  grow_lightbox(0);
+  //grow_lightbox(0);
 
   int heights[5]={1,1,1,1,1};
   setLightHeights(heights);
@@ -574,7 +575,7 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
       {1,1,1,1,1}
     };
   drawPoints(plane);
-  delay(600);
+  delay(100);
  
  clearAll();
 delay(100);
@@ -582,9 +583,68 @@ delay(100);
 
 delay(200);
 
-clearAll();
+//clearAll();
 }                                
 
+*/
+/*
+** 関数名 : growkamo_fireworks2
+** 引数 : 今のところなし
+** 関数の機能 : はなび
+** 作者: 澤井
+** 日付: 2021/9/24
+*/  
+                               
+void growkamo_fireworks2(){
+int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};  
+  for(int i=0;i<=11;i++){
+    for(int k=0;k<=4;k++){
+      setLightHeight(k, true); 
+      dmx_master.setChannelValue(launch_spots[i], 90+k*7);
+      delay(200+k*3);
+      dmx_master.setChannelValue(launch_spots[i], 0);
+      setLightHeight(k, false);
+      //clearPlaneAll();
+    }
+   
+  }
+  delay(200);
+  
+     handler_sawai_part3(3,3,0,300,true);
+      handler_sawai_part3(3,3,1,300,true);
+       handler_sawai_part3(3,3,2,300,true);
+         for(float i=1;i>=0;i-=0.01){
+        handler_sawai_part3(3,3,3,300,false,i);
+        // setLightVolume(i);delay(50);
+      }
+       
+     delay(100);
+     
+     
+     
+  
+  
+
+  int heights[5]={1,1,1,1,1};
+  setLightHeights(heights);
+  float plane[][5]={
+      {1,1,1,1,1},
+      {1,1,1,1,1},
+      {1,1,1,1,1},
+      {1,1,1,1,1},
+      {1,1,1,1,1}
+    };
+  drawPoints(plane);
+  delay(700);
+ 
+ clearAll();
+delay(100);
+ drawPoints(plane);
+
+delay(400);
+
+//clearAll();
+}  
 
 /*
 ** 関数名 : uu
@@ -650,7 +710,7 @@ void osero(){
 */  
 }
 void osero2(){
- float i=1,k=1;
+ int i=1,k=1;
  int feights[]={1,1,1,1,1};
  setLightHeights(feights);
  //for(float i=0;i<=1;i+=0.01){
@@ -662,10 +722,10 @@ void osero2(){
       {i,0,i,0,i}
     };
     drawPoints(plane);
-    //delay(40);
-// }
+    //delay(20);
+//}
  //delay(500);
-// for(float k=0;k<=1;k+=0.01){
+//for(float k=0;k<=1;k+=0.01){
     float plane7[][5]={
         {0,k,0,k,0},
         {k,0,k,0,k},
@@ -674,8 +734,8 @@ void osero2(){
         {0,k,0,k,0}
     };
     drawPoints(plane7);
-    //delay(40);
- //  }
+   // delay(20);
+ // }
 
   
 }
@@ -703,34 +763,39 @@ void hanahubuki(){
 
   }
 }
-
+//うまくいかなそうなので廃止予定
 void light_run(){
-  for(int i=;i<=5;i++){
+  for(int i=1;i<=5;i++){
      dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
       for(int j=6;j<=10;i++){
        dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
-       delay(20);
+       delay(50);
+       
       }
       for(int j=10;j<=30;j+=5){
        dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
-       delay(20);
+       delay(50);clearAll();
+       
       }
       for(int j=30;j<=26;j-=1){
        dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
-       delay(20);
+       delay(50);clearAll();
       }
       for(int j=26;j<=6;j-=5){
        dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
-       delay(20);
+       delay(50);clearAll();
       }  
-  }
+      clearPlaneAll();
+      delay(100);
+    }
   int heights[5]={1,1,1,1,1};
       setLightHeights(heights);
   fade_light();
 }
 
-void Theater of life(){
-  dmx_master.setChannelValue(1,MAX_LIGHT_VOLUME);
+void Theater_of_life(){
+   for(int i=1;i<=5;i++){
+     dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
   all_trye();
   for(float i=1;i>=0;i-=0.01){
     float plane[][5]={
@@ -741,45 +806,73 @@ void Theater of life(){
         {i,i,i,i,i}
     };
     drawPoints(plane);
-    delay(20);
-  for(int i=1;i<=5;i++){
-     dmx_master.setChannelValue(i,MAX_LIGHT_VOLUME);
+    //delay(20);
+ 
   }  
-void What_do_you_thINK(){
-  int dimax[]={12,16,22,24,20,14};
-  int finish[6];
-  int continue[5]={0,0,0,0,0};
-  for(int i=0;i<6;i++){
-    dmx_master.setChannelValue(dimax[i],MAX_LIGHT_VOLUME);
-    for(int k=0;k<=5;k++){  
-     if(k!=0){continue[k]=1;
-     setLightHeights(continue); 
-      if(finish[0]!=0){
-      mode2(finish);
-      }
-     if(k=5){
-        finish[i]=dimax[i];
-    }
-      if(k=5){
-        finish[i]=dimax[i];
-        brake;
-      }
-    }  
-  mode2(finish);  
-  }
-
-}
-
-
+ } 
+} 
 
 void mode2(int *finish){
  clearAll();
   for(int i=0;i<6;i++){
+    if(finish[i]!=0){
     dmx_master.setChannelValue(finish[i],MAX_LIGHT_VOLUME);
      int heights[5]={1,1,1,1,1};
     setLightHeights(heights);
+    }
   }
 } 
+
+
+
+void What_do_you_thINK(){
+  int dimax[]={12,16,22,24,20,14};
+  int owari[6];
+  int conti[5]={0,0,0,0,0};
+  //dmx_master.setChannelValue(1,MAX_LIGHT_VOLUME);
+  for(int i=0;i<6;i++){
+    dmx_master.setChannelValue(dimax[i],MAX_LIGHT_VOLUME);
+    for(int k=0;k<=5;k++){  
+     if(k!=0){
+     conti[k]=1;
+     setLightHeights(conti); 
+     }
+      if(owari[0]!=0){
+      mode2(owari);
+      }
+
+      if(k=5){
+        owari[i]=dimax[i];
+        break;
+      }
+    }  
+   delay(500); 
+  mode2(owari);  
+  }
+clearAll();
+}
+
+
+
+
+
+/*
+** 関数名 : serge：うねり
+** 引数 : box:　二次元配列を使って3つの値x,y,zを入れる　
+* 　　　　number:要素数を入れてください
+** 関数の機能 : handrersawaiの分がすごく長かったので行を少なくすむように調整
+** 作者: 澤井
+** 日付: 2021/9/28
+*/ 
+
+  void surge(int box[][3],int number){
+ 
+  for(int i=0;i<number;i++){
+    handler_sawai_part3(box[i][0],box[i][1],box[i][2],90,true);
+ }
+}
+
+
 void grow_part1_3(){
   setLightVolume(1); 
   setLightHeight(2, true);
@@ -814,13 +907,7 @@ void grow_part1_3(){
   //part3 点をだんだん増やす作業
   all_trye();
 
-  setLightVolume(1);
-   int boxnum[][]={{0,3,2},{2,4,4},{0,3,2},{0,4,1},{1,0,2},{2,0,2},{4,1,3},{3,1,2},{3,0,2},{1,2,4},
-                  {3,4,0},{1,2,1},{3,4,2},{2,0,2},{4,1,4},{3,0,3},{3,1,1},{3,0,0},{1,2,4},{3,3,3},{3,4,2},
-                 ,{2,2,2},{3,4,4},{1,3,3},{2,4,4},{1,0,0},{1,2,0}};
-  surge(boxnum)；    
-
-  int boxnum2[][]={{0,0,0},{1,0,0},{2,0,0},{},{},{},{},{},{},{},{},{}}           
+  //setLightVolume(1);     
   
 
 
@@ -892,19 +979,7 @@ void grow_part1_3(){
  fade_light();
 }
 
-/*
-** 関数名 : surge
-** 引数 : なし
-** 関数の機能 : handrersawaiの分がすごく長かったので行を少なくすむように調整
-** 作者: 澤井
-** 日付: 2021/9/28
-*/ 
-void surge(int box[][3]){
- 
-  for(int i=0;i<21;i++){
-    handler_sawai_part3(boxnum[i][0],boxnum[i][1],boxnum[i][2],50,true);
-  }
-}
+
 
 void saisyo(){
   //円が広がっていく表現明日の作業でうまくいくようならここは削除
@@ -917,10 +992,8 @@ void saisyo(){
   }
   delay(100);
   for(int i=6;i<30;i++){
-   {
      dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
      dmx_master.setChannelValue(3, MAX_LIGHT_VOLUME);
-   }
   }
   delay(400);
   for(int i=12;i<24;i++){
@@ -931,22 +1004,50 @@ void saisyo(){
      dmx_master.setChannelValue(4, MAX_LIGHT_VOLUME);
     }
   }
-}//メインループ
+}
+
+
+//メインループ
 void loop(){
  
  
-  saisyo();
-  grow_in_de_creace();
+  //saisyo();
+  //grow_in_de_creace();
   //grow_spredingcircle(3);
   //grow_lightbox(500);
-  growkamo_fireworks();
-  grow_in_de_creace();
-  uu(false,true);
-  uu(true,false);
-  grow_part1_3();
-  osero2();
-  hanahubuki();
-  What_do_you_thINK(); 
+  //growkamo_fireworks2();
+  //grow_in_de_creace();
+  //uu(false,true);
+  //uu(true,false);
+ // grow_part1_3();
+ // osero2();
+  //hanahubuki();
 
+ //Theater_of_life();
+  //What_do_you_thINK(); 
 
+//ここコンボで二つ固定して
+//uu(true,false);
+  //int boxnum[][3]={{0,3,2},{2,4,4},{0,3,2},{0,4,1},{1,0,2},{2,0,2},{4,1,3},{3,1,2},{3,0,2},{1,2,4},
+ //                {3,4,0},{1,2,1},{3,4,2},{2,0,2},{4,1,4},{3,0,3},{3,1,1},{3,0,0},{1,2,4},{3,3,3},{3,4,2},
+  //               {2,2,2},{3,4,4},{1,3,3},{2,4,4},{1,0,0},{1,2,0}};
+ //surge(boxnum,27); 
+
+             for(float i=1;i>=0;i-=0.01){
+              
+        drawPoint(2,2);
+       setLightHeight(2,true);
+         setLightVolume(i);delay(50);
+      }
+       
+ clearAll();
 }
+
+
+
+
+
+ 
+
+
+
