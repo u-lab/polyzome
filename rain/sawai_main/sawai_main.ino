@@ -601,7 +601,7 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
     for(int k=0;k<=4;k++){
       setLightHeight(k, true); 
       dmx_master.setChannelValue(launch_spots[i], 90+k*7);
-      delay(200+k*3);
+      delay(300+k*4);
       dmx_master.setChannelValue(launch_spots[i], 0);
       setLightHeight(k, false);
       //clearPlaneAll();
@@ -613,12 +613,14 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
      handler_sawai_part3(3,3,0,300,true);
       handler_sawai_part3(3,3,1,300,true);
        handler_sawai_part3(3,3,2,300,true);
-         for(float i=1;i>=0;i-=0.01){
-        handler_sawai_part3(3,3,3,300,false,i);
+        for(float i=1;i>=0;i-=0.01){
+        setLightVolume(i);
+        setLightHeight(3,true);
+        drawPoint(3,3);
         // setLightVolume(i);delay(50);
-      }
+        }
        
-     delay(100);
+     delay(400);
      
      
      
@@ -637,13 +639,13 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
   drawPoints(plane);
   delay(700);
  
- clearAll();
-delay(100);
- drawPoints(plane);
+  clearAll();
+  delay(300);
+  drawPoints(plane);
 
-delay(400);
-
-//clearAll();
+  delay(400);
+  clearAll();
+//cleaall入れたのでかくにんしてみて
 }  
 
 /*
@@ -833,28 +835,21 @@ void What_do_you_thINK(){
   for(int i=0;i<6;i++){
     dmx_master.setChannelValue(dimax[i],MAX_LIGHT_VOLUME);
     for(int k=0;k<=5;k++){  
-     if(k!=0){
-     conti[k]=1;
+     
+     conti[k]=1;  
      setLightHeights(conti); 
-     }
-      if(owari[0]!=0){
+     
+    
       mode2(owari);
-      }
-
+      
+   
       if(k=5){
         owari[i]=dimax[i];
-        break;
       }
-    }  
-   delay(500); 
-  mode2(owari);  
+    }   
   }
-clearAll();
+//clearAll();
 }
-
-
-
-
 
 /*
 ** 関数名 : serge：うねり
@@ -871,6 +866,25 @@ clearAll();
     handler_sawai_part3(box[i][0],box[i][1],box[i][2],90,true);
  }
 }
+
+
+/*
+** 関数名 : blood:血行
+** 関数の機能 : 作りたかったラウンドを作った。雑ですいません
+** 作者: 澤井
+** 日付: 2021/9/28
+*/ 
+void blood(){
+  int cells[][3]={{4,2,0},{3,2,0},{2,2,0},{1,2,0},{1,3,0},{2,3,0},{3,3,0},{4,3,0},{4,4,0},{3,4,0},{2,4,0},{1,4,0},{1,4,1},{1,3,1},{1,2,1},{1,1,1},{2,1,1},{3,1,1},{4,1,1},{4,2,1},{4,3,1},{4,4,1},{3,4,1},{2,4,1},{1,4,1},{1,3,2},{1,2,2},{1,1,2},{2,1,2},{3,1,2},{4,1,2},{4,2,2}
+  ,{4,3,2},{4,4,2},{3,4,2},{2,4,2},{1,4,1},{1,3,3},{1,2,3},{1,1,3},{2,1,3},{3,1,3},{4,1,3},{4,2,3},{4,3,3},{4,4,3},{3,4,3},{2,4,3},{1,4,3},{1,3,4},{1,2,4},{1,1,4},{2,1,4},{3,1,4},{4,1,4},{4,2,4},{4,3,4},{4,4,4},{3,4,4},{2,4,4},{1,4,4}}
+
+  surge(cells,51);
+
+}
+
+
+
+
 
 
 void grow_part1_3(){
@@ -1010,16 +1024,18 @@ void saisyo(){
 //メインループ
 void loop(){
  
- 
-  //saisyo();
+ //grow_spredingcircle(3);
+ //saisyo();
+  
   //grow_in_de_creace();
-  //grow_spredingcircle(3);
   //grow_lightbox(500);
   //growkamo_fireworks2();
   //grow_in_de_creace();
   //uu(false,true);
   //uu(true,false);
  // grow_part1_3();
+ // osero2();
+ // osero2();
  // osero2();
   //hanahubuki();
 
@@ -1032,13 +1048,10 @@ void loop(){
  //                {3,4,0},{1,2,1},{3,4,2},{2,0,2},{4,1,4},{3,0,3},{3,1,1},{3,0,0},{1,2,4},{3,3,3},{3,4,2},
   //               {2,2,2},{3,4,4},{1,3,3},{2,4,4},{1,0,0},{1,2,0}};
  //surge(boxnum,27); 
-
-             for(float i=1;i>=0;i-=0.01){
+ blood();
+      
               
-        drawPoint(2,2);
-       setLightHeight(2,true);
-         setLightVolume(i);delay(50);
-      }
+       
        
  clearAll();
 }
