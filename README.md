@@ -31,4 +31,3 @@ PolyZomeとは、“多”または“複”の意味を表す接頭語である
 
 ### 制作物の概要
 5*5*5のDMXのLEDキューブをarduinoで動かすプログラムを制作しました。
-https://img.shields.io/badge/type-example-green
