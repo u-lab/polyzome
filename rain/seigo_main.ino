@@ -315,35 +315,32 @@ void deathSecond(int time, int type){
 ** 関数名 : deathThird
 ** 引数 : int time : 立方体が消えるスピード(基準:600)
 ** 引数 : int fade : フェードインのスピード(基準:20)
-** 引数 : int type : 表現の種類(0:通常 1:前半のみ 2:後半のみ)
+** 引数 : bool type : 表現の種類(true:通常 false:後半のフェードインを無効化)
 ** 戻り値 : なし
 ** 関数の機能 : 死の表現3つ目、外側から立方体が消えていき、フェードインで全点灯
 ** 作者: seigo
-** 日付: 2021/10/03
+** 日付: 2021/10/04
 */
-void deathThird(int time, int fade, int type){
-  if (type != 2)) {
-    //外側から立方体が消えていく
-    //第一段階
-    dmx_master.setChannelValue(1, 0);
-    dmx_master.setChannelValue(5, 0);
-    for(int i=6; i<=30; i++){
-      if(! ((i>=12 && i<=14) || (i>=17 && i<=19) || (i>=22 && i<=24))) dmx_master.setChannelValue(i, 0);
-    }
-    delay(time);
-    //第二段階
-    dmx_master.setChannelValue(2, 0);
-    dmx_master.setChannelValue(4, 0);
-    for(int i=12; i<=24; i++){
-      if(i!=18) dmx_master.setChannelValue(i, 0);
-    }
-    delay(time);
-    //全消灯
-    clearAll();
-    delay(time);
-    break;
+void deathThird(int time, int fade, bool type){
+  //外側から立方体が消えていく
+  //第一段階
+  dmx_master.setChannelValue(1, 0);
+  dmx_master.setChannelValue(5, 0);
+  for(int i=6; i<=30; i++){
+    if(! ((i>=12 && i<=14) || (i>=17 && i<=19) || (i>=22 && i<=24))) dmx_master.setChannelValue(i, 0);
   }
-  if (type != 1){
+  delay(time);
+  //第二段階
+  dmx_master.setChannelValue(2, 0);
+  dmx_master.setChannelValue(4, 0);
+  for(int i=12; i<=24; i++){
+    if(i!=18) dmx_master.setChannelValue(i, 0);
+  }
+  delay(time);
+  //全消灯
+  clearAll();
+  delay(time);
+  if (type == true){
     //フェードインで全点灯
     fadeIn(fade);
   }
@@ -352,7 +349,7 @@ void deathThird(int time, int fade, int type){
 /*
 ** 関数名 : diffusionThird
 ** 引数 : int fade : フェードアウト・インのスピード(基準:10)
-** 引数 : bool type : falseの時後半が無効化され、fadeOutの関数として利用できる
+** 引数 : bool type : 表現の種類(true: 通常 false:時後半が無効化され、fadeOutとして利用できる)
 ** 戻り値 : なし
 ** 関数の機能 : 分解の表現3つ目、全てのライトがフェードアウトし、フェードインで全点灯
 ** 作者: seigo
@@ -386,7 +383,7 @@ void loop(){
     deathFirst(200, 1); //1.0
     allLighting();
   } //3.0
-  deathThird(600, 0, 1); //1.8
+  deathThird(600, 0, false); //1.8
   deathSecond(200, 2); //5.0
   for(int i=0; i<3; i++){
     diffusionThird(5, true); //1.0
@@ -400,7 +397,7 @@ void loop(){
   for(int i=0; i<3; i++){
     deathSecond(50. 0); //2.5
   } //7.5
-  deathThird(600, 25, 0); //4.3
+  deathThird(600, 25, true); //4.3
   for(int i=0; i<5; i++){
     deathFirst(200, 0); //2.0
   } //10.0
