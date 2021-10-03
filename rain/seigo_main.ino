@@ -315,32 +315,38 @@ void deathSecond(int time, int type){
 ** 関数名 : deathThird
 ** 引数 : int time : 立方体が消えるスピード(基準:600)
 ** 引数 : int fade : フェードインのスピード(基準:20)
+** 引数 : int type : 表現の種類(0:通常 1:前半のみ 2:後半のみ)
 ** 戻り値 : なし
 ** 関数の機能 : 死の表現3つ目、外側から立方体が消えていき、フェードインで全点灯
 ** 作者: seigo
-** 日付: 2021/09/22
+** 日付: 2021/10/03
 */
-void deathThird(int time, int fade){
-  //外側から立方体が消えていく
-  //第一段階
-  dmx_master.setChannelValue(1, 0);
-  dmx_master.setChannelValue(5, 0);
-  for(int i=6; i<=30; i++){
-    if(! ((i>=12 && i<=14) || (i>=17 && i<=19) || (i>=22 && i<=24))) dmx_master.setChannelValue(i, 0);
+void deathThird(int time, int fade, int type){
+  if (type != 2)) {
+    //外側から立方体が消えていく
+    //第一段階
+    dmx_master.setChannelValue(1, 0);
+    dmx_master.setChannelValue(5, 0);
+    for(int i=6; i<=30; i++){
+      if(! ((i>=12 && i<=14) || (i>=17 && i<=19) || (i>=22 && i<=24))) dmx_master.setChannelValue(i, 0);
+    }
+    delay(time);
+    //第二段階
+    dmx_master.setChannelValue(2, 0);
+    dmx_master.setChannelValue(4, 0);
+    for(int i=12; i<=24; i++){
+      if(i!=18) dmx_master.setChannelValue(i, 0);
+    }
+    delay(time);
+    //全消灯
+    clearAll();
+    delay(time);
+    break;
   }
-  delay(time);
-  //第二段階
-  dmx_master.setChannelValue(2, 0);
-  dmx_master.setChannelValue(4, 0);
-  for(int i=12; i<=24; i++){
-    if(i!=18) dmx_master.setChannelValue(i, 0);
+  if (type != 1){
+    //フェードインで全点灯
+    fadeIn(fade);
   }
-  delay(time);
-  //全消灯
-  clearAll();
-  delay(time);
-  //フェードインで全点灯
-  fadeIn(fade);
 }
 
 /*
