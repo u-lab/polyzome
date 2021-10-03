@@ -380,13 +380,31 @@ void diffusionThird(int fade, bool type){
 //メインループ
 void loop(){
   //死の表現: 約45s
-  //allLighting();
-  delay(500);
-  //deathFirst(600);
-  //deathSecond(200);
-  //deathThird(600, 20);
-  //diffusionThird(20);
-
-  //clearAll();
+  fadeIn(30); //3.0
+  delay(500); //0.5
+  for(int i=0; i<3; i++){
+    deathFirst(200, 1); //1.0
+    allLighting();
+  } //3.0
+  deathThird(600, 0, 1); //1.8
+  deathSecond(200, 2); //5.0
+  for(int i=0; i<3; i++){
+    diffusionThird(5, true); //1.0
+  } //3.0
+  deathSecond(80, 1); //2.0
+  deathFirst(600, 2); //3.0
+  deathFirst(100, 1); //0.5
+  //ここまで21.8秒
+  delay(500); //0.5
+  deathSecond(50, 2) //1.25
+  for(int i=0; i<3; i++){
+    deathSecond(50. 0); //2.5
+  } //7.5
+  deathThird(600, 25, 0); //4.3
+  for(int i=0; i<5; i++){
+    deathFirst(200, 0); //2.0
+  } //10.0
+  //ここまで41.05秒
+  clearAll();
 }
 
