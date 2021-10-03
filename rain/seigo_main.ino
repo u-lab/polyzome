@@ -289,20 +289,23 @@ void deathFirst(int time, int type){
 /*
 ** 関数名 : deathSecond
 ** 引数 : int time : 柱が消えるスピード(基準:100)
+** 引数 : int type : 表現の種類(0:通常 1:前半のみ 2:後半のみ)
 ** 戻り値 : なし
 ** 関数の機能 : 死の表現2つ目、柱がランダムに消えていき、ランダムについていく
 ** 作者: seigo
-** 日付: 2021/09/22
+** 日付: 2021/10/03
 */
-void deathSecond(int time){
+void deathSecond(int time, int type){
   int downNumbers[25]={25,16,11,15,28,30,20,14,23,22,26,24,9,12,21,27,7,18,13,8,10,19,17,29,6};
   for(int i=0; i<25; i++){
+    if (type == 2) break;
     dmx_master.setChannelValue(downNumbers[i], 0);
     delay(time);
   }
   //柱がランダム(っぽく)ついていく
   int upNumbers[25]={12,16,7,20,30,27,6,22,13,17,18,11,10,9,25,15,8,26,24,19,14,21,23,28,29};
   for(int i=0; i<25; i++){
+    if (type == 1) break;
     dmx_master.setChannelValue(upNumbers[i], MAX_LIGHT_VOLUME);
     delay(time);
   }
