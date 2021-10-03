@@ -297,7 +297,7 @@ void deathSecond(int time){
     dmx_master.setChannelValue(downNumbers[i], 0);
     delay(time);
   }
-  //柱がランダムについていく
+  //柱がランダム(っぽく)ついていく
   int upNumbers[25]={12,16,7,20,30,27,6,22,13,17,18,11,10,9,25,15,8,26,24,19,14,21,23,28,29};
   for(int i=0; i<25; i++){
     dmx_master.setChannelValue(upNumbers[i], MAX_LIGHT_VOLUME);
