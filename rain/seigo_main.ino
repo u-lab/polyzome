@@ -352,12 +352,13 @@ void deathThird(int time, int fade, int type){
 /*
 ** 関数名 : diffusionThird
 ** 引数 : int fade : フェードアウト・インのスピード(基準:10)
+** 引数 : bool type : falseの時後半が無効化され、fadeOutの関数として利用できる
 ** 戻り値 : なし
 ** 関数の機能 : 分解の表現3つ目、全てのライトがフェードアウトし、フェードインで全点灯
 ** 作者: seigo
-** 日付: 2021/09/22
+** 日付: 2021/10/04
 */
-void diffusionThird(int fade){
+void diffusionThird(int fade, bool type){
   int heights[5]={1,1,1,1,1};
   setLightHeights(heights);
   for(float i=1; i>=0; i-=0.01){
@@ -371,7 +372,9 @@ void diffusionThird(int fade){
     drawPoints(plane);
     delay(fade);
   }
-  fadeIn(fade);
+  if (type == true){
+    fadeIn(fade);
+  }
 }
 
 //メインループ
