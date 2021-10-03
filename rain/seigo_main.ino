@@ -264,20 +264,23 @@ void fadeIn (int fade){
 /*
 ** 関数名 : deathFirst
 ** 引数 : int time : ライトが変わるスピード(基準:500)
+** 引数 : int type : 表現の種類(0:通常 1:前半のみ 2:後半のみ)
 ** 戻り値 : なし
 ** 関数の機能 : 死の表現1つ目、上段から下段に消えていき、上段から下段についていく。
 5*5*5の光っている箱と暗い箱が交互に下に押し出され、消えていくイメージ
 ** 作者: seigo
-** 日付: 2021/09/22
+** 日付: 2021/10/03
 */
-void deathFirst(int time){
+void deathFirst(int time, int type){
   //上から一段づつ消す
   for(int i=4; i>=0; i--){
+    if (type == 2) break;
     setLightHeight(i, false);
     delay(time);
   }
   //上から一段づつ点ける
   for(int i=4; i>0; i--){
+    if (type == 1) break;
     setLightHeight(i, true);
     delay(time);
   }
@@ -364,7 +367,7 @@ void diffusionThird(int fade){
 
 //メインループ
 void loop(){
-  //動作確認
+  //死の表現: 約45s
   //allLighting();
   delay(500);
   //deathFirst(600);
