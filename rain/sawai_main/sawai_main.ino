@@ -420,7 +420,6 @@ void all_trye(){
   ** 日付: 9/23
   */
 void  fade_light(){
-   
       for(float i=1;i>=0;i-=0.01){
        float plane[][5]={
         {i,i,i,i,i},
@@ -429,6 +428,8 @@ void  fade_light(){
         {i,i,i,i,i},
         {i,i,i,i,i}
        };
+       int hight[]={1,1,1,1,1};
+       setLightHeights(hight);
        drawPoints(plane);
        delay(20);
       }
@@ -442,7 +443,8 @@ void  fade_light(){
 ** 作者: 澤井
 ** 日付: 2021/9/24
 */  
-int grow_in_de_creace(){  
+int grow_in_de_creace(){
+     clearAll();
   for( int i=0;i<30;i++){
      dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
      delay(50);
@@ -607,6 +609,7 @@ int launch_spots[]={22,8,15,29,24,13,6,25,14,16,18};
       dmx_master.setChannelValue(launch_spots[i], 0);
       setLightHeight(k, false);
       //clearPlaneAll();
+      delay(400);
     }
    
   }
@@ -763,7 +766,7 @@ void hanahubuki(){
      drawPoints(lights4);
        delay(20);
    }
-   clearAll();    
+   //clearAll();    
 
   }
 }
@@ -1039,38 +1042,58 @@ void vv(){
   
 }  
 
+void all_on(){
 
+  for(int i=1; i<=30; i++){
+    dmx_master.setChannelValue(i, 125);
+  }
+}
 
 //メインループ
 void loop(){
- 
+  clearAll();
+  all_on();
+  clearAll();
  //grow_spredingcircle(3);
  //saisyo();
-  
+ 
   grow_in_de_creace();
  //grow_lightbox(0);
- 
-  growkamo_fireworks2();
+ clearAll(); 
+  //growkamo_fireworks2();
   grow_in_de_creace();
+ 
+  all_on();
   uu(false,true);
   uu(true,false);
-  grow_part1_3();
-  osero2();
-  osero2();
-  osero2();
-  /*
-  grow_lightbox(0);
-  grow_lightbox(0);
-  hanahubuki();
   
-   
+  
+  grow_part1_3();
+  //鯨飲見っけましたこのうえはだめ
+  rr(1);                                   
+  vv();  
+  osero2();
+  //delay(100);
+  osero2();
+  //delay(100);
+  osero2();
+  blood();
+  //grow_lightbox(0);
+  //grow_lightbox(0);
+
+  hanahubuki();
+  //kokonosetuzoku
+  all_trye();
+  fade_light();
+  //clearAll(); 
   Theater_of_life();
   Theater_of_life();
-  clearAll();
+ 
   Theater_of_life();
   clearAll();
   Theater_of_life();
   hanahubuki();
+  clearAll();
   What_do_you_thINK(); 
 
 //ここコンボで二つ固定して
@@ -1082,11 +1105,12 @@ surge(boxnum,27);
 blood();
    
  
-rr(1);                                   
-vv();  
-                           
+//rr(1);                                   
+//vv();  
+                          
  clearAll();
- */
+ all_on();
+ clearAll();
 }
 
 
