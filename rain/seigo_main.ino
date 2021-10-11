@@ -264,23 +264,22 @@ void fadeIn (int fade){
 /*
 ** 関数名 : deathFirst
 ** 引数 : int time : ライトが変わるスピード(基準:500)
-** 引数 : int type : 表現の種類(0:通常 1:前半のみ 2:後半のみ)
+** 引数 : bool type : 表現の種類(true:通常 false:後半のみ)
 ** 戻り値 : なし
 ** 関数の機能 : 死の表現1つ目、上段から下段に消えていき、上段から下段についていく。
 5*5*5の光っている箱と暗い箱が交互に下に押し出され、消えていくイメージ
 ** 作者: seigo
 ** 日付: 2021/10/03
 */
-void deathFirst(int time, int type){
+void deathFirst(int time, bool type){
   //上から一段づつ消す
   for(int i=4; i>=0; i--){
-    if (type == 2) break;
     setLightHeight(i, false);
     delay(time);
   }
   //上から一段づつ点ける
-  for(int i=4; i>0; i--){
-    if (type == 1) break;
+  for(int i=4; i>=0; i--){
+    if (type == false) break;
     setLightHeight(i, true);
     delay(time);
   }
@@ -289,23 +288,22 @@ void deathFirst(int time, int type){
 /*
 ** 関数名 : deathSecond
 ** 引数 : int time : 柱が消えるスピード(基準:100)
-** 引数 : int type : 表現の種類(0:通常 1:前半のみ 2:後半のみ)
+** 引数 : bool type : 表現の種類(true:通常 false:前半のみ)
 ** 戻り値 : なし
 ** 関数の機能 : 死の表現2つ目、柱がランダムに消えていき、ランダムについていく
 ** 作者: seigo
 ** 日付: 2021/10/03
 */
-void deathSecond(int time, int type){
+void deathSecond(int time, bool type){
   int downNumbers[25]={25,16,11,15,28,30,20,14,23,22,26,24,9,12,21,27,7,18,13,8,10,19,17,29,6};
   for(int i=0; i<25; i++){
-    if (type == 2) break;
     dmx_master.setChannelValue(downNumbers[i], 0);
     delay(time);
   }
   //柱がランダム(っぽく)ついていく
   int upNumbers[25]={12,16,7,20,30,27,6,22,13,17,18,11,10,9,25,15,8,26,24,19,14,21,23,28,29};
   for(int i=0; i<25; i++){
-    if (type == 1) break;
+    if (type == false) break;
     dmx_master.setChannelValue(upNumbers[i], MAX_LIGHT_VOLUME);
     delay(time);
   }
@@ -380,28 +378,53 @@ void loop(){
   fadeIn(30); //3.0
   delay(500); //0.5
   for(int i=0; i<3; i++){
-    deathFirst(200, 1); //1.0
+    deathFirst(200, false); //1.0
     allLighting();
   } //3.0
   deathThird(600, 0, false); //1.8
-  deathSecond(200, 2); //5.0
+  int hights[5]={0,0,0,0,0};
+  setLightHeights(hights); 
+  for(int i=6;i<=30;i++){
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+  }
+  for(int i=5;i>=0;i--){
+    hights[i]=1;
+    setLightHeights(hights);
+    delay(200);
+  } 
   for(int i=0; i<3; i++){
     diffusionThird(5, true); //1.0
   } //3.0
-  deathSecond(80, 1); //2.0
-  deathFirst(600, 2); //3.0
-  deathFirst(100, 1); //0.5
-  //ここまで21.8秒
+  deathSecond(80, false); //2.0
+  int hights2[5]={0,0,0,0,0};
+  setLightHeights(hights2); 
+  for(int i=6;i<=30;i++){
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+  }
+  for(int i=5;i>=0;i--){
+    hights2[i]=1;
+    setLightHeights(hights2);
+    delay(200);
+  } 
+  deathFirst(100, false); //0.5
   delay(500); //0.5
-  deathSecond(50, 2) //1.25
+  int hights3[5]={0,0,0,0,0};
+  setLightHeights(hights3); 
+  for(int i=6;i<=30;i++){
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+  }
+  for(int i=5;i>=0;i--){
+    hights3[i]=1;
+    setLightHeights(hights3);
+    delay(200);
+  } 
   for(int i=0; i<3; i++){
-    deathSecond(50. 0); //2.5
+    deathSecond(50, true); //2.5
   } //7.5
   deathThird(600, 25, true); //4.3
   for(int i=0; i<5; i++){
-    deathFirst(200, 0); //2.0
+    deathFirst(200, true); //2.0
   } //10.0
-  //ここまで41.05秒
   clearAll();
+  delay(10000);
 }
-
