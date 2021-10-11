@@ -403,6 +403,8 @@ void all_trye(){
       {i,i,i,i,i},
       {i,i,i,i,i}
     };
+   int hight[]={1,1,1,1,1};
+    setLightHeights(hight);
     drawPoints(plane);
     delay(20);
   }
@@ -512,7 +514,7 @@ int grow_lightbox(int delaytime){
       {0,0,0,0,0}
     };
     drawPoints(plane);
-    delay(50);
+    delay(20);
   }
   delay(delaytime);
   for(float i=1;i>=0;i-=0.01){
@@ -524,7 +526,7 @@ int grow_lightbox(int delaytime){
       {0,0,0,0,0}
     };
     drawPoints(plane);
-    delay(50);
+    delay(20);
   }
 }    
 
@@ -888,58 +890,19 @@ void blood(){
 
 
 void grow_part1_3(){
-  setLightVolume(1); 
-  setLightHeight(2, true);
-  drawLine(0, 2, 4, 2);
-  setLightHeight(2, false);
-  setLightHeight(4, true);
-  drawLine(3,2,4,4);
-  setLightHeight(4, true);
-  setLightHeight(0, true);
-  drawLine(1, 1, 3, 3);
-  setLightHeight(0, false);
-  setLightVolume(0.05);
-  setLightHeight(1, true);
-  drawLine(3,2,4,4);
-  setLightHeight(1,false);
-  setLightHeight(2, true);
-  drawLine(0, 2, 4, 2);
-  setLightHeight(2, false);
-  setLightVolume(0.5);
-  setLightHeight(4, true);
-  drawLine(3,2,4,4);
-  setLightHeight(4, false);
-  setLightVolume(0.05);
-  setLightHeight(0, true);
-  drawLine(1, 1, 3, 3);
-  setLightHeight(0, false);
-  setLightVolume(1);
-  setLightHeight(1, true);
-  drawLine(3,2,4,4);
-
+ 
   //上のものはテストように追加
   //part3 点をだんだん増やす作業
+  
   all_trye();
 
   //setLightVolume(1);     
   
-
-
+       
+int eighty_six[][3]={{0,3,0},{2,4,1},{0,3,2},{0,4,3},{1,0,4},{2,0,0},{4,1,3},{3,1,2},{3,0,4},{1,2,1},{3,4,3},{1,2,4},
+{3,4,4}};
  
-
-  handler_sawai_part3(0,3,0,300,true);
-  handler_sawai_part3(2,4,1,300,true);
-  handler_sawai_part3(0,3,2,400,true);
-  handler_sawai_part3(0,4,3,300,true);
-  handler_sawai_part3(1,0,4,300,true);
-  handler_sawai_part3(2,0,0,400,true);
-  handler_sawai_part3(4,1,3,350,true);
-  handler_sawai_part3(3,1,2,400,true);
-  handler_sawai_part3(3,0,4,500,true);
-  handler_sawai_part3(1,2,1,300,true);
-  handler_sawai_part3(3,4,3,400,true);
-  handler_sawai_part3(1,2,4,300,true);
-  handler_sawai_part3(3,4,4,300,true);
+surge(eighty_six,13);
 
   
 
@@ -1020,6 +983,63 @@ void saisyo(){
   }
 }
 
+int rr(int t){
+ 
+   int hight[]={1,1,1,1,1};
+   setLightHeights(hight); 
+   for(int i=6;i<=30;i++){
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+   }
+  if(t==1){
+   for(int i=0;i<5;i++){
+   int hight[]={1,1,1,1,1};
+   hight[i]=0;
+   setLightHeights(hight); 
+   }
+  }
+  clearAll();
+  if(t==2){
+    int hight[]={0,0,0,0,0};
+    for(int i=5;i>=0;i--){
+      hight[i]=1;
+      setLightHeights(hight);
+      delay(200);
+    }
+
+  }
+}  
+
+void vv(){
+ 
+   int hight[]={1,1,1,1,1};
+   setLightHeights(hight); 
+   for(int i=6;i<=30;i++){
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+   }
+   delay(100);
+   for(int i=5;i>=0;i--){
+   //int hight[]={1,1,1,1,1};
+   hight[i]=0;
+   setLightHeights(hight); 
+   delay(200);
+   }
+   delay(100);
+  clearAll();
+   int hight3[]={0,0,0,0,0};
+   setLightHeights(hight3); 
+   for(int i=6;i<=30;i++){
+    dmx_master.setChannelValue(i, MAX_LIGHT_VOLUME);
+   }
+   
+    for(int i=5;i>=0;i--){
+      hight3[i]=1;
+      setLightHeights(hight3);
+      delay(200);
+  }
+  
+}  
+
+
 
 //メインループ
 void loop(){
@@ -1027,9 +1047,9 @@ void loop(){
  //grow_spredingcircle(3);
  //saisyo();
   
-  //grow_in_de_creace();
-  //grow_lightbox(500);
-  
+  grow_in_de_creace();
+ //grow_lightbox(0);
+ 
   growkamo_fireworks2();
   grow_in_de_creace();
   uu(false,true);
@@ -1038,6 +1058,9 @@ void loop(){
   osero2();
   osero2();
   osero2();
+  /*
+  grow_lightbox(0);
+  grow_lightbox(0);
   hanahubuki();
   
    
@@ -1047,6 +1070,7 @@ void loop(){
   Theater_of_life();
   clearAll();
   Theater_of_life();
+  hanahubuki();
   What_do_you_thINK(); 
 
 //ここコンボで二つ固定して
@@ -1056,11 +1080,13 @@ uu(true,false);
                   {2,2,2},{3,4,4},{1,3,3},{2,4,4},{1,0,0},{1,2,0}};
 surge(boxnum,27); 
 blood();
-                                                           
-                                                    
-                                                               
-                                                          
+   
+ 
+rr(1);                                   
+vv();  
+                           
  clearAll();
+ */
 }
 
 
@@ -1068,5 +1094,3 @@ blood();
 
 
  
-
-
